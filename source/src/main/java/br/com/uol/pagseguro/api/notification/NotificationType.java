@@ -1,0 +1,76 @@
+/*
+ * 2007-2016 [PagSeguro Internet Ltda.]
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ * Copyright: 2007-2016 PagSeguro Internet Ltda.
+ * Licence: http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+package br.com.uol.pagseguro.api.notification;
+
+/**
+ * Notification type enum. This class defines the notification type.
+ *
+ * @author PagSeguro Internet Ltda.
+ */
+public enum NotificationType {
+
+  /**
+   * TRANSACTION
+   */
+  TRANSACTION("transaction"),
+
+  /**
+   * PRE APPROVAL
+   */
+  PRE_APPROVAL("preApproval"),
+
+  /**
+   * APPLICATION AUTHORIZATION
+   */
+  APPLICATION_AUTHORIZATION("applicationAuthorization"),
+
+  /**
+   * OTHER
+   */
+  OTHER(null);
+
+  private final String name;
+
+  /**
+   * Constructor
+   *
+   * @param name Name of notification type
+   */
+  NotificationType(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Get notification type by name
+   *
+   * @param name Name of notification type
+   * @return Notification type
+   */
+  public static NotificationType fromName(String name) {
+    for (NotificationType notificationType : NotificationType.values()) {
+      if (notificationType.name != null && notificationType.name.equalsIgnoreCase(name)) {
+        return notificationType;
+      }
+    }
+    return OTHER;
+  }
+}
