@@ -3,7 +3,6 @@
 Funcionalidade: Assinatura
 
 
-@signature
 Cenario:  Criar requisicoes de assinaturas
 Dado que esteja autenticado na api do pagseguro
 Quando crio uma requisicao de assinatura como vendedor
@@ -22,10 +21,12 @@ Quando crio uma requisicao de cancelamento de assinatura
 Entao e retornado o status da assinatura que foi cancelada
 
 
+
 Cenario: Criar requisicoes de cancelamento de assinaturas invalida
 Dado que esteja autenticado na api do pagseguro
 Quando crio uma requisicao de cancelamento de assinatura invalida
 Entao e retornado um erro de assinatura de cancelamento
+
 
 
 Cenario: Criar requisicoes de cobrança de assinaturas
@@ -34,13 +35,14 @@ Quando crio uma requisicao de cobranca de assinatura
 Entao e retornado a url de cobranca de assinatura
 
 
+
 Cenario: Criar requisicoes de cobranca de assinaturas invalida
 Dado que esteja autenticado na api do pagseguro
 Quando crio uma requisicao de cobranca invalida
 Entao e retornada um erro de assinatura de cobranca
 
 
-
+@signature
 Cenario: Consultar assinaturas por codigo
 Dado que esteja autenticado na api do pagseguro
 Quando consulto uma assinatura
