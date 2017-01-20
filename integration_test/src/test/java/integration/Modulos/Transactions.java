@@ -7,21 +7,13 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.codehaus.plexus.util.FileUtils;
-import org.junit.Before;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
@@ -60,37 +52,39 @@ import br.com.uol.pagseguro.api.transaction.register.DirectPaymentRegistrationBu
 import br.com.uol.pagseguro.api.transaction.register.SplitPaymentRegistrationBuilder;
 import br.com.uol.pagseguro.api.transaction.search.TransactionDetail;
 import br.com.uol.pagseguro.api.transaction.search.TransactionSummary;
-
-
-
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Entao;
 import cucumber.api.java.pt.Quando;
-import driver.Driver;
 
 public class Transactions {
 
-	String SELLER_EMAIL = "leonardo.lima@s2it.com.br";
-	String SELLER_TOKEN = "3A64F2083B124BD1986A128861C45794";
-	private static final String APP_ID = "app6426009352";
-	private static final String APP_KEY = "1F0EFAF6C5C5D0299451EFAEA226B087";
-	private static final String APP_ID_LUCIUS = "app6426009352";
-	private static final String APP_KEY_LUCIUS = "1F0EFAF6C5C5D0299451EFAEA226B087";
+	String SELLER_EMAIL = null;
+	String SELLER_TOKEN = null;
+	String APP_ID = null;
+	String APP_KEY = null;
 	String EMAIL_SANDBOX = null;
 	String SENHA_SANDBOX = null;
-
+	String COMPRADOR_USER = null;
+	String COMPRADOR_SENHA = null;
 	String codigo = null;
 	String codigoRequest = null;
 	String url = null;
 	String pagSeguro = null;
+	String urlComparacao;
+	String TOKEN;
+	String TOKEN_INTERNACIONAL;
+	String HASH;
+	String EMAIL;
+	String CHAVEPUBLICA1;
+	String CHAVEPUBLICA2;
 
 	WebDriver driver;
 
 	//
-	@Before
-	public void setUp() {
-		driver = Driver.getInstance();
-	}
+//	@Before
+//	public void setUp() {
+//		driver = Driver.getInstance();
+//	}
 
 	//
 	// Cenario: Checkout transparente credito
@@ -100,11 +94,22 @@ public class Transactions {
 	// //
 	@Dado("^que esteja autenticado na api do pagseguro$")
 	public void esteja_autenticado_pagseguro() throws Throwable {
-
-		SELLER_EMAIL = "leonardo.lima@s2it.com.br";
-		SELLER_TOKEN = "3A64F2083B124BD1986A128861C45794";
-		EMAIL_SANDBOX = "leonardo.lima@s2it.com.br";
-		SENHA_SANDBOX = "Leiteninho12";
+		
+		APP_ID = "INFORMAR O USER DE APLICAÇÃO";
+		APP_KEY = "INFORMAR A SENHA DE APLICAÇÃO";
+		SELLER_EMAIL = "INFORMAR USUARIO SELLER";
+		SELLER_TOKEN = "INFORMAR SENHA SELLER";
+		EMAIL_SANDBOX = "INFORMAR E-MAIL SANDBOX";
+		SENHA_SANDBOX = "INFORMAR SENHA DO SANDBOX";
+		COMPRADOR_USER = "INFORMAR USUARIO COMPRADOR";
+		COMPRADOR_SENHA = "INFORMAR SENHA COMPRADOR";
+		TOKEN =  "INFORMAR TOKEN GERADO";
+		TOKEN_INTERNACIONAL = "INFORMAR TOKEN INTERNACIONAL GERADO";
+		HASH = "INFORMAR HASH GERADO";
+		EMAIL = "INFORMAR EMAIL GERADO";
+		CHAVEPUBLICA1 = "INFORMAR CHAVE PUBLICA DE VENDEDOR 1";
+		CHAVEPUBLICA2 = "INFORMAR CHAVE PUBLICA DE VENDEDOR 2";
+		
 	}
 
 	//
@@ -138,8 +143,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -149,9 +154,9 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo3@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"023f5c806494371168f89181f1ea32b990235be5a8cc1b690d8f748396d4261c")// alterar
+															HASH)// alterar
 																																// conforme
 																																// a
 																																// session
@@ -214,30 +219,29 @@ public class Transactions {
 													.withBithDate(
 															new SimpleDateFormat(
 																	"dd/MM/yyyy")
-																	.parse("25/03/1996"))
+																	.parse("25/03/1995"))
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968")))
+																			"997334968")))
 									.withToken(
-											"88f7fde7b4214e62bf9150aa0c2a06db"));
+											TOKEN));
 
-			codigo = transactionCard.getCode();
+			codigo = transactionCard.getPaymentLink();
+			System.out.println(codigo);
 
 		} catch (PagSeguroBadRequestException e) {
-			System.out.println(e.getErrors());
+			
 		}
 
-	}
-
+}
 	@Entao("^e retornado o codigo da transacao transparente credito$")
 	public void retorno_codigo_transparente() throws Throwable {
 		System.out.println(codigo);
 
 	}
-
 	// Cenario: Checkout transparente invalido
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de pagamento transparente invalida
@@ -250,9 +254,6 @@ public class Transactions {
 			final PagSeguro pagSeguro = PagSeguro.instance(
 					Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
 					PagSeguroEnv.SANDBOX);
-
-			// System.out.println(pagSeguro.installments().list("visa", new
-			// BigDecimal(120), 2));
 
 			TransactionDetail transactionCard = pagSeguro
 					.transactions()
@@ -275,8 +276,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -286,8 +287,7 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo3@sandbox.pagseguro.com.br")
-
+															"teste@sandbox.pagseguro.com.br")
 									)
 									.withShipping(
 											new ShippingBuilder()
@@ -318,7 +318,7 @@ public class Transactions {
 							new CreditCardBuilder()
 									.withBillingAddress(
 											new AddressBuilder()
-													.withStreet("Rua Armandao")
+													.withStreet("Rua Armando")
 													.withNumber("1233")
 													.withComplement("teste")
 													.withDistrict("Centro")
@@ -343,24 +343,23 @@ public class Transactions {
 																	.withValue(
 																			"04570568351"))
 													.withName(
-															"Leonardo Camargo")
+															"Comprador Teste")
 													.withBithDate(
 															new SimpleDateFormat(
 																	"dd/MM/yyyy")
-																	.parse("25/03/1996"))
+																	.parse("25/03/1995"))
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968")))
+																			"992678969")))
 									.withToken(
-											"88f7fde7b4214e62bf9150aa0c2a06db"));
+											TOKEN));
 
 			System.out.println(transactionCard);
 
 		} catch (PagSeguroBadRequestException e) {
-			System.out.println(e.getErrors());
 
 			// O que vem da API do Pagseguro
 			ServerErrors serverErros = e.getErrors();
@@ -368,15 +367,12 @@ public class Transactions {
 
 			assertEquals("sender hash is required.", serverError.getMessage());
 			assertEquals(new Integer(53150), serverError.getCode());
-
 		}
 	}
-
 	@Entao("^e retornado um erro de transacao transparente credito$")
 	public void erro_transacao_transparente() throws Throwable {
 
 	}
-
 	// Cenario: Checkout transparente debito
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de pagamento transparente debito
@@ -388,9 +384,6 @@ public class Transactions {
 			final PagSeguro pagSeguro = PagSeguro.instance(
 					Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
 					PagSeguroEnv.SANDBOX);
-
-			// System.out.println(pagSeguro.installments().list("visa", new
-			// BigDecimal(120), 2));
 
 			TransactionDetail transactionDebit = pagSeguro
 					.transactions()
@@ -413,8 +406,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -424,9 +417,9 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo3@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"cecf34f5687492fd58c23e0e86f16f99b5a7769a4b975281afd52ca1f6c1d070"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -458,19 +451,15 @@ public class Transactions {
 			url = transactionDebit.getPaymentLink();
 
 		} catch (PagSeguroBadRequestException e) {
-			System.out.println(e.getErrors());
-			
+			System.out.println(e.getErrors());			
 		}
-
 	}
-
-	@Entao("^e retornado o codigo da transacao transparente debito$")
+	@Entao("^e retornada url de transacao transparente debito$")
 	public void retorno_codigo_debito_transparente() throws Throwable {
 
 		System.out.println(url);
 
 	}
-
 	// Cenario: Checkout transparente debito invalido
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando
@@ -507,8 +496,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -519,7 +508,7 @@ public class Transactions {
 													)
 
 													.withHash(
-															"d3ff88e019e9a1b064bda1df6774b270567d9e1db060b9fe624c5ab41024419d"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -547,8 +536,7 @@ public class Transactions {
 																	20.00))))
 					.withOnlineDebit(
 							new BankBuilder().withName(BankName.Name.BRADESCO));
-
-			System.out.println(transactionDebitInvalid);
+			transactionDebitInvalid.getCode();			
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -565,7 +553,7 @@ public class Transactions {
 
 	@Entao("^e retornado o codigo da transacao transparente debito invalido$")
 	public void retorno_codigo_transparente_debito_invalido() throws Throwable {
-
+		System.out.println("Debito Invalido Feito com Sucesso.");
 	}
 
 	// Cenario: Checkout transparente boleto
@@ -580,9 +568,6 @@ public class Transactions {
 			final PagSeguro pagSeguro = PagSeguro.instance(
 					Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
 					PagSeguroEnv.SANDBOX);
-
-			// System.out.println(pagSeguro.installments().list("visa", new
-			// BigDecimal(120), 2));
 
 			TransactionDetail transactionBoleto = pagSeguro
 					.transactions()
@@ -605,8 +590,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -616,9 +601,9 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo36@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"c88695ae96bc78d8f41f7051074c21c058fe588cd2cef644769be00b7c5fdb94"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -647,13 +632,12 @@ public class Transactions {
 					.withBankSlip();
 
 			codigo = transactionBoleto.getPaymentLink();
+			System.out.println("Transação boleto finalizada com sucesso.");
 
 		} catch (PagSeguroBadRequestException e) {
-			System.out.println(e.getErrors());
+	
 		}
-
 	}
-
 	@Entao("^e retornado o codigo da transacao transparente boleto$")
 	public void retorno_transacao_transparente_boleto() throws Throwable {
 		System.out.println(codigo);
@@ -693,8 +677,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -704,9 +688,9 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo36@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"d3ff88e019e9a1b064bda1df6774b270567d9e1db060b9fe624c5ab41024419d"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -734,7 +718,7 @@ public class Transactions {
 																	20.00))))
 					.withBankSlip();
 
-			System.out.println(transactionBoleto.getCode());
+			transactionBoleto.getCancellationSource();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -751,9 +735,8 @@ public class Transactions {
 
 	@Entao("^e retornado o codigo da transacao transparente boleto invalido$")
 	public void codigo_transacao_boleto_invalido() throws Throwable {
-
+		System.out.println("Transaçao Boleto Invalido com sucesso.");		
 	}
-
 	// Cenario: Checkout transparente cartao internacional
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de pagamento transparente cartao internacional
@@ -791,8 +774,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 
 													.withPhone(
 															new PhoneBuilder()
@@ -803,9 +786,9 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo3@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"1a6e64342e9daaa5c461638c67a6e5e0c6bf3660f0a846742767b58014fb4116"))
+															HASH))
 
 									.withShipping(
 											new ShippingBuilder()
@@ -839,7 +822,7 @@ public class Transactions {
 							new CreditCardBuilder()
 									.withBillingAddress(
 											new AddressBuilder()
-													.withStreet("Rua Armandao")
+													.withStreet("Rua Armand")
 													.withNumber("1233")
 													.withComplement("teste")
 													.withDistrict("Centro")
@@ -864,29 +847,26 @@ public class Transactions {
 																	.withValue(
 																			"04570568351"))
 													.withName(
-															"Leonardo Camargo")
+															"Comprador Teste")
 													.withBithDate(
 															new SimpleDateFormat(
 																	"dd/MM/yyyy")
-																	.parse("25/03/1996"))
+																	.parse("25/03/1991"))
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968")))
+																			"997398900")))
 									.withToken(
-											"b3aba845b22b43a4812f498f1686b68e"));
+											TOKEN_INTERNACIONAL));
 
 			codigo = transactionInternational.getPaymentLink();
-			System.out.println(transactionInternational);
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
-
 		}
 	}
-
 	@Entao("^e retornado o codigo da transacao transparente cartao internacional$")
 	public void retorno_codigo_transparente_cartao_internacional()
 			throws Throwable {
@@ -897,13 +877,10 @@ public class Transactions {
 	// Cenario: Checkout transparente cartao internacional invalido
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de pagamento transparente cartao internacional
-	// invalido
 	// Entao e retornado o codigo da transacao transparente cartao internacional
-	// invalido
 
 	@Quando("^crio uma requisicao de pagamento transparente cartao internacional invalido$")
-	public void requisicao_transparente_internacional_invalido()
-			throws Throwable {
+	public void requisicao_transparente_internacional_invalido() throws Throwable {
 
 		try {
 			final PagSeguro pagSeguro = PagSeguro.instance(
@@ -933,8 +910,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 
 													.withPhone(
 															new PhoneBuilder()
@@ -945,9 +922,9 @@ public class Transactions {
 
 													)
 													.withEmail(
-															"lcamargo3@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"b51c1a7f3f155bd287e9aae1b800fb8a1583cea134cd2f2724e3f862efa83170"))
+															HASH))
 
 									.withShipping(
 											new ShippingBuilder()
@@ -981,7 +958,7 @@ public class Transactions {
 							new CreditCardBuilder()
 									.withBillingAddress(
 											new AddressBuilder()
-													.withStreet("Rua Armandao")
+													.withStreet("Rua Armando")
 													.withNumber("1233")
 													.withComplement("teste")
 													.withDistrict("Centro")
@@ -1006,7 +983,7 @@ public class Transactions {
 																	.withValue(
 																			"04570568351"))
 													.withName(
-															"Leonardo Camargo")
+															"Comprador Teste")
 													.withBithDate(
 															new SimpleDateFormat(
 																	"dd/MM/yyyy")
@@ -1016,12 +993,13 @@ public class Transactions {
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968")))
+																			"997398918")))
 									.withToken(
-											"bf711d2f449d4b308526dd963227f5f3"));
+										TOKEN_INTERNACIONAL));
 
 			codigo = transactionInternational.getPaymentLink();
-			System.out.println(transactionInternational);
+			
+			
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -1033,12 +1011,11 @@ public class Transactions {
 			assertEquals("item quantity is required.", serverError.getMessage());
 			assertEquals(new Integer(53074), serverError.getCode());
 		}
-
 	}
-
 	@Entao("^e retornado o codigo da transacao transparente cartao internacional invalido$")
 	public void erro_codigo_cartao_internacional_invalido() throws Throwable {
 
+		System.out.println("Transação cartao internacional invalido.");
 	}
 
 	// Cenario: Checkout transparente split boleto
@@ -1074,18 +1051,18 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968"))
+																			"997398228"))
 													.withEmail(
-															"leonardo@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"a431a7cb564d8284b085ec28f599641f8603aaf925e123b6dba11d99840eeb3d"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -1114,7 +1091,7 @@ public class Transactions {
 									.addReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB12FEDF9EBD994931A287FCF983EEC240")
+															CHAVEPUBLICA1)
 													.withSplit(
 															new SplitBuilder()
 																	.withAmount(
@@ -1126,7 +1103,7 @@ public class Transactions {
 									.addReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB93E1B187F5164BF0A4AE4A992F9738A9")
+															CHAVEPUBLICA2)
 													.withSplit(
 															new SplitBuilder()
 																	.withAmount(
@@ -1136,13 +1113,11 @@ public class Transactions {
 																			new BigDecimal(
 																					50)))))
 					.withBankSlip();
-
 			codigo = bankSlipSplitTransaction.getPaymentLink();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
 		}
-
 	}
 
 	@Entao("^e retornado o codigo do boleto split$")
@@ -1183,8 +1158,8 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
@@ -1192,9 +1167,9 @@ public class Transactions {
 																	.withNumber(
 																			"997398968"))
 													.withEmail(
-															"leonardo@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"07d27488ad064660cd7a639a1dfb875df1d07312d9bdf5eaafb31c6104c36d76"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -1223,7 +1198,7 @@ public class Transactions {
 									.withPrimaryReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB12FEDF9EBD994931A287FCF983EEC240")
+															CHAVEPUBLICA1)
 													.withSplit(
 															new SplitBuilder()
 																	.withAmount(
@@ -1235,7 +1210,7 @@ public class Transactions {
 									.addReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB93E1B187F5164BF0A4AE4A992F9738A9")
+															CHAVEPUBLICA2)
 													.withSplit(
 															new SplitBuilder()
 																	.withAmount(
@@ -1245,9 +1220,8 @@ public class Transactions {
 																			new BigDecimal(
 																					50)))))
 					.withBankSlip();
-
-			System.out.println(bankSlipSplitTransaction);
-
+			
+			bankSlipSplitTransaction.getCancellationSource();			
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
 
@@ -1259,12 +1233,12 @@ public class Transactions {
 			assertEquals(new Integer(53074), serverError.getCode());
 			// assertEquals ("qualquer coisa" ,"teste");
 		}
-
 	}
 
 	@Entao("^e retornado o erro do boleto split invalido$")
 	public void retorno_erro_boleto_split_invalido() throws Throwable {
-
+		System.out.println("Transação boleto Split inválido.");
+		
 	}
 
 	// Cenario: Checkout transparente split cartao de credito
@@ -1300,18 +1274,18 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968"))
+																			"997398979"))
 													.withEmail(
-															"leonardo@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"6f3fc5e20b8869b30271c61f5711ad38c10d483c702f131fc41e65d5ed64a9f8"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -1340,7 +1314,7 @@ public class Transactions {
 									.withPrimaryReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB12FEDF9EBD994931A287FCF983EEC240")
+															CHAVEPUBLICA1)
 													.withSplit(
 															new SplitBuilder()
 																	.withFeePercent(
@@ -1379,7 +1353,7 @@ public class Transactions {
 																	.withValue(
 																			"43176359845"))
 													.withName(
-															"Leonardo Camargo de Lima")
+															"Comprador Teste ")
 													.withBithDate(
 															new SimpleDateFormat(
 																	"dd/MM/yyyy")
@@ -1392,7 +1366,7 @@ public class Transactions {
 																			"981284174")))
 
 									.withToken(
-											"f769efa8714d4082bf22c62f147e8992"));
+											TOKEN));
 
 			codigo = creditCardSplitTransaction.getCode();
 
@@ -1439,18 +1413,18 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968"))
+																			"997398778"))
 													.withEmail(
-															"leonardo@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"PUB12FEDF9EBD994931A287FCF983EEC240"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -1479,7 +1453,7 @@ public class Transactions {
 									.withPrimaryReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB12FEDF9EBD994931A287FCF983EEC240")
+															"INFORMAR CHAVE PUBLICA DE UM VENDEDOR DE TESTE")
 													.withSplit(
 															new SplitBuilder()
 																	.withFeePercent(
@@ -1517,7 +1491,7 @@ public class Transactions {
 																			DocumentType.CPF)
 																	.withValue(
 																			"43176359845"))
-													.withName("Leonardo")
+													.withName("Comprador Teste")
 													.withBithDate(
 															new SimpleDateFormat(
 																	"dd/MM/yyyy")
@@ -1529,10 +1503,10 @@ public class Transactions {
 																	.withNumber(
 																			"981284174")))
 									.withToken(
-											"f2fb8164b5ad4af2a949a87309733272"));
+											TOKEN));
 
-			System.out.println(creditCardSplitTransaction);
-
+			creditCardSplitTransaction.getCode();
+		
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
 
@@ -1549,6 +1523,7 @@ public class Transactions {
 	@Entao("^e retornado o erro da transacao do cartao de credito split invalido$")
 	public void retorno_erro_cartao_credito_split_invalido() throws Throwable {
 
+		System.out.println("Transação cartão de credito split inválido.");
 	}
 
 	// Cenario: Checkout transparente split debito
@@ -1576,7 +1551,7 @@ public class Transactions {
 											new PaymentItemBuilder()
 													.withId("001")
 													.withDescription(
-															"Leonardo camargo")
+															"Comprador Teste")
 													.withQuantity(1)
 													.withAmount(
 															new BigDecimal(
@@ -1587,18 +1562,18 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968"))
+																			"997398900"))
 													.withEmail(
-															"leonardo@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"1835e9585b8f177db712873db9c09ae7477e4e96bc0941f3b007e3d8a6c2f353"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -1627,7 +1602,7 @@ public class Transactions {
 									.withPrimaryReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB12FEDF9EBD994931A287FCF983EEC240")
+															CHAVEPUBLICA1)
 													.withSplit(
 															new SplitBuilder()
 																	.withFeePercent(
@@ -1648,36 +1623,32 @@ public class Transactions {
 			System.out.println(e.getErrors());
 		}
 	}
-
 	@Entao("^e retornado o codigo da transacao debito split$")
 	public void retorno_codigo_transacao_debito_split() throws Throwable {
 		System.out.println(codigo);
 	}
-
+	
 	// Cenario: Checkout transparente split debito invalido
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de pagamento debito split invalido
 	// Entao e retornadebito split invalidodo o erro da transacao
 
 	@Quando("^crio uma requisicao de pagamento debito split invalido$")
-	public void requisicao_pagamento_debito_split_invalido() throws Throwable {
+	public void requisicao_pagamento_debito_split_invalido() throws Throwable{
+		
 		try {
 			final PagSeguro pagSeguro = PagSeguro.instance(
 					Credential.applicationCredential(APP_ID, APP_KEY),
 					PagSeguroEnv.SANDBOX);
 
-			TransactionDetail onlineDebitSplitTransaction =
-
-			pagSeguro
-					.transactions()
-					.register(
+			TransactionDetail onlineDebitSplitTransaction = pagSeguro.transactions().register(
 							new SplitPaymentRegistrationBuilder()
 									.withPaymentMode("default")
 									.withCurrency(Currency.BRL)
 									.addItem(
 											new PaymentItemBuilder()
 													.withDescription(
-															"Leonardo camargo")
+															"Comprador Teste")
 													.withQuantity(1)
 													.withAmount(
 															new BigDecimal(
@@ -1688,18 +1659,18 @@ public class Transactions {
 									.withSender(
 											new SenderBuilder()
 													.withName(
-															"Leonardo Camargo")
-													.withCPF("43176359845")
+															"Comprador Teste")
+													.withCPF("84815525269")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"16")
 																	.withNumber(
-																			"997398968"))
+																			"997398900"))
 													.withEmail(
-															"leonardo@sandbox.pagseguro.com.br")
+															EMAIL)
 													.withHash(
-															"07d27488ad064660cd7a639a1dfb875df1d07312d9bdf5eaafb31c6104c36d76"))
+															HASH))
 									.withShipping(
 											new ShippingBuilder()
 													.withAddress(
@@ -1728,7 +1699,7 @@ public class Transactions {
 									.withPrimaryReceiver(
 											new ReceiverBuilder()
 													.withPublicKey(
-															"PUB12FEDF9EBD994931A287FCF983EEC240")
+															CHAVEPUBLICA1)
 													.withSplit(
 															new SplitBuilder()
 																	.withFeePercent(
@@ -1742,7 +1713,8 @@ public class Transactions {
 					.withOnlineDebit(
 							new BankBuilder()
 									.withName(BankName.Name.BANCO_DO_BRASIL));
-			System.out.println(onlineDebitSplitTransaction);
+			
+			onlineDebitSplitTransaction.getCode();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -1760,6 +1732,7 @@ public class Transactions {
 	@Entao("^e retornado o erro da transacao debito split invalido$")
 	public void retorno_debito_split_invalido() throws Throwable {
 
+		System.out.println("Transação débito split inválido.");
 	}
 
 	// Cenario: Requisicao de Pagamento
@@ -1767,14 +1740,10 @@ public class Transactions {
 	// Quando crio uma requisicao de pagamento
 	// Entao e retornado o codigo da transacao
 
-	// @Dado("^que esteja autenticado na api do pagseguro$")
-	// public void autenticado_pagseguro() throws Throwable{
-	//
-	// }
-
 	@Quando("^crio uma requisicao de pagamento$")
 	public void requisicao_pagamento() throws Throwable {
 
+	try {
 		final PagSeguro pagSeguro = PagSeguro.instance(
 				Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
 				PagSeguroEnv.SANDBOX);
@@ -1797,12 +1766,12 @@ public class Transactions {
 
 								.withSender(
 										new SenderBuilder()
-												.withHash(
-														"bc947e397943de0d32325f669b64c039d67d738196b3aa0ea37787fc86a74e0c")
+												
+												
+												.withEmail(EMAIL)
+												.withHash(HASH)
 												.withCPF("29182659427")
-												.withEmail(
-														"c88018633641030893019@sandbox.pagseguro.com.br")
-												.withName("Luiz Roos")
+												.withName("Comprador Teste")
 												.withPhone(
 														new PhoneBuilder()
 																.withAreaCode(
@@ -1831,85 +1800,75 @@ public class Transactions {
 				);
 
 		codigoRequest = registeredCheckout.getRedirectURL();
+		
 		System.out.println(codigoRequest);
 
+	}catch(PagSeguroBadRequestException e) {
+		System.out.println(e.getErrors());
+		
 	}
+	
+	}	
 
 	@Quando("^finalizo o pagamento pelo sandbox$")
-	public String retornado_codigo_transacao() throws Throwable {
-//		 File file = new File("C:\\Users\\llima\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");				
-//	     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
-//	     WebDriver driver = new PhantomJSDriver();
+	public String finalizar_pagamento_sandbox() throws Throwable{
 		
+	     //DRIVER DO CHROME
+//		System.setProperty(
+//				"webdriver.chrome.driver", "src/test/resources/driver/win32/chromedriver.exe");
+//		WebDriver driver = new ChromeDriver();
 		
-		System.setProperty(
-				"webdriver.chrome.driver"
-				, "src/test/resources/drivers/win32/chromedriver");
-		
-		WebDriver driver = new ChromeDriver();
-		
-		driver.manage().window().maximize();
+		 File file = new File("..\bin\\phantomjs.exe"); //INFORMAR CAMINHO DO PHANTOM		
+	     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());
+	     WebDriver driver = new PhantomJSDriver();
+	     
+	    driver.manage().window().maximize();
 		driver.get(codigoRequest);
 		driver.findElement(By.id("signOut")).click();
+		//INFORMAR DADOS DE COMPRADOR DE TESTE
+		
 		driver.findElement(By.id("user")).sendKeys(
-				"c88018633641030893019@sandbox.pagseguro.com.br");
+				COMPRADOR_USER);
 		driver.findElement(By.id("senderPassword"))
-				.sendKeys("68pn1853bp761611");
+				.sendKeys(COMPRADOR_SENHA);
 		driver.findElement(By.className("mainActionButton")).click();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(By.id("walletChange")).click();
-		WebDriverWait wait = new WebDriverWait(driver, 5);
-		driver.findElement(By.id("holderCPF")).sendKeys("43176359845");
-		
-		driver.findElement(By.id("holderPhone")).sendKeys("997398968");
-		driver.findElement(By.id("holderAreaCode")).sendKeys("16");
-		wait = new WebDriverWait(driver, 5);
-		driver.findElement(By.id("holderBornDate")).sendKeys("25031996");
-		driver.findElement(By.id("creditCardNumber")).sendKeys(
-				"4111111111111111");
-		 wait = new WebDriverWait(driver, 10);
-		 driver.findElement(By.id("creditCardDueDate_Month")).sendKeys("12");
-		driver.findElement(By.id("creditCardDueDate_Year")).sendKeys("30");
-		
-		driver.findElement(By.id("creditCardHolderName")).sendKeys(
-				"Leonardo Camargo");
-		
-		driver.findElement(By.id("creditCardCVV")).sendKeys("123");
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		Select selectBox = new Select(driver.findElement(By
-				.id("cardInstallmentQuantity")));
-		selectBox.selectByVisibleText("2 x R$ 57,48 = R$ 114,96");
+	    Thread.sleep(3000);
+		driver.findElement(By.id("walletChange")).click();		
+//		File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE); //PRINT DA TELA
+//		 FileUtils.copyFile(srcFile, new File("C:\\Dell\\screenshot_.png"));
+//		srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);			
+		driver.findElement(By.cssSelector("#bookletOption > label")).click(); //BOLETO	
+		Thread.sleep(3000);
+		driver.findElement(By.id("senderCPF")).sendKeys("35395512551");  
+		 System.out.println("Fluxo Boleto Finalizado.");
 		driver.findElement(By.id("continueToPayment")).click();
-		System.out.println("To aqui");
-		 File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-         System.out.println("File:" + srcFile);
-         FileUtils.copyFile(srcFile, new File("C:\\Dell\\screenshot_.png"));
-         System.out.println("Done");
-//		wait = new WebDriverWait(driver, 30);
-		
-		wait = new WebDriverWait(driver, 30);
-		
-		 wait.until(ExpectedConditions.urlContains("checkout/nc/nl/conclusion"));
+		 Thread.sleep(10000);
 		String codigoTransacao = driver.findElement(By.id("transactionCode"))
-				.getText();
-		System.out.println("capturei");
+				.getText();	
 		codigoTransacao = codigoTransacao.replace("-", "");
-
-		System.out.println(codigoTransacao);
-
+		System.out.println(codigoTransacao);	
+		urlComparacao = driver.getCurrentUrl();
+		
+		this.driver = driver;
+		
 		return codigoTransacao;
+			
 	}
+	
+@Entao("^e comparado o resultado na finalizacao do checkout$")
+	public void retorno_resultado_finalizacao_checkout(){
+	
 
-	@Entao("^e comparado o resultado$")
-	public void comparar_resultado() throws Throwable {
-		driver.getPageSource()
-				.contains(
-						"Seu pagamento está em fase de análise. Você poderá receber um contato da nossa equipe para confirmar sua transação.");
-
-	}
-
+		if(driver.getPageSource().contains("O pagamento está em processamento.")){
+			System.out.println("Checkout finalizado com sucesso.");
+		}else{
+			System.out.println("Não foi possível finalizar e comparar o resultado na finalização do checkout.");
+		}
+		
+		driver.quit();
+	
+}
 	// Cenario: Requisicao de Pagamento invalida
-
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando cria uma requisicao de pagamento invalida
 	// Entao e retornado um erro de transacao
@@ -1940,18 +1899,19 @@ public class Transactions {
 
 									.withSender(
 											new SenderBuilder()
-													.withHash(
-															"bc947e397943de0d32325f669b64c039d67d738196b3aa0ea37787fc86a74e0c")
-													.withCPF("29182659427")
 													.withEmail(
-															"v82066140592075093489@sandbox.pagseguro.com.br")
-													.withName("Luiz Roos")
+													EMAIL)
+													.withHash(
+															HASH)
+													.withCPF("29182659427")
+													
+													.withName("Comprador Teste")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"11")
 																	.withNumber(
-																			"965671300")))
+																			"965671301")))
 									.withShipping(
 											new ShippingBuilder()
 													.withType(Type.SEDEX)
@@ -1970,10 +1930,8 @@ public class Transactions {
 																			"Pinheiros")
 																	.withStreet(
 																			"Av Faria Lima")))
-
 					);
-
-			System.out.println(registeredCheckoutInvalid.getCheckoutCode());
+			registeredCheckoutInvalid.getCheckoutCode();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -1983,15 +1941,14 @@ public class Transactions {
 			ServerError serverError = serverErros.getErrors().iterator().next();
 
 			assertEquals("Item Id is required.", serverError.getMessage());
-			assertEquals(new Integer(11025), serverError.getCode());
-			// assertEquals ("qualquer coisa" ,"teste");
+			assertEquals(new Integer(11025), serverError.getCode());			
 		}
-
 	}
 
 	@Entao("^e retornado um erro de transacao$")
 	public void retorno_erro_normal() throws Throwable {
-
+			System.out.println("Erro transação.");
+			
 	}
 
 	// Cenario: Requisicao de Pagamento com assinatura
@@ -2024,18 +1981,19 @@ public class Transactions {
 
 								.withSender(
 										new SenderBuilder()
-												.withHash(
-														"bc947e397943de0d32325f669b64c039d67d738196b3aa0ea37787fc86a74e0c")
-												.withCPF("29182659427")
 												.withEmail(
-														"v82066140592075093489@sandbox.pagseguro.com.br")
-												.withName("Luiz Roos")
+														EMAIL)
+												.withHash(
+														HASH)
+												.withCPF("29182659427")
+												
+												.withName("Comprador Teste")
 												.withPhone(
 														new PhoneBuilder()
 																.withAreaCode(
 																		"11")
 																.withNumber(
-																		"965671300")))
+																		"965671310")))
 								.withShipping(
 										new ShippingBuilder()
 												.withType(Type.SEDEX)
@@ -2060,9 +2018,7 @@ public class Transactions {
 												.withDetails(
 														"Todo dia 28 será cobrado o valor de 100,00 referente ao seguro contra roubo do notebook")
 												.withAmountPerPayment(
-														new BigDecimal(100.00))
-												// .withMaxAmountPerPayment(new
-												// BigDecimal(200.00))
+														new BigDecimal(100.00))											
 												.withPeriod("Monthly")
 												.withMaxPaymentsPerPeriod(2)
 
@@ -2100,7 +2056,6 @@ public class Transactions {
 		System.out.println(codigo);
 
 	}
-
 	// Cenario: Requisicao de Pagamento com assinatura invalida
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de pagamento com assinatura invalida
@@ -2132,18 +2087,19 @@ public class Transactions {
 
 									.withSender(
 											new SenderBuilder()
-													.withHash(
-															"bc947e397943de0d32325f669b64c039d67d738196b3aa0ea37787fc86a74e0c")
-													.withCPF("29182659427")
 													.withEmail(
-															"v82066140592075093489@sandbox.pagseguro.com.br")
-													.withName("Luiz Roos")
+															EMAIL)
+													.withHash(
+															HASH)
+													.withCPF("29182659427")
+													
+													.withName("Comprador Teste")
 													.withPhone(
 															new PhoneBuilder()
 																	.withAreaCode(
 																			"11")
 																	.withNumber(
-																			"965671300")))
+																			"965671310")))
 									.withShipping(
 											new ShippingBuilder()
 													.withType(Type.SEDEX)
@@ -2164,14 +2120,12 @@ public class Transactions {
 																			"Rua Padre Duarte")))
 									.withPreApproval(
 											new PreApprovalBuilder()
-													.withName("Leonardo")
+													.withName("Comprador Teste")
 													.withDetails(
 															"Todo dia 28 será cobrado o valor de 100,00 referente ao seguro contra roubo do notebook")
 													.withAmountPerPayment(
 															new BigDecimal(
 																	100.00))
-													// .withMaxAmountPerPayment(new
-													// BigDecimal(200.00))
 													.withPeriod("Monthly")
 													.withMaxPaymentsPerPeriod(2)
 
@@ -2197,7 +2151,7 @@ public class Transactions {
 
 					);
 
-			System.out.println(registeredCheckoutApproval);
+			registeredCheckoutApproval.getCheckoutCode();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -2208,14 +2162,13 @@ public class Transactions {
 			assertEquals("Item description is required.",
 					serverError.getMessage());
 			assertEquals(new Integer(11033), serverError.getCode());
-
 		}
-
 	}
-
+	
 	@Entao("^e retornado um erro de transacao com assinatura$")
 	public void retorno_erro_transacao_assinatura() throws Throwable {
-
+			System.out.println("Erro transação com assinatura");
+		
 	}
 
 	// Cenario: Requisicao de cancelamento de transacao
@@ -2227,6 +2180,7 @@ public class Transactions {
 	public void crio_requisicao_cancelamento_transacao() throws Throwable {
 
 		try {
+			
 			final PagSeguro pagSeguro = PagSeguro.instance(
 					Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
 					PagSeguroEnv.SANDBOX);
@@ -2234,7 +2188,7 @@ public class Transactions {
 			requisicao_pagamento();
 			CancelledTransaction transactionCancel = pagSeguro.transactions()
 					.cancel(new TransactionIdentifyBuilder()
-							.withCode(retornado_codigo_transacao())
+							.withCode(finalizar_pagamento_sandbox())
 
 					);
 
@@ -2274,11 +2228,10 @@ public class Transactions {
 
 			CancelledTransaction transactionCancel = pagSeguro.transactions()
 					.cancel(new TransactionIdentifyBuilder()
-							.withCode("61D83EDA24A24F8987905068159488FF")
-
+							.withCode("61D83EDA24A24F8987905068150479GF") 
 					);
 
-			System.out.println(transactionCancel.getResultTransactionCancel());
+			transactionCancel.getResultTransactionCancel();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -2286,9 +2239,8 @@ public class Transactions {
 			ServerErrors serverErros = e.getErrors();
 			ServerError serverError = serverErros.getErrors().iterator().next();
 
-			assertEquals("invalid transaction status to cancel.",
-					serverError.getMessage());
-			assertEquals(new Integer(56002), serverError.getCode());
+			assertEquals("transaction is not found.", serverError.getMessage());
+			assertEquals(new Integer(14008), serverError.getCode());
 
 		}
 
@@ -2296,7 +2248,8 @@ public class Transactions {
 
 	@Entao("^e retornado um erro na transacao de cancelamento$")
 	public void retorno_erro_transacao_cancelamento() throws Throwable {
-
+		System.out.println("Transação de Cancelamento com Erro.");
+		
 	}
 
 	// Cenario: Requisição de estorno de pagamento
@@ -2315,7 +2268,7 @@ public class Transactions {
 
 			requisicao_pagamento();
 
-			String codigoTransacao = retornado_codigo_transacao();
+			String codigoTransacao = finalizar_pagamento_sandbox();
 
 			alterarStatusRequisicaoParaPago(codigoTransacao);
 
@@ -2331,17 +2284,19 @@ public class Transactions {
 
 	}
 
-	private void alterarStatusRequisicaoParaPago(String codigoTransacao) {
-//		File file = new File("C:\\Users\\llima\\Desktop\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");				
-//	     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
-//	     WebDriver driver = new PhantomJSDriver();
-		System.setProperty(
-				"webdriver.chrome.driver"
-				, "src/test/resources/drivers/win32/chromedriver");
+	private void alterarStatusRequisicaoParaPago(String codigoTransacao) throws Throwable {
 		
-		WebDriver driver = new ChromeDriver();
+		//CHROME
 		
-		driver = new ChromeDriver();
+//		System.setProperty(
+//		"webdriver.chrome.driver"
+//		, "src/test/resources/driver/win32/chromedriver");
+//		driver = new ChromeDriver();
+		
+		File file = new File("bin\\phantomjs.exe");		//INFORMAR CAMINHO DO PHANTOM		
+	     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
+	     WebDriver driver = new PhantomJSDriver();
+		
 		driver.manage().window().maximize();
 		driver.get("https://sandbox.pagseguro.uol.com.br/");
 		driver.findElement(By.id("email-login")).clear();
@@ -2350,15 +2305,13 @@ public class Transactions {
 		driver.findElement(By.id("pass-login")).sendKeys(SENHA_SANDBOX);
 		driver.findElement(By.id("login-button")).click();
 		driver.findElement(By.xpath("//*[text()='" + codigoTransacao + "']")).click();
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		Thread.sleep(3000);
 		driver.findElement(By.id("change-status-link")).click();
-		wait = new WebDriverWait(driver, 100);
+		Thread.sleep(2000);
 	    new Select(driver.findElement(By.cssSelector("#cboxLoadedContent > div.modal-content > form.change-status-form > #change-status-list"))).selectByVisibleText("Paga");
-		driver.findElement(By.cssSelector("#cboxLoadedContent > div > form > div.button-wrapper.center > button.submit-modal.pagseguro-button")).click();
+		driver.findElement(By.cssSelector("#cboxLoadedContent > div > form > div.button-wrapper.center > button.submit-modal.pagseguro-button")).click();	
 		
-		
-		
-		
+		driver.quit();
 	}
 
 	@Entao("^e retornado a resposta do servidor$")
@@ -2399,9 +2352,9 @@ public class Transactions {
 
 	@Entao("^e retornado um erro no estorno$")
 	public void retorno_erro_estorno() throws Throwable {
-
+			System.out.println("Requisição Estorno de Pagamento inválido.");
+		
 	}
-
 	// Cenario: Requisicao de estorno parcial
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de estorno parcial
@@ -2417,10 +2370,14 @@ public class Transactions {
 
 			requisicao_pagamento();
 
+			String codigoTransacao = finalizar_pagamento_sandbox();
+
+			alterarStatusRequisicaoParaPago(codigoTransacao);
+
 			RefundedTransaction transactionParcialRefunded = pagSeguro
 					.transactions().refund(
-							new TransactionRefundingBuilder().withCode(
-									"3CF6E38C4C2C4B5D83AE2097CB07F2FC")
+							new TransactionRefundingBuilder().withCode(codigoTransacao
+									)
 									.withValue(new BigDecimal(10.00)));
 
 			codigo = transactionParcialRefunded.getResultTransactionRefund();
@@ -2437,7 +2394,6 @@ public class Transactions {
 		System.out.println(codigo);
 
 	}
-
 	// Cenario: Requisicao de estorno parcial invalido
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de estorno invalido
@@ -2454,7 +2410,7 @@ public class Transactions {
 			RefundedTransaction transactionParcialRefunded = pagSeguro
 					.transactions().refund(
 							new TransactionRefundingBuilder().withCode(
-									"3CF6E38C4C2C4B5D83AE2097CB07F2FC")
+									"361D83EDA24A24F8987905068159488F")
 									.withValue(new BigDecimal(10.00)));
 
 			System.out.println(transactionParcialRefunded
@@ -2465,17 +2421,18 @@ public class Transactions {
 			ServerErrors serverErros = e.getErrors();
 			ServerError serverError = serverErros.getErrors().iterator().next();
 
-			assertEquals("invalid transaction status to refund.",
-					serverError.getMessage());
-			assertEquals(new Integer(14007), serverError.getCode());
+			assertEquals("transaction is not found.", serverError.getMessage());
+			assertEquals(new Integer(14008), serverError.getCode());
 
 		}
 
 	}
-
+	
 	@Entao("^e retornado a resposta do servidor estorno parcial invalido$")
 	public void estorno_parcial_resposta_servidor_invalido() throws Throwable {
-
+			
+		System.out.println("Erro estorno parcial.");
+		
 	}
 
 //	Dado que esteja autenticado na api do pagseguro
@@ -2491,7 +2448,7 @@ public class Transactions {
 
 			requisicao_pagamento();
 			TransactionDetail transactionDetail = pagSeguro.transactions()
-					.search().byCode(retornado_codigo_transacao());
+					.search().byCode(finalizar_pagamento_sandbox());
 
 			codigo = transactionDetail.getCode();
 
@@ -2542,12 +2499,12 @@ public class Transactions {
 
 	@Entao("^e retornado um erro de consulta por codigo$")
 	public void retorno_erro_consulta_codigo() throws Throwable {
-
+			System.out.println("Pesquiso transação codigo inválido com sucesso.");
+		
 	}
 
 	// Cenario: Consultar transacoes por intervalo de datas
 	// Dado que esteja autenticado na api do pagseguro
-	// Quando crio uma requisicao de pagamento
 	// E pesquiso a transacao por um intervalo de datas
 	// Entao e retornado as transacoes
 
@@ -2594,22 +2551,23 @@ public class Transactions {
 
 			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-			Date date = dateFormat.parse("10/39/2016");
-			final DataList<? extends TransactionSummary> transactionDate = pagSeguro
+			Date date = dateFormat.parse("0/0/0");
+			Date date2 = dateFormat.parse("0/0/0");
+						
+			final DataList<? extends TransactionSummary> transactionSearch = pagSeguro
 					.transactions()
 					.search()
-					.byDateRange(
-							new DateRangeBuilder().between(date, new Date()),
-							1, 10);
-			if (transactionDate.isEmpty()) {
+					.byDateRange(new DateRangeBuilder().between(date, date2), 90000, 300);
+					
+			if (transactionSearch.isEmpty()) {
 				return;
 			}
-			System.out.print(transactionDate);
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
 
 			ServerErrors serverErros = e.getErrors();
+			
 			ServerError serverError = serverErros.getErrors().iterator().next();
 
 			assertEquals("initialDate must not be older than 6 months.",
@@ -2622,7 +2580,8 @@ public class Transactions {
 
 	@Entao("^e retornado um erro de consulta de transacoes por data$")
 	public void retorno_erro_consulta_transacao_data() throws Throwable {
-
+			System.out.println("Transação intervalo inválido.");
+		
 	}
 
 	// Cenario: Consultar transacoes abandonadas
@@ -2633,23 +2592,35 @@ public class Transactions {
 	@Quando("^pesquiso uma transacao abandonada no pagseguro$")
 	public void pesquiso_transacao_abandoada() throws Throwable {
 
+		try {
 		final PagSeguro pagSeguro = PagSeguro.instance(
 				Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
 				PagSeguroEnv.SANDBOX);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-		Date date = dateFormat.parse("23/10/2016");
-		Date date2 = dateFormat.parse("11/11/2016");
+		Date date = dateFormat.parse("10/10/2016");
+		Date date2 = dateFormat.parse("10/11/2016");
 		final DataList<? extends TransactionSummary> transactionDate = pagSeguro
 				.transactions()
 				.search()
-				.byDateRange(new DateRangeBuilder().between(date, date2), 1, 10);
+				.abandoned(new DateRangeBuilder().between(date, date2), 1, 10);
 		if (transactionDate.isEmpty()) {
 			return;
 		}
 
 		codigo = transactionDate.toString();
+		
+		}catch(PagSeguroBadRequestException e ){
+			
+			ServerErrors serverErros = e.getErrors();
+			ServerError serverError = serverErros.getErrors().iterator().next();
+
+			assertEquals("initialDate must be lower than allowed limit.",
+					serverError.getMessage());
+			assertEquals(new Integer(13005), serverError.getCode());
+			
+		}
 
 	}
 
@@ -2678,7 +2649,7 @@ public class Transactions {
 			final DataList<? extends TransactionSummary> transactionDate = pagSeguro
 					.transactions()
 					.search()
-					.byDateRange(new DateRangeBuilder().between(date, date2),
+					.abandoned(new DateRangeBuilder().between(date, date2),
 							1, 10);
 			if (transactionDate.isEmpty()) {
 				return;
@@ -2697,10 +2668,9 @@ public class Transactions {
 		}
 
 	}
-
 	@Entao("^e retornado um erro de consulta de transacoes abandonada$")
 	public void erro_consulta_transacao_abandonadas() throws Throwable {
-
+			System.out.println("Transação abandonada inválida.");
 	}
 
 	// Cenario: Consultar transacoes por codigo de referencia
@@ -2747,7 +2717,7 @@ public class Transactions {
 			final DataList<? extends TransactionSummary> transactionDate = pagSeguro
 					.transactions().search().byReference("");
 
-			System.out.print(transactionDate);
+			transactionDate.size();
 
 		} catch (PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
@@ -2763,13 +2733,7 @@ public class Transactions {
 
 	@Entao("^e retornada um erro de consulta de transacao pela referencia$")
 	public void retorno_erro_referencia() throws Throwable {
+			System.out.println("Erro Consulta Transação por referência.");
 
 	}
-
-	public void alterar_status_transacao() throws Throwable {
-
-		driver.get("sandbox.pagseguro.uol.com.br");
-
-	}
-
 }

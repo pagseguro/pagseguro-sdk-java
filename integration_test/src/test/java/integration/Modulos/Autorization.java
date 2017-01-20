@@ -2,9 +2,17 @@ package integration.Modulos;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
@@ -27,20 +35,24 @@ import cucumber.api.java.pt.Quando;
  
 public class Autorization {
 	
-
-
-	
-	private static final String APP_ID = "app3213465177";
-	private static final String APP_KEY = "8B6CC0F50C0CC67AA489DFBBA564D993";
+	private static final String APP_ID = "INFORMAR USER APLICAÇÃO";
+	private static final String APP_KEY = "INFORMAR SENHA APLICAÇÃO";
+	private static final String EMAIL_SANDBOX = "INFORMAR EMAIL SANDBOX";
+	private static final String SENHA_SANDBOX = "INFORMAR SENHA SANDBOX";
+	private static final String VENDEDOR_USER = "INFORMAR USUARIO VENDEDOR";
+	private static final String VENDEDOR_SENHA = "INFORMAR SENHA VENDEDOR";
 			
 	String codigo = null;
 	Integer codigoRef = null;
-	
+	String url = null;
 	
 //	Cenario: Criar uma autorizacao
 //	Dado que esteja autenticado na api do pagseguro
 //	Quando crio uma requisicao de autorizacao
 //	Entao e retornado a url de autorizacao	
+	
+
+	
 	@Quando("^crio uma requisicao de autorizacao$")
 		public void crio_uma_autorizacao() throws Throwable {
 		
@@ -59,10 +71,8 @@ public class Autorization {
     	
     	RegisteredAuthorization registeredAuthorization = pagSeguro.authorizations().register(authorizationRegistration);
     	
-    	codigo = registeredAuthorization.getRedirectURL();
-    	
-    	
-    	
+    	url = registeredAuthorization.getRedirectURL();
+    		
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -70,9 +80,27 @@ public class Autorization {
 	}
 	
 		@Entao("^e retornado a url de autorizacao")
-			public void retornado_url_autorizacao() throws Throwable {		
-			
-				System.out.println(codigo);
+			public void finalizacao_autorizacao() throws Throwable {
+			File file = new File("\\BIN\\phantomjs.exe");	 //informar caminho do arquivo phantomJS			
+	 	     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
+	 	     WebDriver driver = new PhantomJSDriver();
+//	 	     
+//	 	    System.setProperty(
+//					"webdriver.chrome.driver"
+//					, "src/test/resources/driver/win32/chromedriver.exe");
+//	 	    WebDriver driver = new ChromeDriver();
+	 	     
+			driver.manage().window().maximize();
+			driver.get(url);
+			driver.findElement(By.id("link-login")).click();
+			Thread.sleep(3000);
+			driver.findElement(By.id("email-input")).sendKeys(VENDEDOR_USER);
+			driver.findElement(By.id("password-input")).sendKeys(VENDEDOR_SENHA);
+			driver.findElement(By.id("continue")).click();
+			Thread.sleep(12000);
+			driver.findElement(By.className("pagseguro-button")).click();
+			Thread.sleep(5000);
+
 		}
 
 //		Cenario: Criar uma autorizacao invalida
@@ -107,8 +135,7 @@ public class Autorization {
 	    		
 	    		assertEquals("permissions is required.", serverError.getMessage());
 	    		assertEquals(new Integer(12003), serverError.getCode());
-			
-			
+				
 			}
 		
 		}
@@ -127,28 +154,67 @@ public class Autorization {
 		@Quando("^consulto uma autorizacao pelo codigo$")
 			public void consultar_autorizacao_por_codigo() throws Throwable {
 
+			crio_uma_autorizacao();
+			
+			try {
     	final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(APP_ID,
             APP_KEY), PagSeguroEnv.SANDBOX);
     	
     	AuthorizationDetail authorizationDetail = pagSeguro.authorizations().search()
-    	        .byCode("C41BDD2735B048A4882648422692A691");
+    	        .byCode(buscar_codigo_autorizacao()); //INFORMAR UMA AUTORIZAÇÃO VÁLIDA QUE ESTEJA LINKADA AO USUARIO 
 
     	    codigo = authorizationDetail.toString();
+    	    
+			}catch(PagSeguroBadRequestException e) {
+				System.out.println(e.getErrors());
+			}
 }	
 		
+		private String buscar_codigo_autorizacao() throws Throwable {
+//			 System.setProperty(
+//						"webdriver.chrome.driver"
+//						, "src/test/resources/driver/win32/chromedriver.exe");
+//				    
+//				 WebDriver driver = new ChromeDriver();
+			
+			File file = new File("bin\\phantomjs.exe");	 //informar caminho do arquivo phantomJS			
+	 	     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
+	 	     WebDriver driver = new PhantomJSDriver();
+				
+				driver.get("https://sandbox.pagseguro.uol.com.br/");
+				driver.manage().window().maximize();
+				Thread.sleep(3000);
+				driver.findElement(By.id("email-login")).clear();
+				driver.findElement(By.id("email-login")).sendKeys(EMAIL_SANDBOX);
+				driver.findElement(By.id("pass-login")).clear();
+				driver.findElement(By.id("pass-login")).sendKeys(SENHA_SANDBOX);
+				driver.findElement(By.id("login-button")).click();
+				Thread.sleep(6000);
+				driver.findElement(By.linkText("Autorizações")).click();
+				Thread.sleep(10000);
+				int index = 1;
+				WebElement baseTable = driver.findElement(By.id("authorization-list-table"));
+				List<WebElement> tableRows = baseTable.findElements(By.tagName("tr"));
+				tableRows.get(index).click();
+				Thread.sleep(3000);
+				String codigoAutorizacao = driver.findElement(By.id("authorization-code")).getText();
+				
+				System.out.println(codigoAutorizacao);
+				
+			return codigoAutorizacao;
+		}
+
 		@Entao("^e retornada a autorizacao$")
 			public void retornada_a_autorizacao() throws Throwable {
 				System.out.println(codigo);
 			
 		}
 		
-		
 //		Cenario: Consultar autorizacao por codigo invalida
 //		Dado que esteja autenticado na api do pagseguro
 //		Quando consulto uma autorizacao pelo codigo invalida
 //		Entao e retornado um erro de consulta de autorizacao por codigo
 
-		
 		@Quando("^consulto uma autorizacao pelo codigo invalida$")
 			public void consultar_autorizacao_codigo_invalida() throws Throwable {
 			
@@ -165,11 +231,7 @@ public class Autorization {
 		}catch(Exception e ){
 			
 			
-			assertEquals(true, e instanceof PagSeguroInternalServerException);
-				
-			
-			
-		
+			assertEquals(true, e instanceof PagSeguroInternalServerException);		
 		}
 			
 		}		
@@ -179,7 +241,6 @@ public class Autorization {
 	
 }
 
-
 //		Cenario: Consultar autorizacao por intervalo de datas
 //		Dado que esteja autenticado na api do pagseguro
 //		Quando consulto uma autorizacao por intervalo de datas
@@ -187,12 +248,17 @@ public class Autorization {
 		
 		@Quando("^consulto uma autorizacao por intervalo de datas$")
 			public void autenticado_consulta_por_datas() throws Throwable {
+			
+		crio_uma_autorizacao();
+		finalizacao_autorizacao();
+		
 		try{		
 			final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(APP_ID,
 		            APP_KEY), PagSeguroEnv.SANDBOX);
 		    	
 			 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	            
+	            //INFORMAR A DATA ATUAL 
+			 
 	            Date date = dateFormat.parse("26/10/2016");
 	            Date date2 = dateFormat.parse("28/10/2016");
 	            final DataList<? extends AuthorizationSummary> authorizationsDate =
@@ -206,8 +272,6 @@ public class Autorization {
 		}catch(PagSeguroBadRequestException e) {
 			System.out.println(e.getErrors());
 		}
-			
-
 	}
 		
 @Entao("^e retornada autorizacoes por intervalo de data$")
@@ -220,9 +284,8 @@ public class Autorization {
 //Dado que esteja autenticado na api do pagseguro
 //Quando consulto uma autorizacao por intervalo de datas invalida
 //Entao e retornado um erro de consulta de autorizacao por data
-
 		
-		@Dado("^consulto uma autorizacao por intervalo de datas invalida$")
+@Dado("^consulto uma autorizacao por intervalo de datas invalida$")
 			public void autorizacao_intervalo_data_invalida() throws Throwable {
 		
 			try{
@@ -252,10 +315,7 @@ public class Autorization {
 	    		assertEquals("initialDate must be lower than or equal finalDate.", serverError.getMessage());
 	    		assertEquals(new Integer(13007), serverError.getCode());
 			
-			
-			}
-		
-			
+			}			
 		}
 		
 @Entao("^e retornado um erro de consulta de autorizacao por data$")
@@ -263,42 +323,82 @@ public class Autorization {
 	
 }
 
-
 //Cenario: Consultar autorizacao por codigo de notificacao
 //Dado que esteja autenticado na api do pagseguro
 //Quando consulto uma autorizacao por codigo de notificacao
 //Entao e retornada autorizacao por codigo de notificacao	
 
-
 @Quando("^consulto uma autorizacao por codigo de notificacao$")
-			public void autenticado_consulta_por_notificacao() throws Throwable {
-			
+			public void consultar_autorizacao_por_notificacao() throws Throwable {
+	
+	
+		try {
 				final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(APP_ID,
 		            APP_KEY), PagSeguroEnv.SANDBOX);
 				
 				AuthorizationDetail authorizationCode = pagSeguro.authorizations().search()
-		    	        .byNotificationCode("00036C2B196119611C98846E0F833378CE93");
+		    	        .byNotificationCode(buscar_codigo_notificacao_autorizacao());
 			
 				codigo = authorizationCode.getCode();
-				
+		}catch(PagSeguroBadRequestException e){
+			System.out.println(e.getErrors());
+		}	
 		}
 		
+public String buscar_codigo_notificacao_autorizacao() throws Throwable {
+	
+	
+//	    System.setProperty(
+//			"webdriver.chrome.driver"
+//			, "src/test/resources/driver/win32/chromedriver.exe");
+	
+	
+	File file = new File("bin\\phantomjs.exe");	 //informar caminho do arquivo phantomJS			
+     System.setProperty("phantomjs.binary.path", file.getAbsolutePath());		
+     WebDriver driver = new PhantomJSDriver();
+	    
+	driver.get("https://sandbox.pagseguro.uol.com.br/");
+	driver.manage().window().maximize();
+	Thread.sleep(3000);
+	driver.findElement(By.id("email-login")).clear();
+	driver.findElement(By.id("email-login")).sendKeys(EMAIL_SANDBOX);
+	driver.findElement(By.id("pass-login")).clear();
+	driver.findElement(By.id("pass-login")).sendKeys(SENHA_SANDBOX);
+	driver.findElement(By.id("login-button")).click();
+	Thread.sleep(6000);
+	driver.findElement(By.linkText("Autorizações")).click();
+	Thread.sleep(10000);
+	int index = 1;
+	WebElement baseTable = driver.findElement(By.id("authorization-list-table"));
+	List<WebElement> tableRows = baseTable.findElements(By.tagName("tr"));
+	tableRows.get(index).click();
+	Thread.sleep(3000);
+	int notify = 0;
+	WebElement baseTablenotify = driver.findElement(By.cssSelector("#nas-data > div.nas-data-area > table"));
+	List<WebElement> tableRowsNotify = baseTablenotify.findElements(By.cssSelector("#nas-data > div.nas-data-area > table > tbody > tr > td.col-code"));
+	String codigoNotification = tableRowsNotify.get(notify).findElement(By.className("nas-code")).getText();
+	System.out.println(codigoNotification);
+
+	return codigoNotification;
+	
+	
+	// TODO Auto-generated method stub
+}
+
 @Entao("^e retornada autorizacao por codigo de notificacao$")
 	public void retorno_autorizacao_codigo_notificacao() throws Throwable {
 		System.out.println(codigo);
 }
-			
-		
+					
 //Cenario: Consultar autorizacao por codigo de notificacao invalida
 //Dado que esteja autenticado na api do pagseguro
 //Quando consulte uma autorizacao por codigo de notificacao invalida
 //Entao e retornado um erro de consulta de autorizacao por notificacao
 				
-
-		@Quando("^consulto uma autorizacao por codigo de notificacao invalida$")
-			public void consulte_autorizacao_notificacao_invalida() throws Throwable {
-		try{
-			final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(APP_ID,
+@Quando("^consulto uma autorizacao por codigo de notificacao invalida$")
+		public void consulte_autorizacao_notificacao_invalida() throws Throwable {
+			try{
+				final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(APP_ID,
 	            APP_KEY), PagSeguroEnv.SANDBOX);
 			
 			AuthorizationDetail authorizationCode = pagSeguro.authorizations().search()
@@ -314,8 +414,6 @@ public class Autorization {
 		
 		assertEquals("invalid notification code value: 9898989898", serverError.getMessage());
 		assertEquals(new Integer(13001), serverError.getCode());
-	
-	
 	}
 		}
 
@@ -324,14 +422,12 @@ public class Autorization {
 	
 }
 		
-		
 //Cenario: Consultar autorizacao por codigo de referencia
 //Dado que esteja autenticado na api do pagseguro
 //Quando consulto uma autorizacao por referencia
 //Entao e retornada as autorizacoes por referencia
-
 		
-		@Quando("^consulto uma autorizacao por referencia$")
+@Quando("^consulto uma autorizacao por referencia$")
 			public void consulte_autorizacao_referencia() throws Throwable {
 
 			try {

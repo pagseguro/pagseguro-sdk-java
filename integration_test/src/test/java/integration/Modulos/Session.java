@@ -12,18 +12,15 @@ public class Session {
 //	Dado que esteja autenticado na api do pagseguro
 //	Quando crio uma sessao
 //	Entao e retornado o codigo da sessao
-
-	private static final String SELLER_EMAIL = "leonardo.lima@s2it.com.br";
-	private static final String SELLER_TOKEN = "3A64F2083B124BD1986A128861C45794";
 	
-	private static final String SELLER_EMAIL_LUCIUS = "gabriel.pomin@s2it.com.br";
-	private static final String SELLER_TOKEN_LUCIUS = "3C0E388C67134F90B21DD43DE4C77D9F";
+	private static final String SELLER_EMAIL_SESSION = "INFORMAR EMAIL SESSION";
+	private static final String SELLER_TOKEN_SESSION = "INFORMAR SENHA SESSION";
 	
 @Quando("^crio uma sessao$")
 	public void crio_uma_sessao() throws Throwable {
 	
-	final PagSeguro pagSeguro = PagSeguro.instance(Credential.sellerCredential(SELLER_EMAIL_LUCIUS,
-            SELLER_TOKEN_LUCIUS), PagSeguroEnv.SANDBOX);
+	final PagSeguro pagSeguro = PagSeguro.instance(Credential.sellerCredential(SELLER_EMAIL_SESSION,
+            SELLER_TOKEN_SESSION), PagSeguroEnv.SANDBOX);
 	
 	CreatedSession createdSession = pagSeguro.sessions().createSeller();
 	System.out.println(createdSession);
