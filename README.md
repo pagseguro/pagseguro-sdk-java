@@ -187,12 +187,6 @@ Notas
  - Para a utilizar o checkout transparente, é necessária a solicitação de ativação junto com a equipe do PagSeguro, maiores informações podem ser encontradas em [Como receber pagamentos pelo PagSeguro].
 
 
-Dúvidas?
-----------
-
-Em caso de dúvidas acesse nosso [fórum].
-
-
 Contribuições
 -------------
 
@@ -210,16 +204,14 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
   [java]: https://www.java.com
   [requisições de assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
   [assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
-  [requisições de pagamentos]: https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-pagamentos.html
+  [requisições de pagamentos]: https://dev.pagseguro.uol.com.br/documentacao/pagamentos
   [notificações]: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
   [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
   [transações por código]: https://pagseguro.uol.com.br/v3/guia-de-integracao/consulta-de-transacoes-por-codigo.html
   [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
   [transações abandonadas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-abandonadas.html
-  [fórum]: http://forum.pagseguro.uol.com.br/
-  [GitHub]: https://github.com/pagseguro/php/
-  [documentação oficial]: https://pagseguro.uol.com.br/v2/guia-de-integracao/tutorial-da-biblioteca-pagseguro-em-java.html
-  [Composer]: https://getcomposer.org
-  [pagseguro/php]: https://packagist.org/packages/pagseguro/php3
+  [fórum]: https://comunidade.pagseguro.uol.com.br/hc/pt-br/community/topics
+  [GitHub]: https://github.com/pagseguro/pagseguro-java-sdk
+  [documentação oficial]: https://dev.pagseguro.uol.com.br/bibliotecas/java
   [Como receber pagamentos pelo PagSeguro]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
 
