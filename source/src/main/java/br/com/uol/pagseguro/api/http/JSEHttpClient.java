@@ -46,7 +46,7 @@ public class JSEHttpClient implements HttpClient {
 
   private static Log LOGGER = LoggerFactory.getLogger(JSEHttpClient.class.getName());
   private static String DEFAULT_RESPONSE_CHARSET = "ISO-8859-1";
-  private final static String LIB_VERSION = "3.0.0";
+  private final static String LIB_VERSION = "3.1.0";
 
   /**
    * Execute the communication with api.
