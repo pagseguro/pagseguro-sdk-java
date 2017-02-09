@@ -160,6 +160,16 @@ public enum PaymentMethodName {
   SOROCRED("SOROCRED"),
 
   /**
+   * BANESECARD
+   */
+  BANESECARD("BANESECARD"),
+
+  /**
+   * UPBRASIL
+   */
+  UPBRASIL("UPBRASIL"),
+
+  /**
    * UNRECOGNIZED
    */
   UNRECOGNIZED(null);
