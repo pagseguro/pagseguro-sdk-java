@@ -167,6 +167,16 @@ public final class Endpoints {
   public static final String SESSION_CREATE_APPLICATION = "%s/v2/sessions?%s";
 
   /**
+   * Session creation for split application
+   */
+  public static final String SESSION_SPLIT_CREATE_APPLICATION = "%s/sessions";
+
+  /**
+   * Session creation for split seller
+   */
+  public static final String SESSION_SPLIT_CREATE= "%s/sessions";
+
+  /**
    * DIRECT PAYMENT
    */
 

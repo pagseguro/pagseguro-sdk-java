@@ -20,31 +20,34 @@
  */
 package br.com.uol.pagseguro.example.api.session;
 
+
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
 import br.com.uol.pagseguro.api.credential.Credential;
+import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.session.CreatedSession;
+import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 
 /**
  * @author PagSeguro Internet Ltda.
  */
-public class CreateApplicationSession {
+public class CreateSplitSellerSession {
 
-  public static void main(String[] args){
+    public static void main(String[] args){
+        String sellerEmail = "your_seller_email";
+        String sellerToken = "your_seller_token";
 
-    String appId = "your_app_id";
-    String appKey = "your_app_key";
+        final PagSeguro pagSeguro = PagSeguro
+                .instance(new SimpleLoggerFactory(), new JSEHttpClient(), Credential.sellerCredential(sellerEmail,
+                        sellerToken), PagSeguroEnv.SANDBOX);
 
-    try {
-      final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(appId,
-          appKey), PagSeguroEnv.SANDBOX);
+        try {
+            // Criacao de sessao de seller
+            CreatedSession createdSession = pagSeguro.sessions().createSplitSeller();
+            System.out.println(createdSession.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-      // Criacao de sessao de Aplicacao
-      CreatedSession createdSessionApplication = pagSeguro.sessions()
-          .create("843D9A7D2BFD4D1C871C79EE63FE9421");
-      System.out.println(createdSessionApplication.getId());
-    }catch (Exception e){
-      e.printStackTrace();
     }
-  }
 }

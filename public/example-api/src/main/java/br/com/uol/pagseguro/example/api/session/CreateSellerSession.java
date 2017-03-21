@@ -44,7 +44,7 @@ public class CreateSellerSession {
     try {
 
       // Criacao de sessao de seller
-      CreatedSession createdSession = pagSeguro.sessions().createSeller();
+      CreatedSession createdSession = pagSeguro.sessions().create();
       System.out.println(createdSession.getId());
     }catch (Exception e){
       e.printStackTrace();
