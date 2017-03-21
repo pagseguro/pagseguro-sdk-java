@@ -131,8 +131,14 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+3.1.1
+- Corrigido bug ao criar sessões para o split (/sessions)
 
-1.0.0
+3.1.0
+ - Adicionar parametros no header da requisição
+ - Adicionar novas bandeiras de cartão de crédito
+
+3.0.0
  - Criar requisições de pagamentos
  - Criar requisições de pagamentos com assinaturas
  - Criar requisições de cancelamento de transações

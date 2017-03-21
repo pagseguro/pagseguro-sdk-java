@@ -28,23 +28,23 @@ import br.com.uol.pagseguro.api.session.CreatedSession;
 /**
  * @author PagSeguro Internet Ltda.
  */
-public class CreateApplicationSession {
+public class CreateSplitApplicationSession {
 
-  public static void main(String[] args){
+    public static void main(String[] args){
 
-    String appId = "your_app_id";
-    String appKey = "your_app_key";
+        String appId = "your_app_id";
+        String appKey = "your_app_key";
 
-    try {
-      final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(appId,
-          appKey), PagSeguroEnv.SANDBOX);
+        try {
+            final PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(appId,
+                    appKey), PagSeguroEnv.SANDBOX);
 
-      // Criacao de sessao de Aplicacao
-      CreatedSession createdSessionApplication = pagSeguro.sessions()
-          .create("843D9A7D2BFD4D1C871C79EE63FE9421");
-      System.out.println(createdSessionApplication.getId());
-    }catch (Exception e){
-      e.printStackTrace();
+            // Criacao de sessao de Aplicacao
+            CreatedSession createdSessionApplication = pagSeguro.sessions()
+                    .createSplitApplication();
+            System.out.println(createdSessionApplication.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-  }
 }

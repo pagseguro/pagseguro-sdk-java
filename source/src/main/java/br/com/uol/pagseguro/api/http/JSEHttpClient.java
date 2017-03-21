@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -45,6 +46,7 @@ public class JSEHttpClient implements HttpClient {
 
   private static Log LOGGER = LoggerFactory.getLogger(JSEHttpClient.class.getName());
   private static String DEFAULT_RESPONSE_CHARSET = "ISO-8859-1";
+  private final static String LIB_VERSION = "3.1.1";
 
   /**
    * Execute the communication with api.
@@ -94,11 +96,17 @@ public class JSEHttpClient implements HttpClient {
    * @param headers    Headers
    */
   private static void writeHeaders(HttpURLConnection connection, Map<String, String> headers) {
-    if (headers != null) {
-      for (Entry<String, String> e : headers.entrySet()) {
-        connection.setRequestProperty(e.getKey(), e.getValue());
-      }
+    if (headers == null) {
+      headers = new HashMap<String, String>();
     }
+
+    headers.put("lib-description", "java:" + LIB_VERSION);
+    headers.put("language-engine-description", "java:" + System.getProperty("java.version"));
+
+    for (Entry<String, String> e : headers.entrySet()) {
+      connection.setRequestProperty(e.getKey(), e.getValue());
+    }
+
   }
 
   /**
@@ -108,7 +116,7 @@ public class JSEHttpClient implements HttpClient {
    * @param body       Body
    */
   private static void writeBody(HttpURLConnection connection, HttpRequestBody body) throws
-      IOException {
+          IOException {
     if (body == null) {
       return;
     }
@@ -142,7 +150,7 @@ public class JSEHttpClient implements HttpClient {
    * @return Response string
    */
   private static String getResponseString(InputStream responseStream, String responseCharset) throws
-      IOException {
+          IOException {
     if (responseStream == null || responseCharset == null) {
       throw new IllegalArgumentException();
     }
