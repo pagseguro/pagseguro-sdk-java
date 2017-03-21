@@ -131,6 +131,8 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+3.1.1
+- Corrigido bug ao criar sessões para o split (/sessions)
 
 3.1.0
  - Adicionar parametros no header da requisição
