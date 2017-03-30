@@ -46,12 +46,12 @@ import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 public class CreateSplitPaymentWithBankSlip {
   
   public static void main(String[] args){
-    String sellerEmail = "your_seller_email";
-    String sellerToken = "your_seller_token";
+    String appId = "your_app_id";
+    String appKey = "your_app_key";
 
     final PagSeguro pagSeguro = PagSeguro
         .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
-            Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
+            Credential.applicationCredential(appId, appKey), PagSeguroEnv.SANDBOX);
 
     try{
 
