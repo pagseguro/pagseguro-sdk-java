@@ -52,12 +52,12 @@ import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 public class CreateSplitPaymentWIthCreditCard {
   
   public static void main (String[] args){
-    String sellerEmail = "your_seller_email";
-    String sellerToken = "your_seller_token";
+    String appId = "your_app_id";
+    String appKey = "your_app_key";
 
     final PagSeguro pagSeguro = PagSeguro
         .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
-            Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
+            Credential.applicationCredential(appId, appKey), PagSeguroEnv.SANDBOX);
 
     try{
 
@@ -138,13 +138,13 @@ public class CreateSplitPaymentWIthCreditCard {
               .withHolder(new HolderBuilder()
                   .addDocument(new DocumentBuilder()
                       .withType(DocumentType.CPF)
-                      .withValue("88169375215")
+                      .withValue("99999999999")
                   )
-                  .withName("Daniel Hatanaka")
-                  .withBithDate(new SimpleDateFormat("dd/MM/yyyy").parse("09/11/1990"))
+                  .withName("Jose Comprador")
+                  .withBithDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"))
                   .withPhone(new PhoneBuilder()
-                      .withAreaCode("94")
-                      .withNumber("981284174")
+                      .withAreaCode("99")
+                      .withNumber("99999999")
                   )
               )
               .withToken("token")
