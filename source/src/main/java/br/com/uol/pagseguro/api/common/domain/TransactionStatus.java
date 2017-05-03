@@ -63,59 +63,39 @@ public class TransactionStatus {
   public enum Status {
 
     /**
-     * INITIAL
-     */
-    INITIAL(1),
-
-    /**
      * WAITING PAYMENT
      */
-    WAITING_PAYMENT(2),
+    WAITING_PAYMENT(1),
 
     /**
      * IN REVIEW
      */
-    IN_REVIEW(3),
+    IN_REVIEW(2),
 
     /**
      * APPROVED
      */
-    APPROVED(4),
+    APPROVED(3),
 
     /**
      * AVAILABLE
      */
-    AVAILABLE(5),
+    AVAILABLE(4),
 
     /**
      * IN DISPUTE
      */
-    IN_DISPUTE(6),
+    IN_DISPUTE(5),
 
     /**
      * RETURNED
      */
-    RETURNED(7),
+    RETURNED(6),
 
     /**
      * CANCELLED
      */
-    CANCELLED(8),
-
-    /**
-     * SELLER CHARGEBACK
-     */
-    SELLER_CHARGEBACK(9),
-
-    /**
-     * CONTESTATION
-     */
-    CONTESTATION(10),
-
-    /**
-     * PROCESSING REFUND
-     */
-    PROCESSING_REFUND(11),
+    CANCELLED(7),
 
     /**
      * UNRECOGNIZED
