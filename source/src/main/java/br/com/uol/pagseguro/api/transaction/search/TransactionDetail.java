@@ -201,4 +201,11 @@ public interface TransactionDetail extends TransactionIdentify {
    */
   CreditorFee getCreditorFees();
 
+  /**
+   * Installment Count
+   *
+   * @return Installment Count
+   */
+  Integer getInstallmentCount();
+
 }
