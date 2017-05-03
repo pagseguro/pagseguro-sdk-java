@@ -6,12 +6,25 @@
     <artifactId>pagseguro-api</artifactId>
     <version>3.1.1</version>
     <dependencies>
+        <!-- Compilacao -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
-            <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Testes -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
