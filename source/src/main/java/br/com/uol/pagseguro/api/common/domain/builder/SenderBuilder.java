@@ -42,6 +42,8 @@ public final class SenderBuilder implements Builder<Sender> {
 
   private String cpf;
 
+  private String cnpj;
+
   private String hash;
 
   /**
@@ -128,6 +130,18 @@ public final class SenderBuilder implements Builder<Sender> {
   }
 
   /**
+   * Set cpf of sender
+   *
+   * @param cnpj Cnpj
+   * @return Builder for sender
+   * @see Sender#getCnpj()
+   */
+  public SenderBuilder withCNPJ(String cnpj) {
+    this.cnpj = cnpj;
+    return this;
+  }
+
+  /**
    * Set hash of sender
    *
    * @param hash Hash
@@ -184,6 +198,11 @@ public final class SenderBuilder implements Builder<Sender> {
     @Override
     public String getCpf() {
       return this.senderBuilder.cpf;
+    }
+
+    @Override
+    public String getCnpj() {
+      return this.senderBuilder.cnpj;
     }
 
     @Override

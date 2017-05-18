@@ -51,6 +51,7 @@ public class SenderV2MapConverter extends AbstractMapConverter<Sender> {
     requestMap.putString("senderEmail", sender.getEmail());
     requestMap.putString("senderName", sender.getName());
     requestMap.putString("senderCPF", sender.getCpf());
+    requestMap.putString("senderCNPJ", sender.getCnpj());
     requestMap.putString("senderHash", sender.getHash());
     requestMap.putMap(SENDER_PHONE_MC.convert(sender.getPhone()));
     requestMap.putMap(SENDER_ADDRESS_MC.convert(sender.getAddress()));
@@ -71,6 +72,11 @@ public class SenderV2MapConverter extends AbstractMapConverter<Sender> {
     @Override
     protected String getPhoneNumberKey() {
       return "senderPhone";
+    }
+
+    @Override
+    protected String getType() {
+      return "senderType";
     }
 
   }

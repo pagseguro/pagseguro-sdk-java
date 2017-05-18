@@ -65,6 +65,13 @@ public interface Sender {
   String getCpf();
 
   /**
+   * Get cpf of sender
+   *
+   * @return Cnpj
+   */
+  String getCnpj();
+
+  /**
    * Get hash of sender
    *
    * @return Hash
