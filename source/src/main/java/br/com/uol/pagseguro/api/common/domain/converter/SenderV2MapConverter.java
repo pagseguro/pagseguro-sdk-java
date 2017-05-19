@@ -20,7 +20,9 @@
  */
 package br.com.uol.pagseguro.api.common.domain.converter;
 
+import br.com.uol.pagseguro.api.common.domain.Document;
 import br.com.uol.pagseguro.api.common.domain.Sender;
+import br.com.uol.pagseguro.api.common.domain.enums.DocumentType;
 import br.com.uol.pagseguro.api.utils.AbstractMapConverter;
 import br.com.uol.pagseguro.api.utils.RequestMap;
 
@@ -50,8 +52,13 @@ public class SenderV2MapConverter extends AbstractMapConverter<Sender> {
   protected void convert(RequestMap requestMap, Sender sender) {
     requestMap.putString("senderEmail", sender.getEmail());
     requestMap.putString("senderName", sender.getName());
-    requestMap.putString("senderCPF", sender.getCpf());
-    requestMap.putString("senderCNPJ", sender.getCnpj());
+    for (Document document : sender.getDocuments()) {
+      if (document.getType().equals(DocumentType.CPF)) {
+        requestMap.putString("senderCPF", document.getValue());
+      } else {
+        requestMap.putString("senderCNPJ", document.getValue());
+      }
+    }
     requestMap.putString("senderHash", sender.getHash());
     requestMap.putMap(SENDER_PHONE_MC.convert(sender.getPhone()));
     requestMap.putMap(SENDER_ADDRESS_MC.convert(sender.getAddress()));
