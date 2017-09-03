@@ -31,7 +31,7 @@ import br.com.uol.pagseguro.api.common.domain.Shipping;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 
 /**
- * Interface for Transaction Registration. Super class of the Direct Payment and Split Payment
+ * Interface for Transaction Registration. Super class of the Direct Payment
  *
  * @author PagSeguro Internet Ltda.
  */
