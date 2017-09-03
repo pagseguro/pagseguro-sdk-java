@@ -169,7 +169,6 @@ Changelog
  - Criar requisições de checkout transparente utilizando debito online
  - Criar requisições de checkout transparente utilizando cartão de crédito
  - Criar requisições de checkout transparente utilizando cartão de crédito internacional
- - Criar requisições de checkout transparente utilizando boleto com split payment
 
 Licença
 -------

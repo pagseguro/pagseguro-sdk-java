@@ -58,50 +58,6 @@ Entao e retornado o codigo da transacao transparente cartao internacional invali
 
 
 
-Cenario: Checkout transparente split boleto
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento boleto split
-Entao e retornado o codigo do boleto split
-
-
-
-Cenario: Checkout transparente split boleto invalido
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento boleto split invalido
-Entao e retornado o erro do boleto split invalido
-
-
-
-Cenario: Checkout transparente split cartao de credito
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento cartao de credito split
-Entao e retornado o codigo da transacao do cartao de credito split
-
-
-
-Cenario: Checkout transparente split cartao de credito invalido
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento cartao de credito split invalido
-Entao e retornado o erro da transacao do cartao de credito split invalido
-
-
-
-Cenario: Checkout transparente split debito
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento debito split
-Entao e retornado o codigo da transacao debito split
-
-
-
-
-Cenario: Checkout transparente split debito invalido
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento debito split invalido 
-Entao e retornado o erro da transacao debito split invalido
-
-
-
-
 Cenario: Requisicao de Pagamento
 Dado que esteja autenticado na api do pagseguro
 Quando crio uma requisicao de pagamento
