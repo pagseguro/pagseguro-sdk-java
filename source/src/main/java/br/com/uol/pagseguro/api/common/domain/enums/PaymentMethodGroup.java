@@ -34,7 +34,7 @@ public enum PaymentMethodGroup {
   BALANCE("BALANCE"),
 
   /**
-   * Bank Split
+   * Bank Slip
    */
   BANK_SLIP("BOLETO"),
 

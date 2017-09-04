@@ -60,7 +60,7 @@ public class CreateDirectPaymentWithCreditCard {
               Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
       // Checkout transparente (pagamento direto) com cartao de credito
-      TransactionDetail creditCardSplitTransaction =
+      TransactionDetail creditCardTransaction =
           pagSeguro.transactions().register(new DirectPaymentRegistrationBuilder()
               .withPaymentMode("default")
               .withCurrency(Currency.BRL)
@@ -129,7 +129,7 @@ public class CreateDirectPaymentWithCreditCard {
               )
               .withToken("token")
           );
-      System.out.println(creditCardSplitTransaction);
+      System.out.println(creditCardTransaction);
 
     }catch (Exception e){
       e.printStackTrace();

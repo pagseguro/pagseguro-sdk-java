@@ -167,16 +167,6 @@ public final class Endpoints {
   public static final String SESSION_CREATE_APPLICATION = "%s/v2/sessions?%s";
 
   /**
-   * Session creation for split application
-   */
-  public static final String SESSION_SPLIT_CREATE_APPLICATION = "%s/sessions";
-
-  /**
-   * Session creation for split seller
-   */
-  public static final String SESSION_SPLIT_CREATE= "%s/sessions";
-
-  /**
    * DIRECT PAYMENT
    */
 
@@ -193,14 +183,5 @@ public final class Endpoints {
    * List installments
    */
   public static final String INSTALLMENT_SEARCH = "%s/v2/installments?%s";
-
-  /**
-   * SPLIT PAYMENT
-   */
-
-  /**
-   * Split payment registration
-   */
-  public static final String SPLIT_PAYMENT = "%s/transactions/";
 
 }
