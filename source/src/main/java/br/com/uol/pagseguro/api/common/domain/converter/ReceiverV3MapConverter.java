@@ -47,13 +47,6 @@ public class ReceiverV3MapConverter extends AbstractMapConverter<Iterable<? exte
     for (Receiver receiver : receivers) {
       String receiverKey = String.format("receiver[%d].", i);
       requestMap.putString(receiverKey.concat("publicKey"), receiver.getPublicKey());
-      if (receiver.getSplit() != null) {
-        String splitKey = receiverKey.concat("split.");
-        requestMap.putCurrency(splitKey.concat("amount"), receiver.getSplit().getAmount());
-        requestMap.putCurrency(splitKey.concat("ratePercent"), receiver.getSplit()
-            .getRatePercent());
-        requestMap.putCurrency(splitKey.concat("feePercent"), receiver.getSplit().getFeePercent());
-      }
       i++;
     }
 
