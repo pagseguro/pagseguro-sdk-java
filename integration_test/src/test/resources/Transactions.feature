@@ -44,20 +44,6 @@ Entao e retornado o codigo da transacao transparente boleto invalido
 
 
 
-Cenario: Checkout transparente cartao internacional
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento transparente cartao internacional
-Entao e retornado o codigo da transacao transparente cartao internacional
-
-
-
-Cenario: Checkout transparente cartao internacional invalido
-Dado que esteja autenticado na api do pagseguro
-Quando crio uma requisicao de pagamento transparente cartao internacional invalido
-Entao e retornado o codigo da transacao transparente cartao internacional invalido
-
-
-
 Cenario: Requisicao de Pagamento
 Dado que esteja autenticado na api do pagseguro
 Quando crio uma requisicao de pagamento

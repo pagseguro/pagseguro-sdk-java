@@ -70,7 +70,6 @@ public class Transactions {
 	String pagSeguro = null;
 	String urlComparacao;
 	String TOKEN;
-	String TOKEN_INTERNACIONAL;
 	String HASH;
 	String EMAIL;
 	String CHAVEPUBLICA1;
@@ -93,8 +92,8 @@ public class Transactions {
 	@Dado("^que esteja autenticado na api do pagseguro$")
 	public void esteja_autenticado_pagseguro() throws Throwable {
 		
-		APP_ID = "INFORMAR O USER DE APLICAÇÃO";
-		APP_KEY = "INFORMAR A SENHA DE APLICAÇÃO";
+		APP_ID = "INFORMAR O USER DE APLICAï¿½ï¿½O";
+		APP_KEY = "INFORMAR A SENHA DE APLICAï¿½ï¿½O";
 		SELLER_EMAIL = "INFORMAR USUARIO SELLER";
 		SELLER_TOKEN = "INFORMAR SENHA SELLER";
 		EMAIL_SANDBOX = "INFORMAR E-MAIL SANDBOX";
@@ -102,7 +101,6 @@ public class Transactions {
 		COMPRADOR_USER = "INFORMAR USUARIO COMPRADOR";
 		COMPRADOR_SENHA = "INFORMAR SENHA COMPRADOR";
 		TOKEN =  "INFORMAR TOKEN GERADO";
-		TOKEN_INTERNACIONAL = "INFORMAR TOKEN INTERNACIONAL GERADO";
 		HASH = "INFORMAR HASH GERADO";
 		EMAIL = "INFORMAR EMAIL GERADO";
 		CHAVEPUBLICA1 = "INFORMAR CHAVE PUBLICA DE VENDEDOR 1";
@@ -630,7 +628,7 @@ public class Transactions {
 					.withBankSlip();
 
 			codigo = transactionBoleto.getPaymentLink();
-			System.out.println("Transação boleto finalizada com sucesso.");
+			System.out.println("Transaï¿½ï¿½o boleto finalizada com sucesso.");
 
 		} catch (PagSeguroBadRequestException e) {
 	
@@ -733,287 +731,7 @@ public class Transactions {
 
 	@Entao("^e retornado o codigo da transacao transparente boleto invalido$")
 	public void codigo_transacao_boleto_invalido() throws Throwable {
-		System.out.println("Transaçao Boleto Invalido com sucesso.");		
-	}
-	// Cenario: Checkout transparente cartao internacional
-	// Dado que esteja autenticado na api do pagseguro
-	// Quando crio uma requisicao de pagamento transparente cartao internacional
-	// Entao e retornado o codigo da transacao transparente cartao internacional
-
-	@Quando("^crio uma requisicao de pagamento transparente cartao internacional$")
-	public void requisicao_transparente_cartao_internacional() throws Throwable {
-
-		try {
-			final PagSeguro pagSeguro = PagSeguro.instance(
-					Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
-					PagSeguroEnv.SANDBOX);
-
-			TransactionDetail transactionInternational = pagSeguro
-					.transactions()
-					.register(
-							new DirectPaymentRegistrationBuilder()
-									.withPaymentMode("default")
-									.withCurrency(Currency.BRL)
-									.addItem(
-											new PaymentItemBuilder()
-													.withId("001")
-													.withDescription(
-															"Notebook Preto")
-													.withQuantity(1)
-													.withAmount(
-															new BigDecimal(
-																	100.00))
-
-									)
-									.withNotificationURL(
-											"www.lojateste.com.br/notification")
-									.withReference("DIRECT_PAYMENT")
-
-									.withSender(
-											new SenderBuilder()
-													.withName(
-															"Comprador Teste")
-													.withCPF("84815525269")
-
-													.withPhone(
-															new PhoneBuilder()
-																	.withAreaCode(
-																			"16")
-																	.withNumber(
-																			"981284174")
-
-													)
-													.withEmail(
-															EMAIL)
-													.withHash(
-															HASH))
-
-									.withShipping(
-											new ShippingBuilder()
-
-													.withAddress(
-															new AddressBuilder()
-
-																	.withStreet(
-																			"Rua teste")
-																	.withNumber(
-																			"1233")
-																	.withComplement(
-																			"complemento")
-																	.withDistrict(
-																			"Centro")
-																	.withPostalCode(
-																			"14800360")
-																	.withCity(
-																			"Araraquara")
-																	.withState(
-																			State.SP)
-																	.withCountry(
-																			"BRA"))
-													.withType(
-															ShippingType.Type.SEDEX)
-
-													.withCost(
-															new BigDecimal(
-																	20.00))))
-					.withCreditCard(
-							new CreditCardBuilder()
-									.withBillingAddress(
-											new AddressBuilder()
-													.withStreet("Rua Armand")
-													.withNumber("1233")
-													.withComplement("teste")
-													.withDistrict("Centro")
-													.withPostalCode("14800360")
-													.withCity("Araraquara")
-													.withState(State.SP)
-													.withCountry("BRA"))
-									.withInstallment(
-											new InstallmentBuilder()
-													.withQuantity(2)
-													.withValue(
-															new BigDecimal(
-																	60.00))
-													.withNoInterestInstallmentQuantity(
-															2))
-									.withHolder(
-											new HolderBuilder()
-													.addDocument(
-															new DocumentBuilder()
-																	.withType(
-																			DocumentType.CPF)
-																	.withValue(
-																			"04570568351"))
-													.withName(
-															"Comprador Teste")
-													.withBithDate(
-															new SimpleDateFormat(
-																	"dd/MM/yyyy")
-																	.parse("25/03/1991"))
-													.withPhone(
-															new PhoneBuilder()
-																	.withAreaCode(
-																			"16")
-																	.withNumber(
-																			"997398900")))
-									.withToken(
-											TOKEN_INTERNACIONAL));
-
-			codigo = transactionInternational.getPaymentLink();
-
-		} catch (PagSeguroBadRequestException e) {
-			System.out.println(e.getErrors());
-		}
-	}
-	@Entao("^e retornado o codigo da transacao transparente cartao internacional$")
-	public void retorno_codigo_transparente_cartao_internacional()
-			throws Throwable {
-		System.out.println(codigo);
-
-	}
-
-	// Cenario: Checkout transparente cartao internacional invalido
-	// Dado que esteja autenticado na api do pagseguro
-	// Quando crio uma requisicao de pagamento transparente cartao internacional
-	// Entao e retornado o codigo da transacao transparente cartao internacional
-
-	@Quando("^crio uma requisicao de pagamento transparente cartao internacional invalido$")
-	public void requisicao_transparente_internacional_invalido() throws Throwable {
-
-		try {
-			final PagSeguro pagSeguro = PagSeguro.instance(
-					Credential.sellerCredential(SELLER_EMAIL, SELLER_TOKEN),
-					PagSeguroEnv.SANDBOX);
-
-			TransactionDetail transactionInternational = pagSeguro
-					.transactions()
-					.register(
-							new DirectPaymentRegistrationBuilder()
-									.withPaymentMode("default")
-									.withCurrency(Currency.BRL)
-									.addItem(
-											new PaymentItemBuilder()
-													.withId("001")
-													.withDescription(
-															"Notebook Preto")
-													.withAmount(
-															new BigDecimal(
-																	100.00))
-
-									)
-									.withNotificationURL(
-											"www.lojateste.com.br/notification")
-									.withReference("DIRECT_PAYMENT")
-
-									.withSender(
-											new SenderBuilder()
-													.withName(
-															"Comprador Teste")
-													.withCPF("84815525269")
-
-													.withPhone(
-															new PhoneBuilder()
-																	.withAreaCode(
-																			"16")
-																	.withNumber(
-																			"981284174")
-
-													)
-													.withEmail(
-															EMAIL)
-													.withHash(
-															HASH))
-
-									.withShipping(
-											new ShippingBuilder()
-
-													.withAddress(
-															new AddressBuilder()
-
-																	.withStreet(
-																			"Rua teste")
-																	.withNumber(
-																			"1233")
-																	.withComplement(
-																			"complemento")
-																	.withDistrict(
-																			"Centro")
-																	.withPostalCode(
-																			"14800360")
-																	.withCity(
-																			"Araraquara")
-																	.withState(
-																			State.SP)
-																	.withCountry(
-																			"BRA"))
-													.withType(
-															ShippingType.Type.SEDEX)
-
-													.withCost(
-															new BigDecimal(
-																	20.00))))
-					.withCreditCard(
-							new CreditCardBuilder()
-									.withBillingAddress(
-											new AddressBuilder()
-													.withStreet("Rua Armando")
-													.withNumber("1233")
-													.withComplement("teste")
-													.withDistrict("Centro")
-													.withPostalCode("14800360")
-													.withCity("Araraquara")
-													.withState(State.SP)
-													.withCountry("BRA"))
-									.withInstallment(
-											new InstallmentBuilder()
-													.withQuantity(2)
-													.withValue(
-															new BigDecimal(
-																	60.00))
-													.withNoInterestInstallmentQuantity(
-															2))
-									.withHolder(
-											new HolderBuilder()
-													.addDocument(
-															new DocumentBuilder()
-																	.withType(
-																			DocumentType.CPF)
-																	.withValue(
-																			"04570568351"))
-													.withName(
-															"Comprador Teste")
-													.withBithDate(
-															new SimpleDateFormat(
-																	"dd/MM/yyyy")
-																	.parse("25/03/1996"))
-													.withPhone(
-															new PhoneBuilder()
-																	.withAreaCode(
-																			"16")
-																	.withNumber(
-																			"997398918")))
-									.withToken(
-										TOKEN_INTERNACIONAL));
-
-			codigo = transactionInternational.getPaymentLink();
-			
-			
-
-		} catch (PagSeguroBadRequestException e) {
-			System.out.println(e.getErrors());
-
-			// O que vem da API do Pagseguro
-			ServerErrors serverErros = e.getErrors();
-			ServerError serverError = serverErros.getErrors().iterator().next();
-
-			assertEquals("item quantity is required.", serverError.getMessage());
-			assertEquals(new Integer(53074), serverError.getCode());
-		}
-	}
-	@Entao("^e retornado o codigo da transacao transparente cartao internacional invalido$")
-	public void erro_codigo_cartao_internacional_invalido() throws Throwable {
-
-		System.out.println("Transação cartao internacional invalido.");
+		System.out.println("Transaï¿½ao Boleto Invalido com sucesso.");		
 	}
 
 
@@ -1073,7 +791,7 @@ public class Transactions {
 																.withState(
 																		State.SP)
 																.withCity(
-																		"São Paulo")
+																		"Sï¿½o Paulo")
 																.withDistrict(
 																		"Pinheiros")
 																.withStreet(
@@ -1141,10 +859,10 @@ public class Transactions {
 	public void retorno_resultado_finalizacao_checkout(){
 	
 
-		if(driver.getPageSource().contains("O pagamento está em processamento.")){
+		if(driver.getPageSource().contains("O pagamento estï¿½ em processamento.")){
 			System.out.println("Checkout finalizado com sucesso.");
 		}else{
-			System.out.println("Não foi possível finalizar e comparar o resultado na finalização do checkout.");
+			System.out.println("Nï¿½o foi possï¿½vel finalizar e comparar o resultado na finalizaï¿½ï¿½o do checkout.");
 		}
 		
 		driver.quit();
@@ -1207,7 +925,7 @@ public class Transactions {
 																	.withState(
 																			State.SP)
 																	.withCity(
-																			"São Paulo")
+																			"Sï¿½o Paulo")
 																	.withDistrict(
 																			"Pinheiros")
 																	.withStreet(
@@ -1229,7 +947,7 @@ public class Transactions {
 
 	@Entao("^e retornado um erro de transacao$")
 	public void retorno_erro_normal() throws Throwable {
-			System.out.println("Erro transação.");
+			System.out.println("Erro transaï¿½ï¿½o.");
 			
 	}
 
@@ -1298,7 +1016,7 @@ public class Transactions {
 										new PreApprovalBuilder()
 												.withName("Leonardo")
 												.withDetails(
-														"Todo dia 28 será cobrado o valor de 100,00 referente ao seguro contra roubo do notebook")
+														"Todo dia 28 serï¿½ cobrado o valor de 100,00 referente ao seguro contra roubo do notebook")
 												.withAmountPerPayment(
 														new BigDecimal(100.00))											
 												.withPeriod("Monthly")
@@ -1404,7 +1122,7 @@ public class Transactions {
 											new PreApprovalBuilder()
 													.withName("Comprador Teste")
 													.withDetails(
-															"Todo dia 28 será cobrado o valor de 100,00 referente ao seguro contra roubo do notebook")
+															"Todo dia 28 serï¿½ cobrado o valor de 100,00 referente ao seguro contra roubo do notebook")
 													.withAmountPerPayment(
 															new BigDecimal(
 																	100.00))
@@ -1449,7 +1167,7 @@ public class Transactions {
 	
 	@Entao("^e retornado um erro de transacao com assinatura$")
 	public void retorno_erro_transacao_assinatura() throws Throwable {
-			System.out.println("Erro transação com assinatura");
+			System.out.println("Erro transaï¿½ï¿½o com assinatura");
 		
 	}
 
@@ -1530,11 +1248,11 @@ public class Transactions {
 
 	@Entao("^e retornado um erro na transacao de cancelamento$")
 	public void retorno_erro_transacao_cancelamento() throws Throwable {
-		System.out.println("Transação de Cancelamento com Erro.");
+		System.out.println("Transaï¿½ï¿½o de Cancelamento com Erro.");
 		
 	}
 
-	// Cenario: Requisição de estorno de pagamento
+	// Cenario: Requisiï¿½ï¿½o de estorno de pagamento
 	// Dado que esteja autenticado na api do pagseguro
 	// Quando crio uma requisicao de estorno de pagamento
 	// Entao e retornado a resposta do servidor
@@ -1634,7 +1352,7 @@ public class Transactions {
 
 	@Entao("^e retornado um erro no estorno$")
 	public void retorno_erro_estorno() throws Throwable {
-			System.out.println("Requisição Estorno de Pagamento inválido.");
+			System.out.println("Requisiï¿½ï¿½o Estorno de Pagamento invï¿½lido.");
 		
 	}
 	// Cenario: Requisicao de estorno parcial
@@ -1781,7 +1499,7 @@ public class Transactions {
 
 	@Entao("^e retornado um erro de consulta por codigo$")
 	public void retorno_erro_consulta_codigo() throws Throwable {
-			System.out.println("Pesquiso transação codigo inválido com sucesso.");
+			System.out.println("Pesquiso transaï¿½ï¿½o codigo invï¿½lido com sucesso.");
 		
 	}
 
@@ -1862,7 +1580,7 @@ public class Transactions {
 
 	@Entao("^e retornado um erro de consulta de transacoes por data$")
 	public void retorno_erro_consulta_transacao_data() throws Throwable {
-			System.out.println("Transação intervalo inválido.");
+			System.out.println("Transaï¿½ï¿½o intervalo invï¿½lido.");
 		
 	}
 
@@ -1952,7 +1670,7 @@ public class Transactions {
 	}
 	@Entao("^e retornado um erro de consulta de transacoes abandonada$")
 	public void erro_consulta_transacao_abandonadas() throws Throwable {
-			System.out.println("Transação abandonada inválida.");
+			System.out.println("Transaï¿½ï¿½o abandonada invï¿½lida.");
 	}
 
 	// Cenario: Consultar transacoes por codigo de referencia
@@ -2015,7 +1733,7 @@ public class Transactions {
 
 	@Entao("^e retornada um erro de consulta de transacao pela referencia$")
 	public void retorno_erro_referencia() throws Throwable {
-			System.out.println("Erro Consulta Transação por referência.");
+			System.out.println("Erro Consulta Transaï¿½ï¿½o por referï¿½ncia.");
 
 	}
 }

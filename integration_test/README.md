@@ -62,8 +62,6 @@ Informar Email (com extensão @sandbox.pagseguro.com.br) e HASH gerado nos metó
 - requisicao_transparente_debito_invalido; (INFORMAR APENAS UM HASH VÁLIDO)
 - requisicao_pagamento_transparente_boleto;
 - requisicao_transparente_boleto_invalido;
-- requisicao_transparente_cartao_internacional; (INFORMAR HASH COM CREDENCIAIS QUE GERARAM UM HASH DE CARTAO INTERNACIONAL)
-- requisicao_transparente_internacional_invalido;
 - requisicao_pagamento;
 - requisicao_pagamento_invalida;
 - requisicao_pagamento_assinatura;
@@ -72,8 +70,6 @@ Informar Email (com extensão @sandbox.pagseguro.com.br) e HASH gerado nos metó
 Informar TOKEN gerado nos metodos abaixo:
 - requisicao_transparente_debito;
 - requisicao_transparente_invalida;
-- requisicao_transparente_cartao_internacional; (INFORMAR TOKEN DE CARTAO INTERNACIONAL GERADO PELO JAVASCRIPT)
-- requisicao_transparente_internacional_invalido; (INFORMAR TOKEN DE CARTAO INTERNACIONAL GERADO PELO JAVASCRIPT)
 
 Gerar TOKEN e HASH:
 - Na classe Session, informe os dados de aplicação válido. Rode apenas a aplicação da Session, informando no StepsRunner "tags = "@session" e no Session.feature, informando @session sob o "Cenario: Criar Sessão"
@@ -81,11 +77,6 @@ Gerar TOKEN e HASH:
 - Suba a aplicação localmente e acesse via url.
 - Entre no console do navegador e capture o HASH.
 - No proprio console clique em object e capture o código token.
-
-Gerar Token e HASH de Cartão Internacional:
-- Na classe Session, informar os dados de aplicação que seja válido para gerar um cartão internacional.
-- No Arquivo javascript("getdatajs-default.html") informar internationalMode como TRUE
-- Fazer os passos para a geração de um ID de sessão e capturação de HASH e TOKEN.
 
 
 
@@ -170,7 +161,6 @@ Changelog
  - Criar requisições de checkout transparente utilizando boleto
  - Criar requisições de checkout transparente utilizando debito online
  - Criar requisições de checkout transparente utilizando cartão de crédito
- - Criar requisições de checkout transparente utilizando cartão de crédito internacional
  - Consultar transações abandonadas
  - Consultar Autorizações
  - Consultar Autorizações por referência
