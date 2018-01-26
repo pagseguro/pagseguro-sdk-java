@@ -131,6 +131,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+4.0.0
+- Remoção de funcionalidade depreciada (checkout com cartão de crédito internacional)
+
 3.2.0
 - Remoção de funcionalidades depreciadas
 
@@ -168,7 +171,6 @@ Changelog
  - Criar requisições de checkout transparente utilizando boleto
  - Criar requisições de checkout transparente utilizando debito online
  - Criar requisições de checkout transparente utilizando cartão de crédito
- - Criar requisições de checkout transparente utilizando cartão de crédito internacional
 
 Licença
 -------
