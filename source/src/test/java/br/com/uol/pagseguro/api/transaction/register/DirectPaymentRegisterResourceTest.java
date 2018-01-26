@@ -183,18 +183,6 @@ public class DirectPaymentRegisterResourceTest extends Resource4Test {
   }
 
   @Test
-  public void shouldInternationalCreditCardRegister() throws IOException, ParseException {
-    HttpResponse response = new HttpResponse(200, responseAsString);
-    when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
-        any(HttpRequestBody.class))).thenReturn(response);
-
-    CreditCard internationalCreditCard = getCreditCard();
-
-    TransactionDetail transactionDetail = directPaymentRegisterResource.withInternationalCreditCard(internationalCreditCard);
-    assertTransaction(transactionDetail);
-  }
-
-  @Test
   public void shouldOnlineDebitRegister() throws IOException, ParseException {
     HttpResponse response = new HttpResponse(200, responseAsString);
     when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
