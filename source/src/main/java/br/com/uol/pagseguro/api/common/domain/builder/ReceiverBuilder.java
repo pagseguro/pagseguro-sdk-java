@@ -21,7 +21,6 @@
 package br.com.uol.pagseguro.api.common.domain.builder;
 
 import br.com.uol.pagseguro.api.common.domain.Receiver;
-import br.com.uol.pagseguro.api.common.domain.Split;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 /**
@@ -31,31 +30,7 @@ import br.com.uol.pagseguro.api.utils.Builder;
  */
 public final class ReceiverBuilder implements Builder<Receiver> {
 
-  private Split split;
   private String publicKey;
-
-  /**
-   * Set split of receiver
-   *
-   * @param split Split
-   * @return Builder for receiver
-   * @see Receiver#getSplit()
-   */
-  public ReceiverBuilder withSplit(Split split) {
-    this.split = split;
-    return this;
-  }
-
-  /**
-   * Set split of receiver
-   *
-   * @param splitBuilder Builder for Split
-   * @return Builder for receiver
-   * @see Receiver#getSplit()
-   */
-  public ReceiverBuilder withSplit(Builder<Split> splitBuilder) {
-    return withSplit(splitBuilder.build());
-  }
 
   /**
    * Set public key of receiver
@@ -94,11 +69,6 @@ public final class ReceiverBuilder implements Builder<Receiver> {
     @Override
     public String getPublicKey() {
       return receiverBuilder.publicKey;
-    }
-
-    @Override
-    public Split getSplit() {
-      return receiverBuilder.split;
     }
   }
 }

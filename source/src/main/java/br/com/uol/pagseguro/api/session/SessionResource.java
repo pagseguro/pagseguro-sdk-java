@@ -85,40 +85,4 @@ public class SessionResource {
 
     return response.parseXMLContent(pagSeguro, CreatedSessionXML.class);
   }
-
-  /**
-   * Create split session by application
-   *
-   * @return Response of session create
-   * @see CreatedSession
-   */
-  public CreatedSession createSplitApplication() {
-    final HttpResponse response;
-    try {
-      response = httpClient.execute(HttpMethod.POST, String.format(Endpoints.SESSION_SPLIT_CREATE_APPLICATION,
-              pagSeguro.getHost()), null, null);
-    } catch (IOException e) {
-      throw new PagSeguroLibException(e);
-    }
-
-    return response.parseXMLContent(pagSeguro, CreatedSessionXML.class);
-  }
-
-  /**
-   * Create split seller session
-   *
-   * @return Response of session create
-   * @see CreatedSession
-   */
-  public CreatedSession createSplitSeller() {
-    final HttpResponse response;
-    try {
-      response = httpClient.execute(HttpMethod.POST, String.format(Endpoints.SESSION_SPLIT_CREATE,
-              pagSeguro.getHost()), null, null);
-    } catch (IOException e) {
-      throw new PagSeguroLibException(e);
-    }
-
-    return response.parseXMLContent(pagSeguro, CreatedSessionXML.class);
-  }
 }

@@ -131,8 +131,14 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+4.0.0
+- Remoção de funcionalidade depreciada (checkout com cartão de crédito internacional)
+
+3.2.0
+- Remoção de funcionalidades depreciadas
+
 3.1.1
-- Corrigido bug ao criar sessões para o split (/sessions)
+- Corrigido bug ao criar sessões (/sessions)
 
 3.1.0
  - Adicionar parametros no header da requisição
@@ -165,11 +171,6 @@ Changelog
  - Criar requisições de checkout transparente utilizando boleto
  - Criar requisições de checkout transparente utilizando debito online
  - Criar requisições de checkout transparente utilizando cartão de crédito
- - Criar requisições de checkout transparente utilizando cartão de crédito internacional
- - Criar requisições de checkout transparente utilizando boleto com split payment
- - Criar requisições de checkout transparente utilizando debito online com split payment
- - Criar requisições de checkout transparente utilizando cartão de crédito com split payment
- - Criar requisições de checkout transparente utilizando cartão de crédito internacional com split payment
 
 Licença
 -------

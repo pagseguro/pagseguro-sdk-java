@@ -32,9 +32,6 @@ import br.com.uol.pagseguro.api.http.HttpResponse;
 import br.com.uol.pagseguro.api.transaction.register.DirectPaymentRegisterResource;
 import br.com.uol.pagseguro.api.transaction.register.DirectPaymentRegistration;
 import br.com.uol.pagseguro.api.transaction.register.DirectPaymentRegistrationBuilder;
-import br.com.uol.pagseguro.api.transaction.register.SplitPaymentRegisterResource;
-import br.com.uol.pagseguro.api.transaction.register.SplitPaymentRegistration;
-import br.com.uol.pagseguro.api.transaction.register.SplitPaymentRegistrationBuilder;
 import br.com.uol.pagseguro.api.transaction.search.TransactionSearchResource;
 import br.com.uol.pagseguro.api.utils.Builder;
 import br.com.uol.pagseguro.api.utils.CharSet;
@@ -204,31 +201,6 @@ public class TransactionsResource {
    */
   public void refundByCode(String code, BigDecimal amount) {
     refund(new TransactionIdentifyBuilder().withCode(code).build(), amount);
-  }
-
-  /**
-   * Factory to execute split payment registration
-   *
-   * @param splitPaymentRegistrationBuilder Builder for split payment registration
-   * @return Factory to execute split payment  registration
-   * @see SplitPaymentRegistrationBuilder
-   * @see SplitPaymentRegisterResource
-   */
-  public SplitPaymentRegisterResource register(
-      SplitPaymentRegistrationBuilder splitPaymentRegistrationBuilder) {
-    return register(splitPaymentRegistrationBuilder.build());
-  }
-
-  /**
-   * Factory to execute split payment registration
-   *
-   * @param splitPaymentRegistration Split Payment registration
-   * @return Factory to execute split payment registration
-   * @see SplitPaymentRegistration
-   * @see SplitPaymentRegisterResource
-   */
-  public SplitPaymentRegisterResource register(SplitPaymentRegistration splitPaymentRegistration) {
-    return new SplitPaymentRegisterResource(pagSeguro, httpClient, splitPaymentRegistration);
   }
 
   /**

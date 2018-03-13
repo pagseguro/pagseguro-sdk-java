@@ -46,7 +46,7 @@ import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
 /**
  * Factory to register direct payments.
  * You can create direct payments with bank slip,
- * online debit, credit card national and international credit card
+ * online debit and credit card national
  *
  * @author PagSeguro Internet Ltda.
  */
@@ -158,52 +158,6 @@ public class DirectPaymentRegisterResource {
    */
   public TransactionDetail withCreditCard(Builder<CreditCard> creditCardBuilder) {
     return withCreditCard(creditCardBuilder.build());
-  }
-
-  /**
-   * Execute direct payment with international credit card
-   *
-   * @param internationalCreditCard Instance with attributes of International Credit Card
-   * @return Response of direct payment registration
-   * @see TransactionDetail
-   * @see CreditCard
-   */
-  public TransactionDetail withInternationalCreditCard(CreditCard internationalCreditCard) {
-    LOGGER.info("Iniciando pagamento direto com cartao de credito internacional");
-    LOGGER.info("Convertendo valores");
-    final RequestMap map = DIRECT_PAYMENT_REGISTRATION_MC.convert(directPaymentRegistration);
-    map.putString("paymentMethod", TransactionMethod.PaymentMethod.CREDIT_CARD.getName());
-    map.putMap(CREDIT_CARD_MC.convert(internationalCreditCard));
-    LOGGER.info("Valores convertidos");
-    final HttpResponse response;
-    try {
-      LOGGER.debug(String.format("Parametros: %s", map));
-      response = httpClient.execute(HttpMethod.POST,
-          String.format(Endpoints.DIRECT_PAYMENT, pagSeguro.getHost()), null,
-          map.toHttpRequestBody(CharSet.ENCODING_ISO));
-      LOGGER.debug(String.format("Resposta: %s", response.toString()));
-    } catch (IOException e) {
-      LOGGER.error("Erro ao executar pagamento direto com cartao de credito internacional");
-      throw new PagSeguroLibException(e);
-    }
-    LOGGER.info("Parseando XML de resposta");
-    TransactionDetail transaction = response.parseXMLContent(pagSeguro, TransactionDetailXML.class);
-    LOGGER.info("Parseamento finalizado");
-    LOGGER.info("Pagamento direto com cartao de credito internacional finalizado");
-    return transaction;
-  }
-
-  /**
-   * Execute direct payment with international credit card
-   *
-   * @param internationalCreditCardBuilder Builder for attributes of International Credit Card
-   * @return Response of direct payment registration
-   * @see TransactionDetail
-   * @see CreditCard
-   */
-  public TransactionDetail withInternationalCreditCard(
-      Builder<CreditCard> internationalCreditCardBuilder) {
-    return withInternationalCreditCard(internationalCreditCardBuilder.build());
   }
 
   /**
