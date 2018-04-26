@@ -9,6 +9,8 @@ A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilit
  - Criar [requisições de pagamentos]
  - Criar [requisições de assinaturas]
  - Cancelar [assinaturas]
+ - Cancelar [transações por código]
+ - Estornar [transações por código]
  - Consultar [assinaturas]
  - Consultar [transações por código]
  - Consultar [transações por intervalo de datas]
