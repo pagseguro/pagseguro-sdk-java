@@ -40,7 +40,7 @@ public class InstallmentsListResourceTest extends Resource4Test{
   public void setUp() throws Exception {
     installmentsListResource = new InstallmentsListResource(pagSeguro, httpClient);
 
-    installmentRequest = new InstallmentRequestBuilder()
+    installmentRequest = new InstallmentListingBuilder()
         .withCardBrand("visa")
         .withAmount(new BigDecimal(100))
         .withMaxInstallmentNoInterest(2)

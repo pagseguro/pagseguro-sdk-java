@@ -48,7 +48,6 @@ public class InstallmentList {
               Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
       //Lista as opções de parcelamento
-
       DataList<? extends InstallmentDetail> installmentDetails =
           pagSeguro.installments().list(new InstallmentListingBuilder()
               .withCardBrand("visa")

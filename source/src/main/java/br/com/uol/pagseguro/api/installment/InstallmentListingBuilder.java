@@ -33,7 +33,7 @@ import br.com.uol.pagseguro.api.utils.Builder;
  *
  * @author PagSeguro Internet Ltda.
  */
-public final class InstallmentRequestBuilder implements Builder<InstallmentRequest> {
+public final class InstallmentListingBuilder implements Builder<InstallmentRequest> {
 
   private String cardBrand = null;
   private BigDecimal amount = null;
@@ -47,7 +47,7 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    * @return Builder for installment
    * @see InstallmentRequest#getCardBrand()
    */
-  public InstallmentRequestBuilder withCardBrand(String cardBrand) {
+  public InstallmentListingBuilder withCardBrand(String cardBrand) {
     this.cardBrand = cardBrand;
     return this;
   }
@@ -59,7 +59,7 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    * @return Builder for installment
    * @see InstallmentRequest#getAmount()
    */
-  public InstallmentRequestBuilder withAmount(BigDecimal amount) {
+  public InstallmentListingBuilder withAmount(BigDecimal amount) {
     this.amount = amount;
     return this;
   }
@@ -71,7 +71,7 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    * @return Builder for installment
    * @see InstallmentRequest#getMaxInstallmentNoInterest()
    */
-  public InstallmentRequestBuilder withMaxInstallmentNoInterest(Integer maxInstallmentNoInterest) {
+  public InstallmentListingBuilder withMaxInstallmentNoInterest(Integer maxInstallmentNoInterest) {
     this.maxInstallmentNoInterest = maxInstallmentNoInterest;
     return this;
   }
@@ -83,7 +83,7 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    * @return Builder for installment
    * @see InstallmentRequest#getParameters()
    */
-  public InstallmentRequestBuilder addParameter(Parameter parameter) {
+  public InstallmentListingBuilder addParameter(Parameter parameter) {
     parameters.add(parameter);
     return this;
   }
@@ -95,7 +95,7 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    * @return Builder for installment
    * @see InstallmentRequest#getParameters()
    */
-  public InstallmentRequestBuilder addParamenter(Builder<Parameter> parameterBuilder) {
+  public InstallmentListingBuilder addParamenter(Builder<Parameter> parameterBuilder) {
     return addParameter(parameterBuilder.build());
   }
 
@@ -106,7 +106,7 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    * @return Builder for installment
    * @see InstallmentRequest#getParameters()
    */
-  public InstallmentRequestBuilder addParameters(Iterable<? extends Parameter> parameters) {
+  public InstallmentListingBuilder addParameters(Iterable<? extends Parameter> parameters) {
     for (Parameter parameter : parameters) {
       addParameter(parameter);
     }
@@ -128,31 +128,31 @@ public final class InstallmentRequestBuilder implements Builder<InstallmentReque
    */
   private static class SimpleInstallmentRequest implements InstallmentRequest {
 
-    private final InstallmentRequestBuilder installmentRequestBuilder;
+    private final InstallmentListingBuilder installmentListingBuilder;
 
     public SimpleInstallmentRequest(
-        InstallmentRequestBuilder installmentRequestBuilder) {
-      this.installmentRequestBuilder = installmentRequestBuilder;
+        InstallmentListingBuilder installmentListingBuilder) {
+      this.installmentListingBuilder = installmentListingBuilder;
     }
 
     @Override
     public String getCardBrand() {
-      return installmentRequestBuilder.cardBrand;
+      return installmentListingBuilder.cardBrand;
     }
 
     @Override
     public BigDecimal getAmount() {
-      return installmentRequestBuilder.amount;
+      return installmentListingBuilder.amount;
     }
 
     @Override
     public Integer getMaxInstallmentNoInterest() {
-      return installmentRequestBuilder.maxInstallmentNoInterest;
+      return installmentListingBuilder.maxInstallmentNoInterest;
     }
 
     @Override
     public List<? extends Parameter> getParameters() {
-      return installmentRequestBuilder.parameters;
+      return installmentListingBuilder.parameters;
     }
   }
 }

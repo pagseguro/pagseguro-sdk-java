@@ -133,6 +133,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+4.1.0
+- Melhorias e adicionado exemplos das transações de cancelamento e estorno (total e parcial)
+
 4.0.0
 - Remoção de funcionalidade depreciada (checkout com cartão de crédito internacional)
 
