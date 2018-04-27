@@ -57,7 +57,7 @@ public class PagSeguroProdEnv extends PagSeguro {
    */
   @Override
   public String getHostRedirect() {
-    return "https://ws.pagseguro.uol.com.br";
+    return "https://pagseguro.uol.com.br";
   }
 
   @Override
