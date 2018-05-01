@@ -133,6 +133,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+4.2.0
+- Criação de sessão para recorrência transparente 
+
 4.1.0
 - Melhorias e adicionado exemplos das transações de cancelamento e estorno (total e parcial)
 

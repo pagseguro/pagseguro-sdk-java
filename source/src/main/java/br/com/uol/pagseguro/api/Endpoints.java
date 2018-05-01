@@ -167,6 +167,16 @@ public final class Endpoints {
   public static final String SESSION_CREATE_APPLICATION = "%s/v2/sessions?%s";
 
   /**
+   * Session creation for seller
+   */
+  public static final String SESSION_DIRECT_PRE_APPROVAL_CREATE = "%s/sessions";
+
+  /**
+   * Session creation for application
+   */
+  public static final String SESSION_DIRECT_PRE_APPROVAL_CREATE_APPLICATION = "%s/sessions?%s";
+
+  /**
    * DIRECT PAYMENT
    */
 

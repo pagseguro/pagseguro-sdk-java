@@ -94,9 +94,9 @@ public abstract class PagSeguro {
   }
 
   /**
-   * Get factory to pre approval
+   * Get factory to session
    *
-   * @return Factory to pre approval
+   * @return Factory to session
    */
   public SessionResource sessions() {
     return new SessionResource(this, httpClient);
