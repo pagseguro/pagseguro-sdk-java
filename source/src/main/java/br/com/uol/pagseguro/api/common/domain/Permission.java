@@ -31,21 +31,21 @@ public interface Permission {
   /**
    * Get code of permission
    *
-   * @return
+   * @return Permission code
    */
   PermissionCode getCode();
 
   /**
    * Get status of permission
    *
-   * @return
+   * @return status
    */
   String getStatus();
 
   /**
    * Get last update of permission
    *
-   * @return
+   * @return last update date
    */
   Date getLastUpdate();
 

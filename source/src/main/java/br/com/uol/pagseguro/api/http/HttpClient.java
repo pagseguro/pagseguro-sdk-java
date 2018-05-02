@@ -38,6 +38,7 @@ public interface HttpClient {
    * @param headers   Headers
    * @param body      Body
    * @return Http response
+   * @throws IOException if a problem occurs
    */
   HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers, HttpRequestBody body)
       throws IOException;

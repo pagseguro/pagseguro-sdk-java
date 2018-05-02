@@ -194,6 +194,7 @@ public final class RequestMap {
    *
    * @param charset Encoding
    * @return Map converted in a url encoded
+   * @throws UnsupportedEncodingException if not accepted encode is used
    */
   public String toUrlEncode(String charset) throws UnsupportedEncodingException {
     StringBuilder sb = new StringBuilder();
@@ -213,6 +214,7 @@ public final class RequestMap {
    * @param charset Encoding
    * @return Http Request Body
    * @see HttpRequestBody
+   * @throws UnsupportedEncodingException if not accepted encode is used
    */
   public HttpRequestBody toHttpRequestBody(String charset) throws UnsupportedEncodingException {
     return new HttpRequestBody(//
