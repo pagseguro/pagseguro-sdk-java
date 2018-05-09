@@ -28,6 +28,11 @@ package br.com.uol.pagseguro.api.common.domain.enums;
 public enum State {
 
   /**
+   * Acronym for Acre
+   */
+  AC("AC"),
+
+  /**
    * Acronym for Alagoas
    */
   AL("AL"),
@@ -93,9 +98,14 @@ public enum State {
   PB("PB"),
 
   /**
-   * Acronym for Pernambuco
+   * Acronym for Parana
    */
   PR("PR"),
+
+  /**
+   * Acronym for Pernambuco
+   */
+  PE("PE"),
 
   /**
    * Acronym for Piauí
