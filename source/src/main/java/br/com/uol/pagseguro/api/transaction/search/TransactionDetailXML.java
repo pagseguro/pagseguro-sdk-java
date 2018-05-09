@@ -88,6 +88,8 @@ public class TransactionDetailXML implements TransactionDetail {
 
   private CreditorFeeXML creditorFees;
 
+  private Integer installmentCount;
+
   TransactionDetailXML() {
   }
 
@@ -318,6 +320,15 @@ public class TransactionDetailXML implements TransactionDetail {
   }
 
   @Override
+  public Integer getInstallmentCount() {
+    return installmentCount;
+  }
+
+  public void setInstallmentCount(Integer installmentCount) {
+    this.installmentCount = installmentCount;
+  }
+
+  @Override
   public String toString() {
     return "TransactionDetailXML{" +
         "code='" + code + '\'' +
@@ -341,6 +352,7 @@ public class TransactionDetailXML implements TransactionDetail {
         ", escrowEndDate=" + escrowEndDate +
         ", cancellationSource='" + cancellationSource + '\'' +
         ", creditorFeeXML=" + creditorFees +
+        ", installmentCount=" + installmentCount +
         '}';
   }
 }

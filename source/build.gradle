@@ -4,13 +4,12 @@ version '3.1.1'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.6
 
 repositories {
-    maven {
-        url 'http://repo.mvn.intranet.s2it.com.br/nexus/content/groups/public/'
-    }
+    mavenCentral()
 }
 
 dependencies {

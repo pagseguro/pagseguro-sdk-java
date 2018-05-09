@@ -144,6 +144,10 @@ public interface TransactionPaymentMethod {
      */
     ONLINE_DEBIT(3),
 
+    SALDO_PAGSEGURO(4),
+
+    DEPOSITO_EM_CONTA(7),
+
     /**
      * Used when they have not the TYPE
      *

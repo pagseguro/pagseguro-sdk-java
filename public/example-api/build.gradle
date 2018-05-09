@@ -8,9 +8,7 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.6
 
 repositories {
-    maven {
-        url 'http://repo.mvn.intranet.s2it.com.br/nexus/content/groups/public/'
-    }
+    mavenCentral()
 }
 
 

@@ -127,7 +127,7 @@ public class TransactionSearchByAbandonedTest extends Resource4Test {
     assertEquals("code1", preApproval.getCode());
     assertEquals("reference", preApproval.getReference());
     assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
-    assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
+    assertEquals(TransactionStatus.Status.APPROVED, preApproval.getStatus().getStatus());
     assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
         preApproval.getPaymentMethod().getType());
     assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
@@ -147,7 +147,7 @@ public class TransactionSearchByAbandonedTest extends Resource4Test {
     assertEquals("code2", preApproval.getCode());
     assertEquals("reference", preApproval.getReference());
     assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
-    assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
+    assertEquals(TransactionStatus.Status.APPROVED, preApproval.getStatus().getStatus());
     assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
         preApproval.getPaymentMethod().getType());
     assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
