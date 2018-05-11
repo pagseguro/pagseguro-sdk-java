@@ -100,6 +100,8 @@ public class AuthenticatedHttpClient implements HttpClient {
    *
    * @param uri Url
    * @return Url with correlation id
+   * @throws URISyntaxException if invalid url is used
+   * @throws UnsupportedEncodingException if not accepted encode is used
    */
   public String appendCorrelationId(String uri) throws URISyntaxException,
       UnsupportedEncodingException {
@@ -125,6 +127,8 @@ public class AuthenticatedHttpClient implements HttpClient {
    *
    * @param uri Url
    * @return Url with credential
+   * @throws URISyntaxException if invalid url is used
+   * @throws UnsupportedEncodingException if not accepted encode is used
    */
   public String appendCredential(String uri) throws URISyntaxException,
       UnsupportedEncodingException {

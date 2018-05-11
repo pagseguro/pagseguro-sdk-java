@@ -133,6 +133,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+4.1.1
+- Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais
+
 4.1.0
 - Melhorias e adicionado exemplos das transações de cancelamento e estorno (total e parcial)
 

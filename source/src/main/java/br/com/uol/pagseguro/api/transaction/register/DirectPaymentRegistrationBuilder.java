@@ -236,6 +236,7 @@ public final class DirectPaymentRegistrationBuilder implements Builder<DirectPay
    * Set receiver email of direct payment
    *
    * @param receiverEmail Receiver email of direct payment
+   * @return DirectPaymentRegistrationBuilder
    * @see DirectPaymentRegistration#getExtraAmount()
    */
   public DirectPaymentRegistrationBuilder withReceiverEmail(String receiverEmail) {

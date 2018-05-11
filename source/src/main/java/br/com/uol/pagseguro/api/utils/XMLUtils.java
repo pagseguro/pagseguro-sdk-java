@@ -44,6 +44,7 @@ public class XMLUtils {
    * @param rawXml    Raw xml
    * @param <T>       Object to be returned
    * @return Object parsed
+   * @throws JAXBException if a problem occurs
    */
   public static <T> T unmarshal(PagSeguro pagSeguro, Class<T> clazz, String rawXml) throws JAXBException {
     final JAXBContext jaxbContext = JAXBContext.newInstance(clazz);

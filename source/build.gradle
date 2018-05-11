@@ -1,16 +1,16 @@
 group 'br.com.uol.pagseguro'
-version '3.1.1'
+version '4.1.1'
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.6
 
 repositories {
-    maven {
-        url 'http://repo.mvn.intranet.s2it.com.br/nexus/content/groups/public/'
-    }
+    mavenCentral()
 }
 
 dependencies {
@@ -23,3 +23,66 @@ dependencies {
     compileOnly(group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21')
     compileOnly(group: 'commons-logging', name: 'commons-logging', version: '1.2')
 }
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name project.name
+                packaging 'jar'
+
+                description 'A collection of domain classes to ease integrations with PagSeguro Api'
+                url 'https://github.com/pagseguro/pagseguro-java-sdk/'
+
+                scm {
+                    url 'https://github.com/pagseguro/pagseguro-java-sdk/'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'pagseguro'
+                        name 'PagSeguro'
+                        email 'desenvolvedores@pagseguro.com.br'
+                    }
+                }
+            }
+        }
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+// Uncomment this block to sign the files when building to upload to Maven
+//signing {
+//    sign configurations.archives
+//}
+

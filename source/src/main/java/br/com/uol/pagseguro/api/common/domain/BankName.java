@@ -59,6 +59,7 @@ public class BankName {
 
   /**
    * Get bank name by string name
+   * @return Name
    */
   public Name getName() {
     return Name.fromName(stringName);
