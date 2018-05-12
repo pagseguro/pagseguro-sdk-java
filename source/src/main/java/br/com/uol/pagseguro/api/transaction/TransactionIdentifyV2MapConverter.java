@@ -43,7 +43,7 @@ public class TransactionIdentifyV2MapConverter extends AbstractMapConverter<Tran
    * @param requestMap           Request Map used to pass params to api
    * @param transactionIdentify Interface for Transaction Indentify
    * @see RequestMap
-   * @see TransactionRefunding
+   * @see TransactionIdentify
    * @see AbstractMapConverter#convert(Object)
    */
   @Override

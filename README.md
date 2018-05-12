@@ -136,6 +136,9 @@ Changelog
 4.2.0
 - Criação de sessão para recorrência transparente 
 
+4.1.1
+- Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais
+
 4.1.0
 - Melhorias e adicionado exemplos das transações de cancelamento e estorno (total e parcial)
 

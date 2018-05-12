@@ -59,6 +59,7 @@ public abstract class Credential {
    * @param appId  The Application id
    * @param appKey Specifies the corresponding token to PagSeguro application that is making the
    *               request.
+   * @return ApplicationCredential
    */
   public static Credential applicationCredential(String appId, String appKey) {
     return new ApplicationCredential(appId, appKey);

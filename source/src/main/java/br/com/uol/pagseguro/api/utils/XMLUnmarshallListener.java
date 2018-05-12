@@ -32,6 +32,8 @@ public interface XMLUnmarshallListener {
   /**
    * Callback always called after unmarshal serves to when you need to keep within
    * XML a reference to the PagSeguro APIs.
+   * @param pagseguroAPI PagSeguro
+   * @param rawData String
    */
   void onUnmarshal(PagSeguro pagseguroAPI, String rawData);
 

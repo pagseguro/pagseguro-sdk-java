@@ -50,7 +50,7 @@ public class PermissionXML implements Permission {
   /**
    * Set code of permission
    *
-   * @param code Code
+   * @param codeId Code
    */
   @XmlElement(name = "code")
   public void setCodeId(String codeId) {
