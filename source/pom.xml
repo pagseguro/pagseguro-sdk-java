@@ -10,6 +10,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- Gerenciamento de distribuicoes -->
+    <distributionManagement>
+        <repository>
+            <id>maven.wmixvideo.com.br</id>
+            <url>s3://maven.wmixvideo.com.br/release</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven.wmixvideo.com.br</id>
+            <url>s3://maven.wmixvideo.com.br/snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <!-- Compilacao -->
         <dependency>
@@ -104,6 +116,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.springframework.build</groupId>
+                <artifactId>aws-maven</artifactId>
+                <version>5.0.0.RELEASE</version>
+            </extension>
+        </extensions>
     </build>
 
     <repositories>
