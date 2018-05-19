@@ -153,6 +153,15 @@ public final class Endpoints {
   public static final String PRE_APPROVAL_CHARGE = "%s/v2/pre-approvals/payment";
 
   /**
+   * DIRECT PRE APPROVALS
+   */
+
+  /**
+   * Direct Pre approval registration
+   */
+  public static final String DIRECT_PRE_APPROVAL_REQUEST = "%s/pre-approvals/request";
+
+  /**
    * SESSIONS
    */
 

@@ -21,15 +21,23 @@
 package br.com.uol.pagseguro.api.common.domain;
 
 /**
- * Interface for receiver.
+ * Interface for Expiration. This class contains the expiration data.
  *
  * @author PagSeguro Internet Ltda.
  */
-public interface Receiver {
+public interface Expiration {
+
   /**
-   * Get email of receiver
+   * Get value of expiration
    *
-   * @return Email
+   * @return Value
    */
-  String getEmail();
+  Integer getValue();
+
+  /**
+   * Get unit of expiration
+   *
+   * @return Unit
+   */
+  String getUnit();
 }

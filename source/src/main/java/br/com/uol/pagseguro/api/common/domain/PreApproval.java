@@ -105,4 +105,47 @@ public interface PreApproval {
    * @see DateRange
    */
   DateRange getDateRange();
+
+  /**
+   * Get membership fee of pre approval
+   * @return  MembershipFee
+   */
+  BigDecimal getMembershipFee();
+
+  /**
+   * Get trial period duration of pre approval
+   * @return TrialPeriodDuration
+   */
+  Integer getTrialPeriodDuration();
+
+  /**
+   * Get Expiration of pre approval
+   * @return Expiration
+   * @see Expiration
+   */
+  Expiration getExpiration();
+
+  /**
+   * Get the charge day of the year of pre approval
+   * @return DayOfYear
+   */
+  String getDayOfYear();
+
+  /**
+   * Get the charge day of the month of pre approval
+   * @return DayOfMonth
+   */
+  Integer getDayOfMonth();
+
+  /**
+   * Get the charge day of the week of pre approval
+   * @return DayOfWeek
+   */
+  String getDayOfWeek();
+
+  /**
+   * Get the cancel URL of pre approval
+   * @return CancelURL
+   */
+  String getCancelURl();
 }

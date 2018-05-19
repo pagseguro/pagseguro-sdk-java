@@ -46,7 +46,7 @@ public class JSEHttpClient implements HttpClient {
 
   private static Log LOGGER = LoggerFactory.getLogger(JSEHttpClient.class.getName());
   private static String DEFAULT_RESPONSE_CHARSET = "ISO-8859-1";
-  private final static String LIB_VERSION = "3.1.1";
+  private final static String LIB_VERSION = "4.2.0";
 
   /**
    * Execute the communication with api.
@@ -90,6 +90,75 @@ public class JSEHttpClient implements HttpClient {
   }
 
   /**
+   * Execute the communication with api.
+   *
+   * @param method    Http method
+   * @param targetURL target url
+   * @param headers   Headers
+   * @param body      Body
+   * @return Http Response
+   */
+  @Override
+  public HttpResponse executeJson(HttpMethod method, String targetURL, Map<String, String> headers,
+                              HttpJsonRequestBody body) throws IOException {
+
+    LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
+
+    HttpURLConnection connection = null;
+    try {
+      final URL url = new URL(targetURL);
+      LOGGER.info("Abrindo conexao");
+      connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod(method.toString());
+      connection.setUseCaches(false);
+
+      writeHeaders(connection, headers);
+      LOGGER.info("Escrevendo body");
+      writeBody(connection, body);
+
+      // le response response
+      final String responseCharset = getResponseCharset(connection);
+      LOGGER.info("Lendo resposta");
+      final InputStream responseStream = getResponseStream(connection);
+      final String responseString = getResponseString(responseStream, responseCharset);
+      return new HttpResponse(connection.getResponseCode(), responseString);
+    } finally {
+      if (connection != null) {
+        LOGGER.info("Fechando conexao");
+        connection.disconnect();
+      }
+    }
+  }
+  //@TODO: documentar e ver se o cancel ainda funciona
+  public HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers) throws IOException {
+
+    LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
+
+    HttpURLConnection connection = null;
+    try {
+      final URL url = new URL(targetURL);
+      LOGGER.info("Abrindo conexao");
+      connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod(method.toString());
+      connection.setUseCaches(false);
+
+      writeHeaders(connection, headers);
+
+      // le response response
+      final String responseCharset = getResponseCharset(connection);
+      LOGGER.info("Lendo resposta");
+      final InputStream responseStream = getResponseStream(connection);
+      final String responseString = getResponseString(responseStream, responseCharset);
+      return new HttpResponse(connection.getResponseCode(), responseString);
+    } finally {
+      if (connection != null) {
+        LOGGER.info("Fechando conexao");
+        connection.disconnect();
+      }
+    }
+  }
+
+  /**
    * Write headers on request
    *
    * @param connection Connection
@@ -116,6 +185,39 @@ public class JSEHttpClient implements HttpClient {
    * @param body       Body
    */
   private static void writeBody(HttpURLConnection connection, HttpRequestBody body) throws
+          IOException {
+    if (body == null) {
+      return;
+    }
+    final String charset = body.getCharset();
+    final String content = body.getContent();
+    //connection.setRequestProperty("Content-Type", body.getContentTypeWithCharset());
+    //connection.setRequestProperty("Content-Length", Integer.toString(content.getBytes(charset).length));
+    connection.setDoOutput(true);
+
+    DataOutputStream wr = null;
+    BufferedWriter buffWr = null;
+    try {
+      wr = new DataOutputStream(connection.getOutputStream());
+      buffWr = new BufferedWriter(new OutputStreamWriter(wr, charset));
+      buffWr.write(content);
+    } finally {
+      if (buffWr != null) {
+        buffWr.close();
+      }
+      if (wr != null) {
+        wr.close();
+      }
+    }
+  }
+
+  /**
+   * Write body on request
+   *
+   * @param connection Connection
+   * @param body       Body
+   */
+  private static void writeBody(HttpURLConnection connection, HttpJsonRequestBody body) throws
           IOException {
     if (body == null) {
       return;

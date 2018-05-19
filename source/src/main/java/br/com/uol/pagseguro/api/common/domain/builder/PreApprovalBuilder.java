@@ -24,6 +24,7 @@ package br.com.uol.pagseguro.api.common.domain.builder;
 import java.math.BigDecimal;
 
 import br.com.uol.pagseguro.api.common.domain.DateRange;
+import br.com.uol.pagseguro.api.common.domain.Expiration;
 import br.com.uol.pagseguro.api.common.domain.PreApproval;
 import br.com.uol.pagseguro.api.utils.Builder;
 
@@ -44,6 +45,14 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
   private Integer maxPaymentsPerPeriod = null;
   private String period = null;
   private DateRange dateRange = new DateRangeBuilder().build();
+  private BigDecimal membershipFee = null;
+  private Integer trialPeriodDuration = null;
+  private Expiration expiration = null;
+  private String dayOfYear = null;
+  private Integer dayOfMonth = null;
+  private String dayOfWeek = null;
+  private String cancelURL = null;
+
 
   /**
    * Set charge of pre approval
@@ -177,6 +186,101 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
   }
 
   /**
+   * Set Amount per payment of pre approval
+   *
+   * @param membershipFee Amount per payment
+   * @return Builder for Pre Approval
+   * @see PreApproval#getMembershipFee()
+   */
+  public PreApprovalBuilder withMembershipFee(BigDecimal membershipFee) {
+    this.membershipFee = membershipFee;
+    return this;
+  }
+
+  /**
+   * Set trial period (in days) of pre approval plan
+   *
+   * @param trialPeriodDuration Amount per payment
+   * @return Builder for Pre Approval
+   * @see PreApproval#getTrialPeriodDuration()
+   */
+  public PreApprovalBuilder withTrialPeriodDuration(Integer trialPeriodDuration) {
+    this.trialPeriodDuration = trialPeriodDuration;
+    return this;
+  }
+
+  /**
+   * Set expiration of pre approval plan registration
+   *
+   * @param expiration Expiration
+   * @return Builder for pre approval registration
+   * @see PreApproval#getExpiration()
+   */
+  public PreApprovalBuilder withExpiration(Expiration expiration) {
+    this.expiration = expiration;
+    return this;
+  }
+
+  /**
+   * Set expiration of pre approval plan registration
+   *
+   * @param expirationBuilder Builder for Expiration
+   * @return Builder for pre approval registration
+   * @see PreApproval#getExpiration()
+   */
+  public PreApprovalBuilder withExpiration(Builder<Expiration> expirationBuilder) {
+    return withExpiration(expirationBuilder.build());
+  }
+
+  /**
+   * Set day of the year of pre approval when the charge will be charged
+   *
+   * @param dayOfYear DayOfYear
+   * @return Builder for Pre Approval
+   * @see PreApproval#getDayOfYear()
+   */
+  public PreApprovalBuilder withDayOfYear(String dayOfYear) {
+    this.dayOfYear = dayOfYear;
+    return this;
+  }
+
+  /**
+   * Set day of the month of pre approval when the charge will be charged
+   *
+   * @param dayOfMonth DayOfMonth
+   * @return Builder for Pre Approval
+   * @see PreApproval#getDayOfMonth()
+   */
+  public PreApprovalBuilder withDayOfMonth(Integer dayOfMonth) {
+    this.dayOfMonth = dayOfMonth;
+    return this;
+  }
+
+  /**
+   * Set day of the week of pre approval when the charge will be charged
+   *
+   * @param dayOfWeek DayOfWeek
+   * @return Builder for Pre Approval
+   * @see PreApproval#getDayOfWeek()
+   */
+  public PreApprovalBuilder withDayOfWeek(String dayOfWeek) {
+    this.dayOfWeek = dayOfWeek;
+    return this;
+  }
+
+  /**
+   * Set cancel URL of pre approval
+   *
+   * @param cancelURL CancelURL
+   * @return Builder for Pre Approval
+   * @see PreApproval#getCancelURl()
+   */
+  public PreApprovalBuilder withCancelURL(String cancelURL) {
+    this.cancelURL = cancelURL;
+    return this;
+  }
+
+  /**
    * Build the pre approval
    *
    * @return Interface for Pre Approval
@@ -245,6 +349,41 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
     @Override
     public DateRange getDateRange() {
       return preApprovalBuilder.dateRange;
+    }
+
+    @Override
+    public BigDecimal getMembershipFee() {
+      return preApprovalBuilder.membershipFee;
+    }
+
+    @Override
+    public Integer getTrialPeriodDuration() {
+      return preApprovalBuilder.trialPeriodDuration;
+    }
+
+    @Override
+    public Expiration getExpiration() {
+      return preApprovalBuilder.expiration;
+    }
+
+    @Override
+    public String getDayOfYear() {
+      return preApprovalBuilder.dayOfYear;
+    }
+
+    @Override
+    public Integer getDayOfMonth() {
+      return preApprovalBuilder.dayOfMonth;
+    }
+
+    @Override
+    public String getDayOfWeek() {
+      return preApprovalBuilder.dayOfWeek;
+    }
+
+    @Override
+    public String getCancelURl() {
+      return preApprovalBuilder.cancelURL;
     }
   }
 }

@@ -18,18 +18,21 @@
  * Copyright: 2007-2016 PagSeguro Internet Ltda.
  * Licence: http://www.apache.org/licenses/LICENSE-2.0
  */
-package br.com.uol.pagseguro.api.common.domain;
+package br.com.uol.pagseguro.api.utils;
 
 /**
- * Interface for receiver.
+ * Interface used to convert an object on a json
  *
- * @author PagSeguro Internet Ltda.
+ * @param <T> Class to be converted
  */
-public interface Receiver {
+public interface JsonConverter<T> {
+
   /**
-   * Get email of receiver
+   * Convert an object on a map
    *
-   * @return Email
+   * @param object Object to be converted
+   * @return Request map
    */
-  String getEmail();
+  RequestJson convert(T object);
+
 }

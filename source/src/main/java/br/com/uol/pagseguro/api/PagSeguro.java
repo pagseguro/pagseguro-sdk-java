@@ -32,6 +32,7 @@ import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.installment.InstallmentsListResource;
 import br.com.uol.pagseguro.api.notification.NotificationsResource;
 import br.com.uol.pagseguro.api.preapproval.PreApprovalsResource;
+import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalsResource;
 import br.com.uol.pagseguro.api.session.SessionResource;
 import br.com.uol.pagseguro.api.transaction.TransactionsResource;
 import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
@@ -91,6 +92,14 @@ public abstract class PagSeguro {
    */
   public PreApprovalsResource preApprovals() {
     return new PreApprovalsResource(this, httpClient);
+  }
+
+  /**
+   * Get factory to direct pre approval
+   * @return Factory to direct pre approval
+   */
+  public DirectPreApprovalsResource directPreApprovals() {
+    return new DirectPreApprovalsResource(this, httpClient);
   }
 
   /**

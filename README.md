@@ -134,7 +134,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 Changelog
 ---------
 4.2.0
-- Criação de sessão para recorrência transparente 
+- Adicionado serviço de Recorrência Transparente:
+  - Criação de sessão para recorrência transparente
+  - Criação de plano automático
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais

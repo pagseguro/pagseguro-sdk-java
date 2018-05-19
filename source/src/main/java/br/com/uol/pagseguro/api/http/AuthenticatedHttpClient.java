@@ -83,6 +83,15 @@ public class AuthenticatedHttpClient implements HttpClient {
       throw new PagSeguroLibException(e);
     }
   }
+  //@TODO validar json
+  public HttpResponse executeJson(HttpMethod method, String targetURL, Map<String, String> headers,
+                                  HttpJsonRequestBody body) throws IOException {
+    try {
+      return httpClient.executeJson(method, appendParameters(targetURL), headers, body);
+    } catch (URISyntaxException e) {
+      throw new PagSeguroLibException(e);
+    }
+  }
 
   /**
    * Append parameters to uri
