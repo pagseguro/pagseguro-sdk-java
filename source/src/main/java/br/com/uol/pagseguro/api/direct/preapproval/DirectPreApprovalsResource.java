@@ -9,7 +9,6 @@ import br.com.uol.pagseguro.api.http.HttpResponse;
 import br.com.uol.pagseguro.api.utils.Builder;
 import br.com.uol.pagseguro.api.utils.CharSet;
 import br.com.uol.pagseguro.api.utils.RequestJson;
-import br.com.uol.pagseguro.api.utils.RequestMap;
 import br.com.uol.pagseguro.api.utils.logging.Log;
 import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
 
@@ -23,8 +22,8 @@ public class DirectPreApprovalsResource {
 //    private static final DirectPreApprovalRegistrationV2MapConverter DIRECT_PRE_APPROVAL_REGISTRATION_MC =
 //            new DirectPreApprovalRegistrationV2MapConverter();
 
-    private static final DirectPreApprovalRegistrationMapConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
-            new DirectPreApprovalRegistrationMapConverter();
+    private static final DirectPreApprovalRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
+            new DirectPreApprovalRegistrationJsonConverter();
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
 //

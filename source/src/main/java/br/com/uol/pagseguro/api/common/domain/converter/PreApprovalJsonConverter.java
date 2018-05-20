@@ -68,7 +68,7 @@ public class PreApprovalJsonConverter extends AbstractJsonConverter<PreApproval>
   }
 
   /**
-   * Implementation of {@code AbstractPhoneMapConverter}. Used to set key values
+   * Implementation of {@code AbstractExpirationJsonConverter}. Used to set key values
    *
    * @see AbstractExpirationJsonConverter
    */

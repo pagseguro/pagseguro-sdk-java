@@ -74,7 +74,7 @@ public final class RequestJson {
   }
 
   /**
-   * Put all map data
+   * Put all json data
    *
    * @param sb StringBuilder
    * @param jsonNodeName String
@@ -95,11 +95,44 @@ public final class RequestJson {
   }
 
   /**
+   * Put all json data without add a new node
+   *
+   * @param requestJson Request Json
+   * @return RequestJson requestJson
+   */
+  public RequestJson putJsonList(RequestJson requestJson) {
+    if (requestJson == null) {
+      throw new NullPointerException();
+    }
+    return putJsonList(requestJson.sb);
+  }
+
+  /**
+   * Put all json data without add a new node
+   *
+   * @param sb StringBuilder
+   * @return Request StringBuilder
+   */
+  public RequestJson putJsonList(StringBuilder sb) {
+    if (sb == null) {
+      throw new NullPointerException();
+    }
+    if (!sb.toString().isEmpty()) {
+      if(sb.length() > 0) {
+        sb.setLength(sb.length() - 1);
+      }
+      this.sb.append(String.format("%s", sb.toString()));
+      //this.sb.append(sb.toString());
+    }
+    return this;
+  }
+
+  /**
    * Put string on map
    *
    * @param key   Key
    * @param value String value
-   * @return Request map
+   * @return Request json
    */
   public RequestJson putString(String key, String value) {
     if (key == null) {
@@ -117,7 +150,7 @@ public final class RequestJson {
    *
    * @param key   Key
    * @param value String Builder value
-   * @return Request map
+   * @return Request Json
    */
   public RequestJson putString(String key, StringBuilder value) {
     if (key == null) {
@@ -131,18 +164,18 @@ public final class RequestJson {
   }
 
   /**
-   * Put integer on map
+   * Put integer on Json
    *
    * @param key   Key
    * @param value Integer value
-   * @return Request map
+   * @return Request Json
    */
   public RequestJson putInteger(String key, Integer value) {
     return putString(key, value == null ? null : value.toString());
   }
 
   /**
-   * Put currency on map
+   * Put currency on Json
    *
    * @param key   Key
    * @param value BigDecimal value
@@ -153,11 +186,11 @@ public final class RequestJson {
   }
 
   /**
-   * Put currency on map
+   * Put currency on Json
    *
    * @param key   Key
    * @param value Currency value
-   * @return Request map
+   * @return Request Json
    * @see Currency
    */
   public RequestJson putCurrency(String key, Currency value) {
@@ -165,23 +198,23 @@ public final class RequestJson {
   }
 
   /**
-   * Put date on map
+   * Put date on Json
    *
    * @param key        Key
    * @param value      Date value
    * @param dateFormat Date format
-   * @return Request map
+   * @return Request Json
    */
   public RequestJson putDate(String key, Date value, DateFormat dateFormat) {
     return putString(key, value == null ? null : dateFormat.format(value));
   }
 
   /**
-   * Put config on map
+   * Put config on Json
    *
    * @param key    Key
    * @param config Config value
-   * @return Request map
+   * @return Request Json
    * @see Config
    */
   public RequestJson putConfigValue(String key, Config config) {
@@ -260,16 +293,15 @@ public final class RequestJson {
 
   }
 
-
+  /**
+   * Add the initial and final, getting sb attribute concatenated with "{}"
+   * @return String
+   */
   public String jsonBody() {
-    String jsonBody = null;
-    String t = "";
-    if(sb.length() > 0) {
-      jsonBody = sb.toString();
-      t = jsonBody.substring(0, jsonBody.length() - 1);
-      //jsonBody.setLength(jsonBody.length() - 1);
+    String jsonBody = sb.toString();
+    if(jsonBody.length() > 0) {
+      return "{" + jsonBody.substring(0, jsonBody.length() - 1) + "}";
     }
-    return "{" + t + "}";
+    throw new NullPointerException();
   }
-
 }
