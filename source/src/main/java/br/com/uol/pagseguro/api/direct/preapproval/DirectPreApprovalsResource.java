@@ -18,15 +18,12 @@ import java.util.Map;
 
 public class DirectPreApprovalsResource {
     private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsResource.class.getName());
-
-//    private static final DirectPreApprovalRegistrationV2MapConverter DIRECT_PRE_APPROVAL_REGISTRATION_MC =
-//            new DirectPreApprovalRegistrationV2MapConverter();
-
     private static final DirectPreApprovalRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
             new DirectPreApprovalRegistrationJsonConverter();
+//    @TODO add here charge method
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
-//
+//    @TODO add here cancel method
 //    private static final PreApprovalCancellationV2MapConverter PRE_APPROVAL_CANCELLATION_MC =
 //            new PreApprovalCancellationV2MapConverter();
 
@@ -87,7 +84,8 @@ public class DirectPreApprovalsResource {
         return registeredPreApproval;
         //return null;
     }
-//
+
+//    @TODO add here cancel method
 //    /**
 //     * Pre Approval Cancellation
 //     *
@@ -100,7 +98,7 @@ public class DirectPreApprovalsResource {
 //            Builder<PreApprovalCancellation> preApprovalCancellationBuilder) {
 //        return cancel(preApprovalCancellationBuilder.build());
 //    }
-//
+//    @TODO add here cancel method
 //    /**
 //     * Pre Approval Cancellation
 //     *
@@ -133,7 +131,7 @@ public class DirectPreApprovalsResource {
 //        LOGGER.info("Cancelamento pre approval finalizado");
 //        return cancelledPreApproval;
 //    }
-//
+//    @TODO add here search method
 //    /**
 //     * Pre Approval Search
 //     *
@@ -143,7 +141,7 @@ public class DirectPreApprovalsResource {
 //    public PreApprovalSearchResource search() {
 //        return new PreApprovalSearchResource(pagSeguro, httpClient);
 //    }
-//
+//    @TODO add here charge method
 //    /**
 //     * Pre Approval Charging
 //     *
@@ -155,7 +153,7 @@ public class DirectPreApprovalsResource {
 //    public ChargedPreApproval charge(Builder<PreApprovalCharging> preApprovalChargingBuilder) {
 //        return charge(preApprovalChargingBuilder.build());
 //    }
-//
+//    @TODO add here charge method
 //    /**
 //     * Pre Approval Charging
 //     *

@@ -34,8 +34,8 @@ public class DirectPreApprovalRegister {
 
                             .withPreApproval(new PreApprovalBuilder()
                                             .withName("Seguro contra roubo do Notebook Rosa")
-                                            .withCharge("AUTO")//@TODO create enum for charge types
-                                            .withPeriod("MONTHLY")//@TODO create enum for period types
+                                            .withCharge(Charge.AUTO)
+                                            .withPeriod(Period.MONTHLY)
                                             .withDetails("Cada dia 28 será cobrado o valor de R$100,00 referente ao seguro " +
                                                     "contra roubo do Notebook Prata")
                                             .withAmountPerPayment(BigDecimal.TEN) //200
@@ -46,7 +46,7 @@ public class DirectPreApprovalRegister {
 
                                             .withExpiration(new ExpirationBuilder()
                                                     .withValue(10)
-                                                    .withUnit("MONTHS")) //@TODO create enum for unit types
+                                                    .withUnit(Unit.MONTHS))
 
                                             .withDetails("Plan description")
 //                                .withMaxAmountPerPeriod(BigDecimal.TEN) //100
@@ -61,7 +61,7 @@ public class DirectPreApprovalRegister {
 
 //                                .withDayOfYear("03-27")//MM-dd //@TODO convert to date class
 //                                    .withDayOfMonth(1)
-//                                    .withDayOfWeek("MONDAY") //@TODO create enum for week days
+//                                    .withDayOfWeek(DayOfWeek.MONDAY)
 //                                    .withCancelURL("http://seusite.com.br/cancelamento")
 
                             )

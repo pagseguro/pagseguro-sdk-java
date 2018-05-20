@@ -26,6 +26,9 @@ import java.math.BigDecimal;
 import br.com.uol.pagseguro.api.common.domain.DateRange;
 import br.com.uol.pagseguro.api.common.domain.Expiration;
 import br.com.uol.pagseguro.api.common.domain.PreApproval;
+import br.com.uol.pagseguro.api.common.domain.enums.Charge;
+import br.com.uol.pagseguro.api.common.domain.enums.DayOfWeek;
+import br.com.uol.pagseguro.api.common.domain.enums.Period;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 /**
@@ -53,6 +56,18 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
   private String dayOfWeek = null;
   private String cancelURL = null;
 
+  /**
+   * Set charge of pre approval
+   *
+   * @deprecated backward compatibility use {@link #withCharge(Charge)}
+   * @param charge String
+   * @return Builder for pre approval
+   * @see PreApproval#getCharge()
+   */
+  public PreApprovalBuilder withCharge(String charge) {
+    this.charge = charge;
+    return this;
+  }
 
   /**
    * Set charge of pre approval
@@ -61,8 +76,8 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    * @return Builder for pre approval
    * @see PreApproval#getCharge()
    */
-  public PreApprovalBuilder withCharge(String charge) {
-    this.charge = charge;
+  public PreApprovalBuilder withCharge(Charge charge) {
+    this.charge = charge.getValue();
     return this;
   }
 
@@ -153,12 +168,26 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
   /**
    * Set period of pre approval
    *
-   * @param period Period
+   * @deprecated backward compatibility use {@link #withPeriod(Period)}
+   * @param period String
    * @return Builder for Pre Approval
    * @see PreApproval#getPeriod()
    */
   public PreApprovalBuilder withPeriod(String period) {
     this.period = period;
+    return this;
+  }
+
+
+  /**
+   * Set period of pre approval
+   *
+   * @param period Period
+   * @return Builder for Pre Approval
+   * @see PreApproval#getPeriod()
+   */
+  public PreApprovalBuilder withPeriod(Period period) {
+    this.period = period.getValue();
     return this;
   }
 
@@ -263,8 +292,8 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    * @return Builder for Pre Approval
    * @see PreApproval#getDayOfWeek()
    */
-  public PreApprovalBuilder withDayOfWeek(String dayOfWeek) {
-    this.dayOfWeek = dayOfWeek;
+  public PreApprovalBuilder withDayOfWeek(DayOfWeek dayOfWeek) {
+    this.dayOfWeek = dayOfWeek.getValue();
     return this;
   }
 

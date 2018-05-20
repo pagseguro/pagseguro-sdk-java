@@ -21,6 +21,7 @@
 package br.com.uol.pagseguro.api.common.domain.builder;
 
 import br.com.uol.pagseguro.api.common.domain.Expiration;
+import br.com.uol.pagseguro.api.common.domain.enums.Unit;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 /**
@@ -53,8 +54,8 @@ public final class ExpirationBuilder implements Builder<Expiration> {
    * @return Builder for expiration
    * @see Expiration#getUnit()
    */
-  public ExpirationBuilder withUnit(String unit) {
-    this.unit = unit;
+  public ExpirationBuilder withUnit(Unit unit) {
+    this.unit = unit.getValue();
     return this;
   }
 
