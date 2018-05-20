@@ -62,8 +62,7 @@ public class DirectPreApprovalsResource {
     public RegisteredDirectPreApproval register(DirectPreApprovalRegistration directPreApprovalRegistration) {
         LOGGER.info("Iniciando registro pre approval");
         LOGGER.info("Convertendo valores");
-        //final RequestMap map = DIRECT_PRE_APPROVAL_REGISTRATION_MC.convert(preApprovalRegistration);
-        final RequestJson map = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRegistration);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRegistration);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
@@ -72,10 +71,9 @@ public class DirectPreApprovalsResource {
         LOGGER.info("Valores convertidos");
         final HttpResponse response;
         try {
-            LOGGER.debug(String.format("Parametros: %s", map.jsonBody()));
-            //@TODO change to executeJson
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
             response = httpClient.executeJson(HttpMethod.POST, String.format(Endpoints.DIRECT_PRE_APPROVAL_REQUEST,
-                    pagSeguro.getHost()), headers, map.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+                    pagSeguro.getHost()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
             LOGGER.error("Erro ao executar registro pre approval");

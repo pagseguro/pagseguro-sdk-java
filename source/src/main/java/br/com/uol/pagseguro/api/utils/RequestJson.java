@@ -269,18 +269,17 @@ public final class RequestJson {
   public HttpJsonRequestBody toHttpJsonRequestBody(String charset) throws UnsupportedEncodingException {
     return new HttpJsonRequestBody(//
         String.format("application/json; charset=%s", charset), //
-        jsonBody(),//toUrlEncode(charset), //TODO validate if need to encode one by one or just everything or nothing
+        toString(),//toUrlEncode(charset), //TODO validate if need to encode one by one or just everything or nothing
         charset);
   }
 
-//@TODO validate toString method
-//  @Override
-//  public String toString() {
-//    if(sb.length() > 0) {
-//      sb.setLength(sb.length() - 1);
-//    }
-//    return "{" + sb + "}";
-//  }
+  @Override
+  public String toString() {
+    if(sb.length() > 0) {
+      return "{" + sb.substring(0, sb.length() - 1) + "}";
+    }
+    return "{}";
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -291,17 +290,5 @@ public final class RequestJson {
 
     return sb != null ? sb.equals(sb1.sb) : sb1.sb == null;
 
-  }
-
-  /**
-   * Add the initial and final, getting sb attribute concatenated with "{}"
-   * @return String
-   */
-  public String jsonBody() {
-    String jsonBody = sb.toString();
-    if(jsonBody.length() > 0) {
-      return "{" + jsonBody.substring(0, jsonBody.length() - 1) + "}";
-    }
-    throw new NullPointerException();
   }
 }
