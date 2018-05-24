@@ -85,15 +85,6 @@ public class HttpJsonRequestBody {
     return charset;
   }
 
-  //@Override
-//  public String toString() {
-//    return "HttpRequestBody{" +
-//        "content='" + content + '\'' +
-//        ", charset='" + charset + '\'' +
-//        ", contentType='" + contentType + '\'' +
-//        '}';
-//  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

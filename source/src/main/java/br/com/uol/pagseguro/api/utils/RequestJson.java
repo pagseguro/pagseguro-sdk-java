@@ -24,16 +24,13 @@ import br.com.uol.pagseguro.api.common.domain.Config;
 import br.com.uol.pagseguro.api.common.domain.enums.ConfigKey;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 import br.com.uol.pagseguro.api.http.HttpJsonRequestBody;
-import br.com.uol.pagseguro.api.http.HttpRequestBody;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Map;
-//@TODO refactor this class
+
 /**
  * Class used to convert the data on a map to pass the parameters of the requests in api
  *
@@ -88,8 +85,7 @@ public final class RequestJson {
       if(sb.length() > 0) {
         sb.setLength(sb.length() - 1);
       }
-      this.sb.append(String.format("\"%s\" : { %s },", jsonNodeName, sb.toString()));
-      //this.sb.append(sb.toString());
+      this.sb.append(String.format("\"%s\":{%s},", jsonNodeName, sb.toString()));
     }
     return this;
   }
@@ -122,7 +118,6 @@ public final class RequestJson {
         sb.setLength(sb.length() - 1);
       }
       this.sb.append(String.format("%s", sb.toString()));
-      //this.sb.append(sb.toString());
     }
     return this;
   }
@@ -159,7 +154,25 @@ public final class RequestJson {
     if (value == null || value.toString().isEmpty()) {
       return this;
     }
-    sb.append(String.format("%s:%s,", key, value.toString()));
+    sb.append(String.format("\"%s\":\"%s\",", key, value.toString()));
+    return this;
+  }
+
+  /**
+   * Put string on map
+   *
+   * @param key   Key
+   * @param value String value
+   * @return Request json
+   */
+  public RequestJson putStringNoEscape(String key, String value) {
+    if (key == null) {
+      throw new NullPointerException();
+    }
+    if (value == null) {
+      return this;
+    }
+    sb.append(String.format("\"%s\":%s,", key, value));
     return this;
   }
 
@@ -171,7 +184,7 @@ public final class RequestJson {
    * @return Request Json
    */
   public RequestJson putInteger(String key, Integer value) {
-    return putString(key, value == null ? null : value.toString());
+    return putStringNoEscape(key, value == null ? null : value.toString());
   }
 
   /**
@@ -182,7 +195,7 @@ public final class RequestJson {
    * @return Request map
    */
   public RequestJson putCurrency(String key, BigDecimal value) {
-    return putString(key, value == null ? null : value.setScale(2, RoundingMode.HALF_EVEN).toString());
+    return putStringNoEscape(key, value == null ? null : value.setScale(2, RoundingMode.HALF_EVEN).toString());
   }
 
   /**
@@ -194,7 +207,7 @@ public final class RequestJson {
    * @see Currency
    */
   public RequestJson putCurrency(String key, Currency value) {
-    return putString(key, value == null ? null : value.getStringValue());
+    return putStringNoEscape(key, value == null ? null : value.getStringValue());
   }
 
   /**
@@ -228,48 +241,18 @@ public final class RequestJson {
     return this;
   }
 
-  //@TODO validate if need to encode one by one or just everything or nothing
-  /**
-   * Convert map on url encoded
-   *
-   * @param charset Encoding
-   * @return Map converted in a url encoded
-   * @throws UnsupportedEncodingException if not accepted encode is used
-   */
-  public String toUrlEncode(String charset) throws UnsupportedEncodingException {
-//    StringBuilder sb = new StringBuilder();
-//    for (Map.Entry<String, String> entry : map.entrySet()) {
-//      if (sb.length() > 0) {
-//        sb.append("&");
-//      }
-//      sb.append(String.format("%s=%s", URLEncoder.encode(entry.getKey(), charset),
-//          URLEncoder.encode(entry.getValue(), charset)));
-//    }
-
-//    Iterator<Map.Entry<String, String>> iterator = map.entrySet().iterator();
-//    while (iterator.hasNext()){
-//      Map.Entry<String, String> entry = iterator.next();
-//      sb.append(String.format("%s:%s", URLEncoder.encode(entry.getKey(), charset),
-//              URLEncoder.encode(entry.getValue(), charset)));
-//      if(iterator.hasNext()){
-//        sb.append(",");
-//      }
-//    }
-    return String.format("{ %s }", sb.toString());
-  }
-
   /**
    * Convert to http request body
    *
    * @param charset Encoding
    * @return Http Request Body
-   * @see HttpRequestBody
+   * @see HttpJsonRequestBody
    * @throws UnsupportedEncodingException if not accepted encode is used
    */
   public HttpJsonRequestBody toHttpJsonRequestBody(String charset) throws UnsupportedEncodingException {
     return new HttpJsonRequestBody(//
         String.format("application/json; charset=%s", charset), //
-        toString(),//toUrlEncode(charset), //TODO validate if need to encode one by one or just everything or nothing
+        encodeBodyContent(toString(), charset),
         charset);
   }
 
@@ -290,5 +273,18 @@ public final class RequestJson {
 
     return sb != null ? sb.equals(sb1.sb) : sb1.sb == null;
 
+  }
+
+  /**
+   * Encode the body content to PagSeguro API requirement
+   *
+   * @param toEncodeString String to be encoded
+   * @param charset Charset used to encode
+   * @return String body encoded by charset param
+   * @throws UnsupportedEncodingException if not accepted encode is used
+   */
+  public String encodeBodyContent(String toEncodeString, String charset) throws UnsupportedEncodingException {
+    byte[] ptext = toEncodeString.getBytes();
+    return new String(ptext, charset);
   }
 }
