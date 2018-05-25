@@ -1,5 +1,6 @@
 package br.com.uol.pagseguro.api.common.domain.converter;
 
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,9 +9,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
 import br.com.uol.pagseguro.api.common.domain.builder.DateRangeBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalRequestBuilder;
 import br.com.uol.pagseguro.api.utils.RequestMap;
 
 import static org.junit.Assert.*;
@@ -18,18 +18,18 @@ import static org.junit.Assert.*;
 /**
  * @author PagSeguro Internet Ltda.
  */
-public class PreApprovalV2MapConverterTest {
+public class PreApprovalRequestV2MapConverterTest {
 
   private PreApprovalV2MapConverter mapConverter;
 
-  private PreApproval preApproval;
+  private PreApprovalRequest preApprovalRequest;
 
   @Before
   public void setUp() throws Exception {
     mapConverter = new PreApprovalV2MapConverter();
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    preApproval = new PreApprovalBuilder()
+    preApprovalRequest = new PreApprovalRequestBuilder()
         .withCharge("charge")
         .withName("name")
         .withDetails("details")
@@ -63,7 +63,7 @@ public class PreApprovalV2MapConverterTest {
       put("preApprovalFinalDate", "2016-11-09T23:59:059");
     }});
 
-    RequestMap map = mapConverter.convert(preApproval);
+    RequestMap map = mapConverter.convert(preApprovalRequest);
 
     assertEquals(expectedMap, map);
   }

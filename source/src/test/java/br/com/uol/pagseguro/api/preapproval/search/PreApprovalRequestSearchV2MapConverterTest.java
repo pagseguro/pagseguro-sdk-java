@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * @author PagSeguro Internet Ltda.
  */
-public class PreApprovalSearchV2MapConverterTest {
+public class PreApprovalRequestSearchV2MapConverterTest {
 
   private PreApprovalSearchV2MapConverter mapConverter;
 
@@ -51,6 +51,4 @@ public class PreApprovalSearchV2MapConverterTest {
     RequestMap map = mapConverter.convert(preApprovalSearch);
 
     assertEquals(expectedMap, map);
-  }
-
-}
+ 

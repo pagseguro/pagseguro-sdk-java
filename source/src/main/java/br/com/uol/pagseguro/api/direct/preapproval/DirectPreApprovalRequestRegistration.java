@@ -32,7 +32,7 @@ import java.util.List;
  *
  * @author PagSeguro Internet Ltda.
  */
-public interface DirectPreApprovalRegistration {
+public interface DirectPreApprovalRequestRegistration {
 
   /**
    * URL where the buyer is redirected after completion of the signature stream.
@@ -92,9 +92,9 @@ public interface DirectPreApprovalRegistration {
    * Pre Approval
    *
    * @return Pre Approval
-   * @see PreApproval
+   * @see PreApprovalRequest
    */
-  PreApproval getPreApproval();
+  PreApprovalRequest getPreApproval();
 
   /**
    * Extra Parameters for another versions

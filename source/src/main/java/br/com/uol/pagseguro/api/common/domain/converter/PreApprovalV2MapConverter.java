@@ -22,7 +22,7 @@ package br.com.uol.pagseguro.api.common.domain.converter;
 
 import java.text.SimpleDateFormat;
 
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import br.com.uol.pagseguro.api.utils.AbstractMapConverter;
 import br.com.uol.pagseguro.api.utils.RequestMap;
 
@@ -32,30 +32,30 @@ import br.com.uol.pagseguro.api.utils.RequestMap;
  *
  * @author PagSeguro Internet Ltda.
  */
-public class PreApprovalV2MapConverter extends AbstractMapConverter<PreApproval> {
+public class PreApprovalV2MapConverter extends AbstractMapConverter<PreApprovalRequest> {
 
   /**
    * Convert attributes of pre approval in request map
    *
    * @param requestMap  Request Map used to pass params to api
-   * @param preApproval The interface of pre approval
+   * @param preApprovalRequest The interface of pre approval
    * @see RequestMap
-   * @see PreApproval
+   * @see PreApprovalRequest
    * @see AbstractMapConverter#convert(Object)
    */
   @Override
-  protected void convert(RequestMap requestMap, PreApproval preApproval) {
+  protected void convert(RequestMap requestMap, PreApprovalRequest preApprovalRequest) {
     final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss");
-    requestMap.putString("preApprovalCharge", preApproval.getCharge());
-    requestMap.putString("preApprovalName", preApproval.getName());
-    requestMap.putString("preApprovalDetails", preApproval.getDetails());
-    requestMap.putCurrency("preApprovalAmountPerPayment", preApproval.getAmountPerPayment());
-    requestMap.putCurrency("preApprovalMaxAmountPerPayment", preApproval.getMaxAmountPerPayment());
-    requestMap.putCurrency("preApprovalMaxTotalAmount", preApproval.getMaxTotalAmount());
-    requestMap.putInteger("preApprovalMaxPaymentsPerPeriod", preApproval.getMaxPaymentsPerPeriod());
-    requestMap.putCurrency("preApprovalMaxAmountPerPeriod", preApproval.getMaxAmountPerPeriod());
-    requestMap.putString("preApprovalPeriod", preApproval.getPeriod());
-    requestMap.putDate("preApprovalInitialDate", preApproval.getDateRange().getFrom(), sdf);
-    requestMap.putDate("preApprovalFinalDate", preApproval.getDateRange().getTo(), sdf);
+    requestMap.putString("preApprovalCharge", preApprovalRequest.getCharge());
+    requestMap.putString("preApprovalName", preApprovalRequest.getName());
+    requestMap.putString("preApprovalDetails", preApprovalRequest.getDetails());
+    requestMap.putCurrency("preApprovalAmountPerPayment", preApprovalRequest.getAmountPerPayment());
+    requestMap.putCurrency("preApprovalMaxAmountPerPayment", preApprovalRequest.getMaxAmountPerPayment());
+    requestMap.putCurrency("preApprovalMaxTotalAmount", preApprovalRequest.getMaxTotalAmount());
+    requestMap.putInteger("preApprovalMaxPaymentsPerPeriod", preApprovalRequest.getMaxPaymentsPerPeriod());
+    requestMap.putCurrency("preApprovalMaxAmountPerPeriod", preApprovalRequest.getMaxAmountPerPeriod());
+    requestMap.putString("preApprovalPeriod", preApprovalRequest.getPeriod());
+    requestMap.putDate("preApprovalInitialDate", preApprovalRequest.getDateRange().getFrom(), sdf);
+    requestMap.putDate("preApprovalFinalDate", preApprovalRequest.getDateRange().getTo(), sdf);
   }
 }

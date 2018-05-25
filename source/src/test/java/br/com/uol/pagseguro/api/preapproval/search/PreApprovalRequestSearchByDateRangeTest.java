@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
  * @author PagSeguro Internet Ltda.
  */
 @RunWith(PowerMockRunner.class)
-public class PreApprovalSearchByDateRangeTest extends Resource4Test {
+public class PreApprovalRequestSearchByDateRangeTest extends Resource4Test {
 
   private PreApprovalSearchByDateRange preApprovalSearchByDateRange;
 

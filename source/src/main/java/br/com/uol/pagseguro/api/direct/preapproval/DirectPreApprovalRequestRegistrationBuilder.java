@@ -21,13 +21,9 @@
 
 package br.com.uol.pagseguro.api.direct.preapproval;
 
-import br.com.uol.pagseguro.api.common.domain.Parameter;
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
-import br.com.uol.pagseguro.api.common.domain.Sender;
-import br.com.uol.pagseguro.api.common.domain.Shipping;
-import br.com.uol.pagseguro.api.common.domain.Receiver;
+import br.com.uol.pagseguro.api.common.domain.*;
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRegistration;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 import java.math.BigDecimal;
@@ -40,7 +36,7 @@ import java.util.List;
  *
  * @author PagSeguro Internet Ltda.
  */
-public final class DirectPreApprovalRegistrationBuilder implements Builder<DirectPreApprovalRegistration> {
+public final class DirectPreApprovalRequestRegistrationBuilder implements Builder<DirectPreApprovalRequestRegistration> {
 
   private String redirectURL = null;
   private String notificationURL = null;
@@ -49,7 +45,7 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
   private String reference = null;
   private Shipping shipping = null;
   private Sender sender = null;
-  private PreApproval preApproval = null;
+  private PreApprovalRequest preApprovalRequest = null;
   private List<Parameter> parameters = new ArrayList<Parameter>();
   private Receiver receiver = null;
   private String reviewURL = null;
@@ -60,9 +56,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param redirectURL Redirect Url
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getRedirectURL()
+   * @see DirectPreApprovalRequestRegistration#getRedirectURL()
    */
-  public DirectPreApprovalRegistrationBuilder withRedirectURL(String redirectURL) {
+  public DirectPreApprovalRequestRegistrationBuilder withRedirectURL(String redirectURL) {
     this.redirectURL = redirectURL;
     return this;
   }
@@ -72,9 +68,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param notificationURL Notification Url
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getNotificationURL()
+   * @see DirectPreApprovalRequestRegistration#getNotificationURL()
    */
-  public DirectPreApprovalRegistrationBuilder withNotificationURL(String notificationURL) {
+  public DirectPreApprovalRequestRegistrationBuilder withNotificationURL(String notificationURL) {
     this.notificationURL = notificationURL;
     return this;
   }
@@ -85,9 +81,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    * @param currency Currency
    * @return Builder for pre approval registration
    * @see Currency
-   * @see DirectPreApprovalRegistration#getCurrency()
+   * @see DirectPreApprovalRequestRegistration#getCurrency()
    */
-  public DirectPreApprovalRegistrationBuilder withCurrency(Currency currency) {
+  public DirectPreApprovalRequestRegistrationBuilder withCurrency(Currency currency) {
     this.currency = currency;
     return this;
   }
@@ -97,9 +93,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param extraAmount Extra Amount
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getExtraAmount()
+   * @see DirectPreApprovalRequestRegistration#getExtraAmount()
    */
-  public DirectPreApprovalRegistrationBuilder withExtraAmount(BigDecimal extraAmount) {
+  public DirectPreApprovalRequestRegistrationBuilder withExtraAmount(BigDecimal extraAmount) {
     this.extraAmount = extraAmount;
     return this;
   }
@@ -109,9 +105,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param reference Reference
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getReference()
+   * @see DirectPreApprovalRequestRegistration#getReference()
    */
-  public DirectPreApprovalRegistrationBuilder withReference(String reference) {
+  public DirectPreApprovalRequestRegistrationBuilder withReference(String reference) {
     this.reference = reference;
     return this;
   }
@@ -121,9 +117,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param shipping Shipping
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getShipping()
+   * @see DirectPreApprovalRequestRegistration#getShipping()
    */
-  public DirectPreApprovalRegistrationBuilder withShipping(Shipping shipping) {
+  public DirectPreApprovalRequestRegistrationBuilder withShipping(Shipping shipping) {
     this.shipping = shipping;
     return this;
   }
@@ -133,9 +129,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param shippingBuilder Builder for Shipping
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getShipping()
+   * @see DirectPreApprovalRequestRegistration#getShipping()
    */
-  public DirectPreApprovalRegistrationBuilder withShipping(Builder<Shipping> shippingBuilder) {
+  public DirectPreApprovalRequestRegistrationBuilder withShipping(Builder<Shipping> shippingBuilder) {
     return withShipping(shippingBuilder.build());
   }
 
@@ -144,9 +140,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param sender Sender
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getSender()
+   * @see DirectPreApprovalRequestRegistration#getSender()
    */
-  public DirectPreApprovalRegistrationBuilder withSender(Sender sender) {
+  public DirectPreApprovalRequestRegistrationBuilder withSender(Sender sender) {
     this.sender = sender;
     return this;
   }
@@ -156,21 +152,21 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param senderBuilder Builder for Sender
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getSender()
+   * @see DirectPreApprovalRequestRegistration#getSender()
    */
-  public DirectPreApprovalRegistrationBuilder withSender(Builder<Sender> senderBuilder) {
+  public DirectPreApprovalRequestRegistrationBuilder withSender(Builder<Sender> senderBuilder) {
     return withSender(senderBuilder.build());
   }
 
   /**
    * Set Pre Approval of pre approval registration
    *
-   * @param preApproval Pre Approval
+   * @param preApprovalRequest Pre Approval
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getPreApproval()
+   * @see DirectPreApprovalRequestRegistration#getPreApproval()
    */
-  public DirectPreApprovalRegistrationBuilder withPreApproval(PreApproval preApproval) {
-    this.preApproval = preApproval;
+  public DirectPreApprovalRequestRegistrationBuilder withPreApproval(PreApprovalRequest preApprovalRequest) {
+    this.preApprovalRequest = preApprovalRequest;
     return this;
   }
 
@@ -179,9 +175,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param preApprovalBuilder Builder for Pre Approval
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getPreApproval()
+   * @see DirectPreApprovalRequestRegistration#getPreApproval()
    */
-  public DirectPreApprovalRegistrationBuilder withPreApproval(Builder<PreApproval> preApprovalBuilder) {
+  public DirectPreApprovalRequestRegistrationBuilder withPreApproval(Builder<PreApprovalRequest> preApprovalBuilder) {
     return withPreApproval(preApprovalBuilder.build());
   }
 
@@ -192,9 +188,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param parameter Parameter
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getParameters()
+   * @see DirectPreApprovalRequestRegistration#getParameters()
    */
-  public DirectPreApprovalRegistrationBuilder addParameter(Parameter parameter) {
+  public DirectPreApprovalRequestRegistrationBuilder addParameter(Parameter parameter) {
     parameters.add(parameter);
     return this;
   }
@@ -204,9 +200,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param parameterBuilder Builder for Parameter
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getParameters()
+   * @see DirectPreApprovalRequestRegistration#getParameters()
    */
-  public DirectPreApprovalRegistrationBuilder addParameter(Builder<Parameter> parameterBuilder) {
+  public DirectPreApprovalRequestRegistrationBuilder addParameter(Builder<Parameter> parameterBuilder) {
     return addParameter(parameterBuilder.build());
   }
 
@@ -215,9 +211,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param parameters Parameters
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getParameters()
+   * @see DirectPreApprovalRequestRegistration#getParameters()
    */
-  public DirectPreApprovalRegistrationBuilder addParameters(Iterable<? extends Parameter> parameters) {
+  public DirectPreApprovalRequestRegistrationBuilder addParameters(Iterable<? extends Parameter> parameters) {
     for (Parameter parameter : parameters) {
       addParameter(parameter);
     }
@@ -229,9 +225,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param receiver Receiver
    * @return DirectPaymentRegistrationBuilder
-   * @see DirectPreApprovalRegistration#getReceiver()
+   * @see DirectPreApprovalRequestRegistration#getReceiver()
    */
-  public DirectPreApprovalRegistrationBuilder withReceiver(Receiver receiver) {
+  public DirectPreApprovalRequestRegistrationBuilder withReceiver(Receiver receiver) {
     this.receiver = receiver;
     return this;
   }
@@ -241,9 +237,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param receiverBuilder Builder for Receiver
    * @return DirectPaymentRegistrationBuilder
-   * @see DirectPreApprovalRegistration#getReceiver()
+   * @see DirectPreApprovalRequestRegistration#getReceiver()
    */
-  public DirectPreApprovalRegistrationBuilder withReceiver(Builder<Receiver> receiverBuilder) {
+  public DirectPreApprovalRequestRegistrationBuilder withReceiver(Builder<Receiver> receiverBuilder) {
     return withReceiver(receiverBuilder.build());
   }
 
@@ -253,9 +249,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param reviewURL Review Url
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getReviewURL()
+   * @see DirectPreApprovalRequestRegistration#getReviewURL()
    */
-  public DirectPreApprovalRegistrationBuilder withReviewURL(String reviewURL) {
+  public DirectPreApprovalRequestRegistrationBuilder withReviewURL(String reviewURL) {
     this.reviewURL = reviewURL;
     return this;
   }
@@ -266,9 +262,9 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    *
    * @param maxUses Max Uses
    * @return Builder for pre approval registration
-   * @see DirectPreApprovalRegistration#getMaxUses()
+   * @see DirectPreApprovalRequestRegistration#getMaxUses()
    */
-  public DirectPreApprovalRegistrationBuilder withMaxUses(Integer maxUses) {
+  public DirectPreApprovalRequestRegistrationBuilder withMaxUses(Integer maxUses) {
     this.maxUses = maxUses;
     return this;
   }
@@ -277,80 +273,80 @@ public final class DirectPreApprovalRegistrationBuilder implements Builder<Direc
    * Build the Pre Approval Registration
    *
    * @return Interface for Pre Approval Registration
-   * @see DirectPreApprovalRegistration
+   * @see DirectPreApprovalRequestRegistration
    */
   @Override
-  public DirectPreApprovalRegistration build() {
-    return new SimplePreApprovalRegistration(this);
+  public DirectPreApprovalRequestRegistration build() {
+    return new SimplePreApprovalRequestRegistration(this);
   }
 
   /**
    * Implementation of {@code PreApprovalRegistration}
    */
-  private static class SimplePreApprovalRegistration implements DirectPreApprovalRegistration {
+  private static class SimplePreApprovalRequestRegistration implements DirectPreApprovalRequestRegistration {
 
-    private final DirectPreApprovalRegistrationBuilder directPreApprovalRegistrationBuilder;
+    private final DirectPreApprovalRequestRegistrationBuilder directPreApprovalRequestRegistrationBuilder;
 
-    public SimplePreApprovalRegistration(DirectPreApprovalRegistrationBuilder directPreApprovalRegistrationBuilder) {
-      this.directPreApprovalRegistrationBuilder = directPreApprovalRegistrationBuilder;
+    public SimplePreApprovalRequestRegistration(DirectPreApprovalRequestRegistrationBuilder directPreApprovalRequestRegistrationBuilder) {
+      this.directPreApprovalRequestRegistrationBuilder = directPreApprovalRequestRegistrationBuilder;
     }
 
     @Override
     public String getRedirectURL() {
-      return directPreApprovalRegistrationBuilder.redirectURL;
+      return directPreApprovalRequestRegistrationBuilder.redirectURL;
     }
 
     @Override
     public String getNotificationURL() {
-      return directPreApprovalRegistrationBuilder.notificationURL;
+      return directPreApprovalRequestRegistrationBuilder.notificationURL;
     }
 
     @Override
     public Currency getCurrency() {
-      return directPreApprovalRegistrationBuilder.currency;
+      return directPreApprovalRequestRegistrationBuilder.currency;
     }
 
     @Override
     public BigDecimal getExtraAmount() {
-      return directPreApprovalRegistrationBuilder.extraAmount;
+      return directPreApprovalRequestRegistrationBuilder.extraAmount;
     }
 
     @Override
     public String getReference() {
-      return directPreApprovalRegistrationBuilder.reference;
+      return directPreApprovalRequestRegistrationBuilder.reference;
     }
 
     @Override
     public Shipping getShipping() {
-      return directPreApprovalRegistrationBuilder.shipping;
+      return directPreApprovalRequestRegistrationBuilder.shipping;
     }
 
     @Override
     public Sender getSender() {
-      return directPreApprovalRegistrationBuilder.sender;
+      return directPreApprovalRequestRegistrationBuilder.sender;
     }
 
     @Override
-    public PreApproval getPreApproval() {
-      return directPreApprovalRegistrationBuilder.preApproval;
+    public PreApprovalRequest getPreApproval() {
+      return directPreApprovalRequestRegistrationBuilder.preApprovalRequest;
     }
 
     @Override
     public List<? extends Parameter> getParameters() {
-      return directPreApprovalRegistrationBuilder.parameters;
+      return directPreApprovalRequestRegistrationBuilder.parameters;
     }
 
     @Override
-    public Receiver getReceiver() {return directPreApprovalRegistrationBuilder.receiver; }
+    public Receiver getReceiver() {return directPreApprovalRequestRegistrationBuilder.receiver; }
 
     @Override
     public String getReviewURL() {
-      return directPreApprovalRegistrationBuilder.reviewURL;
+      return directPreApprovalRequestRegistrationBuilder.reviewURL;
     }
 
     @Override
     public Integer getMaxUses() {
-      return directPreApprovalRegistrationBuilder.maxUses;
+      return directPreApprovalRequestRegistrationBuilder.maxUses;
     }
   }
 }

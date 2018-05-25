@@ -21,17 +21,11 @@
 package br.com.uol.pagseguro.api.checkout;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.uol.pagseguro.api.common.domain.AcceptedPaymentMethods;
-import br.com.uol.pagseguro.api.common.domain.Parameter;
-import br.com.uol.pagseguro.api.common.domain.PaymentItem;
-import br.com.uol.pagseguro.api.common.domain.PaymentMethodConfig;
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
-import br.com.uol.pagseguro.api.common.domain.Sender;
-import br.com.uol.pagseguro.api.common.domain.Shipping;
+import br.com.uol.pagseguro.api.common.domain.*;
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 import br.com.uol.pagseguro.api.utils.Builder;
 
@@ -55,7 +49,7 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
 
   private List<PaymentItem> items = new LinkedList<PaymentItem>();
 
-  private PreApproval preApproval = null;
+  private PreApprovalRequest preApprovalRequest = null;
 
   private List<Parameter> parameters = new LinkedList<Parameter>();
 
@@ -191,12 +185,12 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
   /**
    * Set Pre Approval
    *
-   * @param preApproval Pre Approval
+   * @param preApprovalRequest Pre Approval
    * @return Builder for checkout registration
    * @see CheckoutRegistration#getPreApproval()
    */
-  public CheckoutRegistrationBuilder withPreApproval(PreApproval preApproval) {
-    this.preApproval = preApproval;
+  public CheckoutRegistrationBuilder withPreApproval(PreApprovalRequest preApprovalRequest) {
+    this.preApprovalRequest = preApprovalRequest;
     return this;
   }
 
@@ -207,7 +201,7 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
    * @return Builder for checkout registration
    * @see CheckoutRegistration#getPreApproval()
    */
-  public CheckoutRegistrationBuilder withPreApproval(Builder<PreApproval> preApproval) {
+  public CheckoutRegistrationBuilder withPreApproval(Builder<PreApprovalRequest> preApproval) {
     return withPreApproval(preApproval.build());
   }
 
@@ -366,8 +360,8 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
     }
 
     @Override
-    public PreApproval getPreApproval() {
-      return checkoutRegistrationBuilder.preApproval;
+    public PreApprovalRequest getPreApproval() {
+      return checkoutRegistrationBuilder.preApprovalRequest;
     }
 
     @Override

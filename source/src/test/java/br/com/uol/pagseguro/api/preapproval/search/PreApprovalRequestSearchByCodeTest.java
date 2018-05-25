@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
  * @author PagSeguro Internet Ltda.
  */
 @RunWith(PowerMockRunner.class)
-public class PreApprovalSearchByCodeTest extends Resource4Test {
+public class PreApprovalRequestSearchByCodeTest extends Resource4Test {
 
   private PreApprovalSearchByCode preApprovalSearchByCode;
 

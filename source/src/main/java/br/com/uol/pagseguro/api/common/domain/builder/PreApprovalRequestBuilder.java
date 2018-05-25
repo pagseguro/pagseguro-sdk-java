@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 
 import br.com.uol.pagseguro.api.common.domain.DateRange;
 import br.com.uol.pagseguro.api.common.domain.Expiration;
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import br.com.uol.pagseguro.api.common.domain.enums.Charge;
 import br.com.uol.pagseguro.api.common.domain.enums.DayOfWeek;
 import br.com.uol.pagseguro.api.common.domain.enums.Period;
@@ -36,7 +36,7 @@ import br.com.uol.pagseguro.api.utils.Builder;
  *
  * @author PagSeguro Internet Ltda.
  */
-public final class PreApprovalBuilder implements Builder<PreApproval> {
+public final class PreApprovalRequestBuilder implements Builder<PreApprovalRequest> {
 
   private String charge = null;
   private String name = null;
@@ -62,9 +62,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    * @deprecated backward compatibility use {@link #withCharge(Charge)}
    * @param charge String
    * @return Builder for pre approval
-   * @see PreApproval#getCharge()
+   * @see PreApprovalRequest#getCharge()
    */
-  public PreApprovalBuilder withCharge(String charge) {
+  public PreApprovalRequestBuilder withCharge(String charge) {
     this.charge = charge;
     return this;
   }
@@ -74,9 +74,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param charge Charge
    * @return Builder for pre approval
-   * @see PreApproval#getCharge()
+   * @see PreApprovalRequest#getCharge()
    */
-  public PreApprovalBuilder withCharge(Charge charge) {
+  public PreApprovalRequestBuilder withCharge(Charge charge) {
     this.charge = charge.getValue();
     return this;
   }
@@ -86,9 +86,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param name Name
    * @return Builder for Pre Approval
-   * @see PreApproval#getName()
+   * @see PreApprovalRequest#getName()
    */
-  public PreApprovalBuilder withName(String name) {
+  public PreApprovalRequestBuilder withName(String name) {
     this.name = name;
     return this;
   }
@@ -98,9 +98,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param details Details
    * @return Builder for Pre Approval
-   * @see PreApproval#getDetails()
+   * @see PreApprovalRequest#getDetails()
    */
-  public PreApprovalBuilder withDetails(String details) {
+  public PreApprovalRequestBuilder withDetails(String details) {
     this.details = details;
     return this;
   }
@@ -110,9 +110,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param amountPerPayment Amount per payment
    * @return Builder for Pre Approval
-   * @see PreApproval#getAmountPerPayment()
+   * @see PreApprovalRequest#getAmountPerPayment()
    */
-  public PreApprovalBuilder withAmountPerPayment(BigDecimal amountPerPayment) {
+  public PreApprovalRequestBuilder withAmountPerPayment(BigDecimal amountPerPayment) {
     this.amountPerPayment = amountPerPayment;
     return this;
   }
@@ -122,9 +122,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param maxAmountPerPayment Max amount per payment
    * @return Builder for Pre Approval
-   * @see PreApproval#getMaxAmountPerPayment()
+   * @see PreApprovalRequest#getMaxAmountPerPayment()
    */
-  public PreApprovalBuilder withMaxAmountPerPayment(BigDecimal maxAmountPerPayment) {
+  public PreApprovalRequestBuilder withMaxAmountPerPayment(BigDecimal maxAmountPerPayment) {
     this.maxAmountPerPayment = maxAmountPerPayment;
     return this;
   }
@@ -134,9 +134,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param maxTotalAmount Max total amount
    * @return Builder for Pre Approval
-   * @see PreApproval#getMaxTotalAmount()
+   * @see PreApprovalRequest#getMaxTotalAmount()
    */
-  public PreApprovalBuilder withMaxTotalAmount(BigDecimal maxTotalAmount) {
+  public PreApprovalRequestBuilder withMaxTotalAmount(BigDecimal maxTotalAmount) {
     this.maxTotalAmount = maxTotalAmount;
     return this;
   }
@@ -146,9 +146,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param maxAmountPerPeriod Max amount per period
    * @return Builder for Pre Approval
-   * @see PreApproval#getMaxAmountPerPeriod()
+   * @see PreApprovalRequest#getMaxAmountPerPeriod()
    */
-  public PreApprovalBuilder withMaxAmountPerPeriod(BigDecimal maxAmountPerPeriod) {
+  public PreApprovalRequestBuilder withMaxAmountPerPeriod(BigDecimal maxAmountPerPeriod) {
     this.maxAmountPerPeriod = maxAmountPerPeriod;
     return this;
   }
@@ -158,9 +158,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param maxPaymentsPerPeriod Max payment per period
    * @return Builder for Pre Approval
-   * @see PreApproval#getMaxAmountPerPeriod()
+   * @see PreApprovalRequest#getMaxAmountPerPeriod()
    */
-  public PreApprovalBuilder withMaxPaymentsPerPeriod(Integer maxPaymentsPerPeriod) {
+  public PreApprovalRequestBuilder withMaxPaymentsPerPeriod(Integer maxPaymentsPerPeriod) {
     this.maxPaymentsPerPeriod = maxPaymentsPerPeriod;
     return this;
   }
@@ -171,9 +171,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    * @deprecated backward compatibility use {@link #withPeriod(Period)}
    * @param period String
    * @return Builder for Pre Approval
-   * @see PreApproval#getPeriod()
+   * @see PreApprovalRequest#getPeriod()
    */
-  public PreApprovalBuilder withPeriod(String period) {
+  public PreApprovalRequestBuilder withPeriod(String period) {
     this.period = period;
     return this;
   }
@@ -184,9 +184,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param period Period
    * @return Builder for Pre Approval
-   * @see PreApproval#getPeriod()
+   * @see PreApprovalRequest#getPeriod()
    */
-  public PreApprovalBuilder withPeriod(Period period) {
+  public PreApprovalRequestBuilder withPeriod(Period period) {
     this.period = period.getValue();
     return this;
   }
@@ -196,9 +196,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param dateRange Date range
    * @return Builder for Pre Approval
-   * @see PreApproval#getDateRange()
+   * @see PreApprovalRequest#getDateRange()
    */
-  public PreApprovalBuilder withDateRange(DateRange dateRange) {
+  public PreApprovalRequestBuilder withDateRange(DateRange dateRange) {
     this.dateRange = dateRange;
     return this;
   }
@@ -208,9 +208,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param dateRangeBuilder Builder for Date range
    * @return Builder for Pre Approval
-   * @see PreApproval#getDateRange()
+   * @see PreApprovalRequest#getDateRange()
    */
-  public PreApprovalBuilder withDateRange(Builder<DateRange> dateRangeBuilder) {
+  public PreApprovalRequestBuilder withDateRange(Builder<DateRange> dateRangeBuilder) {
     return withDateRange(dateRangeBuilder.build());
   }
 
@@ -219,9 +219,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param membershipFee Amount per payment
    * @return Builder for Pre Approval
-   * @see PreApproval#getMembershipFee()
+   * @see PreApprovalRequest#getMembershipFee()
    */
-  public PreApprovalBuilder withMembershipFee(BigDecimal membershipFee) {
+  public PreApprovalRequestBuilder withMembershipFee(BigDecimal membershipFee) {
     this.membershipFee = membershipFee;
     return this;
   }
@@ -231,9 +231,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param trialPeriodDuration Amount per payment
    * @return Builder for Pre Approval
-   * @see PreApproval#getTrialPeriodDuration()
+   * @see PreApprovalRequest#getTrialPeriodDuration()
    */
-  public PreApprovalBuilder withTrialPeriodDuration(Integer trialPeriodDuration) {
+  public PreApprovalRequestBuilder withTrialPeriodDuration(Integer trialPeriodDuration) {
     this.trialPeriodDuration = trialPeriodDuration;
     return this;
   }
@@ -243,9 +243,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param expiration Expiration
    * @return Builder for pre approval registration
-   * @see PreApproval#getExpiration()
+   * @see PreApprovalRequest#getExpiration()
    */
-  public PreApprovalBuilder withExpiration(Expiration expiration) {
+  public PreApprovalRequestBuilder withExpiration(Expiration expiration) {
     this.expiration = expiration;
     return this;
   }
@@ -255,9 +255,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param expirationBuilder Builder for Expiration
    * @return Builder for pre approval registration
-   * @see PreApproval#getExpiration()
+   * @see PreApprovalRequest#getExpiration()
    */
-  public PreApprovalBuilder withExpiration(Builder<Expiration> expirationBuilder) {
+  public PreApprovalRequestBuilder withExpiration(Builder<Expiration> expirationBuilder) {
     return withExpiration(expirationBuilder.build());
   }
 
@@ -266,9 +266,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param dayOfYear DayOfYear
    * @return Builder for Pre Approval
-   * @see PreApproval#getDayOfYear()
+   * @see PreApprovalRequest#getDayOfYear()
    */
-  public PreApprovalBuilder withDayOfYear(String dayOfYear) {
+  public PreApprovalRequestBuilder withDayOfYear(String dayOfYear) {
     this.dayOfYear = dayOfYear;
     return this;
   }
@@ -278,9 +278,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param dayOfMonth DayOfMonth
    * @return Builder for Pre Approval
-   * @see PreApproval#getDayOfMonth()
+   * @see PreApprovalRequest#getDayOfMonth()
    */
-  public PreApprovalBuilder withDayOfMonth(Integer dayOfMonth) {
+  public PreApprovalRequestBuilder withDayOfMonth(Integer dayOfMonth) {
     this.dayOfMonth = dayOfMonth;
     return this;
   }
@@ -290,9 +290,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param dayOfWeek DayOfWeek
    * @return Builder for Pre Approval
-   * @see PreApproval#getDayOfWeek()
+   * @see PreApprovalRequest#getDayOfWeek()
    */
-  public PreApprovalBuilder withDayOfWeek(DayOfWeek dayOfWeek) {
+  public PreApprovalRequestBuilder withDayOfWeek(DayOfWeek dayOfWeek) {
     this.dayOfWeek = dayOfWeek.getValue();
     return this;
   }
@@ -302,9 +302,9 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    *
    * @param cancelURL CancelURL
    * @return Builder for Pre Approval
-   * @see PreApproval#getCancelURl()
+   * @see PreApprovalRequest#getCancelURl()
    */
-  public PreApprovalBuilder withCancelURL(String cancelURL) {
+  public PreApprovalRequestBuilder withCancelURL(String cancelURL) {
     this.cancelURL = cancelURL;
     return this;
   }
@@ -315,104 +315,104 @@ public final class PreApprovalBuilder implements Builder<PreApproval> {
    * @return Interface for Pre Approval
    */
   @Override
-  public PreApproval build() {
-    return new SimplePreApproval(this);
+  public PreApprovalRequest build() {
+    return new SimplePreApprovalRequest(this);
   }
 
   /**
-   * Implementation of {@code PreApproval}
+   * Implementation of {@code PreApprovalRequest}
    */
-  private static class SimplePreApproval implements PreApproval {
+  private static class SimplePreApprovalRequest implements PreApprovalRequest {
 
-    private final PreApprovalBuilder preApprovalBuilder;
+    private final PreApprovalRequestBuilder preApprovalRequestBuilder;
 
-    public SimplePreApproval(PreApprovalBuilder preApprovalBuilder) {
-      this.preApprovalBuilder = preApprovalBuilder;
+    public SimplePreApprovalRequest(PreApprovalRequestBuilder preApprovalRequestBuilder) {
+      this.preApprovalRequestBuilder = preApprovalRequestBuilder;
     }
 
     @Override
     public String getCharge() {
-      return preApprovalBuilder.charge;
+      return preApprovalRequestBuilder.charge;
     }
 
     @Override
     public String getName() {
-      return preApprovalBuilder.name;
+      return preApprovalRequestBuilder.name;
     }
 
     @Override
     public String getDetails() {
-      return preApprovalBuilder.details;
+      return preApprovalRequestBuilder.details;
     }
 
     @Override
     public BigDecimal getAmountPerPayment() {
-      return preApprovalBuilder.amountPerPayment;
+      return preApprovalRequestBuilder.amountPerPayment;
     }
 
     @Override
     public BigDecimal getMaxAmountPerPayment() {
-      return preApprovalBuilder.maxAmountPerPayment;
+      return preApprovalRequestBuilder.maxAmountPerPayment;
     }
 
     @Override
     public BigDecimal getMaxTotalAmount() {
-      return preApprovalBuilder.maxTotalAmount;
+      return preApprovalRequestBuilder.maxTotalAmount;
     }
 
     @Override
     public BigDecimal getMaxAmountPerPeriod() {
-      return preApprovalBuilder.maxAmountPerPeriod;
+      return preApprovalRequestBuilder.maxAmountPerPeriod;
     }
 
     @Override
     public Integer getMaxPaymentsPerPeriod() {
-      return preApprovalBuilder.maxPaymentsPerPeriod;
+      return preApprovalRequestBuilder.maxPaymentsPerPeriod;
     }
 
     @Override
     public String getPeriod() {
-      return preApprovalBuilder.period;
+      return preApprovalRequestBuilder.period;
     }
 
     @Override
     public DateRange getDateRange() {
-      return preApprovalBuilder.dateRange;
+      return preApprovalRequestBuilder.dateRange;
     }
 
     @Override
     public BigDecimal getMembershipFee() {
-      return preApprovalBuilder.membershipFee;
+      return preApprovalRequestBuilder.membershipFee;
     }
 
     @Override
     public Integer getTrialPeriodDuration() {
-      return preApprovalBuilder.trialPeriodDuration;
+      return preApprovalRequestBuilder.trialPeriodDuration;
     }
 
     @Override
     public Expiration getExpiration() {
-      return preApprovalBuilder.expiration;
+      return preApprovalRequestBuilder.expiration;
     }
 
     @Override
     public String getDayOfYear() {
-      return preApprovalBuilder.dayOfYear;
+      return preApprovalRequestBuilder.dayOfYear;
     }
 
     @Override
     public Integer getDayOfMonth() {
-      return preApprovalBuilder.dayOfMonth;
+      return preApprovalRequestBuilder.dayOfMonth;
     }
 
     @Override
     public String getDayOfWeek() {
-      return preApprovalBuilder.dayOfWeek;
+      return preApprovalRequestBuilder.dayOfWeek;
     }
 
     @Override
     public String getCancelURl() {
-      return preApprovalBuilder.cancelURL;
+      return preApprovalRequestBuilder.cancelURL;
     }
   }
 }

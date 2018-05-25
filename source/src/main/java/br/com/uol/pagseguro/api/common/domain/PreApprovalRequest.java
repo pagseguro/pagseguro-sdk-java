@@ -33,7 +33,7 @@ import java.math.BigDecimal;
  *
  * @author PagSeguro Internet Ltda.
  */
-public interface PreApproval {
+public interface PreApprovalRequest {
 
   /**
    * Get charge of pre approval

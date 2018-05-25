@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * @author PagSeguro Internet Ltda.
  */
-public class PreApprovalChargingV2MapConverterTest {
+public class PreApprovalRequestChargingV2MapConverterTest {
 
   private PreApprovalChargingV2MapConverter mapConverter;
 

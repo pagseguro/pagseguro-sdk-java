@@ -23,7 +23,6 @@ package br.com.uol.pagseguro.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.Endpoints;
 import br.com.uol.pagseguro.api.PagSeguro;
-import br.com.uol.pagseguro.api.preapproval.RegisteredPreApproval;
 import br.com.uol.pagseguro.api.utils.XMLUnmarshallListener;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -31,19 +30,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
- * Implementation of {@code RegisteredDirectPreApproval} and {@code XMLUnmarshallListener}
+ * Implementation of {@code RegisteredDirectPreApprovalRequest} and {@code XMLUnmarshallListener}
  *
  * @author PagSeguro Internet Ltda.
  */
 @XmlRootElement(name = "preApprovalRequest")
-public class RegisterDirectPreApprovalResponseXML implements RegisteredDirectPreApproval, XMLUnmarshallListener {
+public class RegisterDirectPreApprovalRequestResponseXML implements RegisteredDirectPreApprovalRequest, XMLUnmarshallListener {
 
   private PagSeguro pagSeguro;
 
   private String code;
   private Date date;
 
-  RegisterDirectPreApprovalResponseXML() {
+  RegisterDirectPreApprovalRequestResponseXML() {
   }
 
   public String getCode() {

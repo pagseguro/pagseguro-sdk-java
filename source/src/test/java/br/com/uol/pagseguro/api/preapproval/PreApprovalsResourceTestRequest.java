@@ -17,7 +17,7 @@ import br.com.uol.pagseguro.api.common.domain.builder.DateRangeBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.ParameterBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PaymentItemBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PhoneBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalRequestBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.SenderBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.ShippingBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
@@ -42,7 +42,7 @@ import static org.mockito.Mockito.when;
  * @author PagSeguro Internet Ltda.
  */
 @RunWith(PowerMockRunner.class)
-public class PreApprovalsResourceTest extends Resource4Test {
+public class PreApprovalsResourceTestRequest extends Resource4Test {
 
   private PreApprovalsResource preApprovalsResource;
 
@@ -97,7 +97,7 @@ public class PreApprovalsResourceTest extends Resource4Test {
             .withCPF("99999999999")
             .withHash("hash")
         )
-        .withPreApproval(new PreApprovalBuilder()
+        .withPreApproval(new PreApprovalRequestBuilder()
             .withCharge("charge")
             .withName("name")
             .withDetails("details")

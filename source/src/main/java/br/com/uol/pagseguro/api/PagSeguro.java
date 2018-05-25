@@ -24,6 +24,7 @@ import br.com.uol.pagseguro.api.application.authorization.AuthorizationsResource
 import br.com.uol.pagseguro.api.checkout.CheckoutsResource;
 import br.com.uol.pagseguro.api.credential.Credential;
 import br.com.uol.pagseguro.api.credential.DefaultCredentialProviderChain;
+import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalsRequestResource;
 import br.com.uol.pagseguro.api.environment.DefaultEnvironmentProviderChain;
 import br.com.uol.pagseguro.api.exception.PagSeguroLibException;
 import br.com.uol.pagseguro.api.http.AuthenticatedHttpClient;
@@ -32,7 +33,6 @@ import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.installment.InstallmentsListResource;
 import br.com.uol.pagseguro.api.notification.NotificationsResource;
 import br.com.uol.pagseguro.api.preapproval.PreApprovalsResource;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalsResource;
 import br.com.uol.pagseguro.api.session.SessionResource;
 import br.com.uol.pagseguro.api.transaction.TransactionsResource;
 import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
@@ -98,8 +98,8 @@ public abstract class PagSeguro {
    * Get factory to direct pre approval
    * @return Factory to direct pre approval
    */
-  public DirectPreApprovalsResource directPreApprovals() {
-    return new DirectPreApprovalsResource(this, httpClient);
+  public DirectPreApprovalsRequestResource directPreApprovalsRequest() {
+    return new DirectPreApprovalsRequestResource(this, httpClient);
   }
 
   /**

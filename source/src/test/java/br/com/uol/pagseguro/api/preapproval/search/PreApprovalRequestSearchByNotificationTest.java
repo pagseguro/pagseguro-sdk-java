@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
  * @author PagSeguro Internet Ltda.
  */
 @RunWith(PowerMockRunner.class)
-public class PreApprovalSearchByNotificationTest extends Resource4Test {
+public class PreApprovalRequestSearchByNotificationTest extends Resource4Test {
 
   private PreApprovalSearchByNotification preApprovalSearchByNotification;
 
@@ -106,7 +106,7 @@ public class PreApprovalSearchByNotificationTest extends Resource4Test {
                                 "<errors>" +
                                 "<error>" +
                                 "<code>0001</code>" +
-                                "<message>PreApproval notification code is required.</message>" +
+                                "<message>PreApprovalRequest notification code is required.</message>" +
                                 "</error>" +
                                 "</errors>";
       HttpResponse response = new HttpResponse(400, responseAsString);
@@ -118,7 +118,7 @@ public class PreApprovalSearchByNotificationTest extends Resource4Test {
       ServerErrors errors = e.getErrors();
       ServerError error = errors.getErrors().iterator().next();
       assertEquals(new Integer(0001), error.getCode());
-      assertEquals("PreApproval notification code is required.", error.getMessage());
+      assertEquals("PreApprovalRequest notification code is required.", error.getMessage());
     } catch (Exception e) {
     }
   }

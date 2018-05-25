@@ -28,12 +28,7 @@ import javax.xml.bind.DatatypeConverter;
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
 import br.com.uol.pagseguro.api.common.domain.ShippingType;
-import br.com.uol.pagseguro.api.common.domain.builder.AddressBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.DateRangeBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PhoneBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.SenderBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.ShippingBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.*;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 import br.com.uol.pagseguro.api.common.domain.enums.State;
 import br.com.uol.pagseguro.api.credential.Credential;
@@ -56,7 +51,7 @@ public class PreApprovalRegister {
 
       final PagSeguro pagSeguro = PagSeguro
           .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
-              Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
+            Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
 
       //Assinatura
@@ -78,15 +73,15 @@ public class PreApprovalRegister {
                   .withAddress(new AddressBuilder() //
                       .withPostalCode("99999999")
                       .withCountry("BRA")
-                      .withState(State.XX)//
+                      .withState(State.SP)//
                       .withCity("Cidade Exemplo")
                       .withComplement("99o andar")
                       .withDistrict("Jardim Internet")
                       .withNumber("9999")
                       .withStreet("Av. PagSeguro")))
-              .withPreApproval(new PreApprovalBuilder()
-                  .withCharge("manual")
-                  .withName("Seguro contra roubo do Notebook Prata")
+              .withPreApproval(new PreApprovalRequestBuilder()
+                  .withCharge("auto")
+                  .withName("Seguro contra roubo do Notebook Rosa")
                   .withDetails("Cada dia 28 será cobrado o valor de R$100,00 referente ao seguro " +
                       "contra roubo do Notebook Prata")
                   .withAmountPerPayment(BigDecimal.TEN)
@@ -97,12 +92,13 @@ public class PreApprovalRegister {
                   .withDateRange(new DateRangeBuilder()
                       .between(
                           new Date(),
-                          DatatypeConverter.parseDateTime("2017-09-27T23:59:59.000-03:00")
+                          DatatypeConverter.parseDateTime("2018-09-27T23:59:59.000-03:00")
                               .getTime())
                   )
               )
-              .withRedirectURL("http:localhost.teste.com/redirect")
-              .withNotificationURL("http:localhost.teste.com/notification")
+              .withRedirectURL("http://loja.teste.com/redirect")
+              .withNotificationURL("http://loja.teste.com/notification")
+
       );
       System.out.println(registeredPreApproval.getRedirectURL());
     }catch (Exception e){

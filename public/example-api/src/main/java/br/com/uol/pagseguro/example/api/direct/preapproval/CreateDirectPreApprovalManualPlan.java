@@ -3,15 +3,15 @@ package br.com.uol.pagseguro.example.api.direct.preapproval;
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
 import br.com.uol.pagseguro.api.common.domain.builder.ExpirationBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalRequestBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.ReceiverBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.Charge;
 import br.com.uol.pagseguro.api.common.domain.enums.DayOfWeek;
 import br.com.uol.pagseguro.api.common.domain.enums.Period;
 import br.com.uol.pagseguro.api.common.domain.enums.Unit;
 import br.com.uol.pagseguro.api.credential.Credential;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRegistrationBuilder;
-import br.com.uol.pagseguro.api.direct.preapproval.RegisteredDirectPreApproval;
+import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRequestRegistrationBuilder;
+import br.com.uol.pagseguro.api.direct.preapproval.RegisteredDirectPreApprovalRequest;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 
@@ -34,8 +34,8 @@ public class CreateDirectPreApprovalManualPlan {
 
             //Criação do plano MANUAL de pagamento recorrente
             //Plano pós-pago (manual) com cobranças semanais de R$ 10,00 a serem efetuadas toda Segunda-feira, com duração ilimitada e taxa de adesão de R$ 50,00
-            RegisteredDirectPreApproval registeredPreApproval = pagSeguro.directPreApprovals().register(
-                    new DirectPreApprovalRegistrationBuilder()
+            RegisteredDirectPreApprovalRequest registeredPreApproval = pagSeguro.directPreApprovalsRequest().register(
+                    new DirectPreApprovalRequestRegistrationBuilder()
                             .withRedirectURL("http://www.seusite.com.br/assinatura-concluida")
                             .withReference("XXXXXX")
                             .withReviewURL("http://lojamodelo.com.br/revisar")
@@ -43,7 +43,7 @@ public class CreateDirectPreApprovalManualPlan {
                                     .withEmail("gabriel.pomin@s2it.com.br"))
                             .withMaxUses(500)
 
-                            .withPreApproval(new PreApprovalBuilder()
+                            .withPreApproval(new PreApprovalRequestBuilder()
                                             .withName("Acesso ao Site Fictício")
                                             .withCharge(Charge.MANUAL)
                                             .withPeriod(Period.WEEKLY)

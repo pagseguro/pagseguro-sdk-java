@@ -16,10 +16,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DirectPreApprovalsResource {
-    private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsResource.class.getName());
-    private static final DirectPreApprovalRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
-            new DirectPreApprovalRegistrationJsonConverter();
+public class DirectPreApprovalsRequestResource {
+    private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsRequestResource.class.getName());
+    private static final DirectPreApprovalRequestRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
+            new DirectPreApprovalRequestRegistrationJsonConverter();
 //    @TODO add here charge method
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
@@ -30,7 +30,7 @@ public class DirectPreApprovalsResource {
     private final PagSeguro pagSeguro;
     private final HttpClient httpClient;
 
-    public DirectPreApprovalsResource(PagSeguro pagSeguro, HttpClient httpClient) {
+    public DirectPreApprovalsRequestResource(PagSeguro pagSeguro, HttpClient httpClient) {
         this.pagSeguro = pagSeguro;
         this.httpClient = httpClient;
     }
@@ -40,26 +40,26 @@ public class DirectPreApprovalsResource {
      *
      * @param directPreApprovalRegistrationBuilder Builder for Pre Approval Registration
      * @return Response of pre approval registration
-     * @see DirectPreApprovalRegistration
-     * @see RegisteredDirectPreApproval
+     * @see DirectPreApprovalRequestRegistration
+     * @see RegisteredDirectPreApprovalRequest
      */
-    public RegisteredDirectPreApproval register(
-            Builder<DirectPreApprovalRegistration> directPreApprovalRegistrationBuilder) {
+    public RegisteredDirectPreApprovalRequest register(
+            Builder<DirectPreApprovalRequestRegistration> directPreApprovalRegistrationBuilder) {
         return register(directPreApprovalRegistrationBuilder.build());
     }
 
     /**
      * Pre Approval Registration
      *
-     * @param directPreApprovalRegistration Direct Pre Approval Registration
+     * @param directPreApprovalRequestRegistration Direct Pre Approval Registration
      * @return Response of direct pre approval registration
-     * @see DirectPreApprovalRegistration
-     * @see RegisteredDirectPreApproval
+     * @see DirectPreApprovalRequestRegistration
+     * @see RegisteredDirectPreApprovalRequest
      */
-    public RegisteredDirectPreApproval register(DirectPreApprovalRegistration directPreApprovalRegistration) {
+    public RegisteredDirectPreApprovalRequest register(DirectPreApprovalRequestRegistration directPreApprovalRequestRegistration) {
         LOGGER.info("Iniciando registro pre approval");
         LOGGER.info("Convertendo valores");
-        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRegistration);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRequestRegistration);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
@@ -77,8 +77,8 @@ public class DirectPreApprovalsResource {
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
-        RegisterDirectPreApprovalResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
-                RegisterDirectPreApprovalResponseXML.class);
+        RegisterDirectPreApprovalRequestResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
+                RegisterDirectPreApprovalRequestResponseXML.class);
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Registro pre approval finalizado");
         return registeredPreApproval;
