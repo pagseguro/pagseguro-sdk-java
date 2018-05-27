@@ -2,11 +2,9 @@ package br.com.uol.pagseguro.example.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
-import br.com.uol.pagseguro.api.common.domain.builder.AddressBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.DocumentBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PhoneBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.SenderBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.*;
 import br.com.uol.pagseguro.api.common.domain.enums.DocumentType;
+import br.com.uol.pagseguro.api.common.domain.enums.PreApprovalPaymentMethodType;
 import br.com.uol.pagseguro.api.common.domain.enums.State;
 import br.com.uol.pagseguro.api.credential.Credential;
 import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRegistrationBuilder;
@@ -60,9 +58,9 @@ public class AccedeDirectPreApprovalPlan {
                             )
 
                             .withPaymentMethod(new PreApprovalPaymentMethodBuilder()
-                                    .withType("CREDITCARD")
+                                    .withType(PreApprovalPaymentMethodType.CREDITCARD)
                                     .withCreditCard(new PreApprovalCreditCardBuilder()
-                                            .withToken("CREDITCARDTOKENHERE")
+                                            .withToken("3a4d02167d604ee7ae28e49edbf910ba")
                                             .withHolder(new PreApprovalHolderBuilder()
                                                     .withName("JOSÉ COMPRADOR")
                                                     .withBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse("20/12/1990"))

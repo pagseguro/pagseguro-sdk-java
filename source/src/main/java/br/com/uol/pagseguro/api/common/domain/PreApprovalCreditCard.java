@@ -8,13 +8,13 @@ package br.com.uol.pagseguro.api.common.domain;
 public interface PreApprovalCreditCard {
     /**
      * Get credit card token
-     * @return
+     * @return token
      */
     String getToken();
 
     /**
      * Get pre approval credit card holder
-     * @return
+     * @return Pre Approval Holder
      */
     PreApprovalHolder getHolder();
 }

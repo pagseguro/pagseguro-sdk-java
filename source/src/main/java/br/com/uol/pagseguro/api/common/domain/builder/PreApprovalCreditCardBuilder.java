@@ -55,7 +55,7 @@ public class PreApprovalCreditCardBuilder implements Builder<PreApprovalCreditCa
     }
 
     /**
-     * Implementation of {@code PreApprovalPaymentMethod}
+     * Implementation of {@code PreApprovalCreditCard}
      */
     private static class SimplePreApprovalCreditCard implements PreApprovalCreditCard {
 

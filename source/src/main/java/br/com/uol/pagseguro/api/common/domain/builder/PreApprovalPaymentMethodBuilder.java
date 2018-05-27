@@ -2,6 +2,7 @@ package br.com.uol.pagseguro.api.common.domain.builder;
 
 import br.com.uol.pagseguro.api.common.domain.PreApprovalCreditCard;
 import br.com.uol.pagseguro.api.common.domain.PreApprovalPaymentMethod;
+import br.com.uol.pagseguro.api.common.domain.enums.PreApprovalPaymentMethodType;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 public class PreApprovalPaymentMethodBuilder implements Builder<PreApprovalPaymentMethod>{
@@ -14,8 +15,8 @@ public class PreApprovalPaymentMethodBuilder implements Builder<PreApprovalPayme
      * @return Builder for pre approval payment method
      * @see PreApprovalPaymentMethod#getType()
      */
-    public PreApprovalPaymentMethodBuilder withType(String type) {
-        this.type = type;
+    public PreApprovalPaymentMethodBuilder withType(PreApprovalPaymentMethodType type) {
+        this.type = type.getValue();
         return this;
     }
 
