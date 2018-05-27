@@ -21,6 +21,7 @@
 package br.com.uol.pagseguro.api.utils;
 
 import br.com.uol.pagseguro.api.common.domain.Config;
+import br.com.uol.pagseguro.api.common.domain.Document;
 import br.com.uol.pagseguro.api.common.domain.enums.ConfigKey;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
 import br.com.uol.pagseguro.api.http.HttpJsonRequestBody;
@@ -32,7 +33,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * Class used to convert the data on a map to pass the parameters of the requests in api
+ * Class used to convert the data on a json string to pass the parameters of the requests in api
  *
  * @author PagSeguro Internet Ltda.
  */
@@ -123,7 +124,41 @@ public final class RequestJson {
   }
 
   /**
-   * Put string on map
+   * Put Json data as array
+   *
+   * @param requestJson Request Json
+   * @param jsonNodeName String
+   * @return RequestJson requestJson
+   */
+  public RequestJson putJsonArray(RequestJson requestJson, String jsonNodeName) {
+    if (requestJson == null) {
+      throw new NullPointerException();
+    }
+    return putJsonArray(requestJson.sb, jsonNodeName);
+  }
+
+  /**
+   * Put Json data as array
+   *
+   * @param sb StringBuilder
+   * @param jsonNodeName String
+   * @return Request StringBuilder
+   */
+  public RequestJson putJsonArray(StringBuilder sb, String jsonNodeName) {
+    if (sb == null) {
+      throw new NullPointerException();
+    }
+    if (!sb.toString().isEmpty()) {
+      if(sb.length() > 0) {
+        sb.setLength(sb.length() - 1);
+      }
+      this.sb.append(String.format("\"%s\":[%s],", jsonNodeName, sb.toString()));
+    }
+    return this;
+  }
+
+  /**
+   * Put string on json string
    *
    * @param key   Key
    * @param value String value
@@ -141,7 +176,7 @@ public final class RequestJson {
   }
 
   /**
-   * Put string on map
+   * Put string on json string
    *
    * @param key   Key
    * @param value String Builder value
@@ -159,7 +194,7 @@ public final class RequestJson {
   }
 
   /**
-   * Put string on map
+   * Put string on json string
    *
    * @param key   Key
    * @param value String value
@@ -192,7 +227,7 @@ public final class RequestJson {
    *
    * @param key   Key
    * @param value BigDecimal value
-   * @return Request map
+   * @return Request json
    */
   public RequestJson putCurrency(String key, BigDecimal value) {
     return putStringNoEscape(key, value == null ? null : value.setScale(2, RoundingMode.HALF_EVEN).toString());
@@ -220,6 +255,25 @@ public final class RequestJson {
    */
   public RequestJson putDate(String key, Date value, DateFormat dateFormat) {
     return putString(key, value == null ? null : dateFormat.format(value));
+  }
+
+  /**
+   * Put Document as String in json string
+   *
+   * @param typeKey   typeKey
+   * @param valueKey  valueKey
+   * @param document Document
+   * @return Request json
+   */
+  public RequestJson putDocument(String typeKey, String valueKey, Document document) {
+    if (typeKey == null || valueKey == null) {
+      throw new NullPointerException();
+    }
+    if (document == null) {
+      return this;
+    }
+    sb.append(String.format("{\"%s\":\"%s\",\"%s\":\"%s\"},", typeKey, document.getType().toString(), valueKey, document.getValue()));
+    return this;
   }
 
   /**
@@ -251,7 +305,7 @@ public final class RequestJson {
    */
   public HttpJsonRequestBody toHttpJsonRequestBody(String charset) throws UnsupportedEncodingException {
     return new HttpJsonRequestBody(//
-        String.format("application/json; charset=%s", charset), //
+        String.format("application/json; charset=%s", charset),
         encodeBodyContent(toString(), charset),
         charset);
   }

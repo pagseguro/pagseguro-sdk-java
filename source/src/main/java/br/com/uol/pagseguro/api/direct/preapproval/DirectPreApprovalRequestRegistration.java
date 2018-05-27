@@ -32,6 +32,7 @@ import java.util.List;
  *
  * @author PagSeguro Internet Ltda.
  */
+//@TODO remove not used getters (like sender, notificationURL)
 public interface DirectPreApprovalRequestRegistration {
 
   /**

@@ -23,7 +23,7 @@ package br.com.uol.pagseguro.api.utils;
 import java.util.Collections;
 
 /**
- * Abstract map converter. Used to convert objects in the request map.
+ * Abstract json converter. Used to convert objects in the request json.
  * All converters must implement this class.
  *
  * @param <T> Class to be converted
@@ -49,7 +49,7 @@ public abstract class AbstractJsonConverter<T> implements JsonConverter<T> {
   /**
    * Converts an object to a request json. This method must be implemented
    *
-   * @param requestJson Request Map used to pass params to api
+   * @param requestJson Request Json used to pass params to api
    * @param object     Object to be converted
    */
   abstract protected void convert(RequestJson requestJson, T object);

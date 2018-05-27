@@ -157,9 +157,14 @@ public final class Endpoints {
    */
 
   /**
-   * Direct Pre approval registration
+   * Direct Pre approval plan registration
    */
   public static final String DIRECT_PRE_APPROVAL_REQUEST = "%s/pre-approvals/request";
+
+  /**
+   * Direct Pre approval accession to a plan
+   */
+  public static final String DIRECT_PRE_APPROVAL = "%s/pre-approvals";
 
   /**
    * SESSIONS

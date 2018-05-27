@@ -40,7 +40,7 @@ public class CreateDirectPreApprovalManualPlan {
                             .withReference("XXXXXX")
                             .withReviewURL("http://lojamodelo.com.br/revisar")
                             .withReceiver(new ReceiverBuilder()
-                                    .withEmail("gabriel.pomin@s2it.com.br"))
+                                    .withEmail("receiveremail@sandbox.pagseguro.com.br"))
                             .withMaxUses(500)
 
                             .withPreApproval(new PreApprovalRequestBuilder()

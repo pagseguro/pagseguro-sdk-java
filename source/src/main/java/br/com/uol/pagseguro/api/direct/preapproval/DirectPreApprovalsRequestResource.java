@@ -15,11 +15,15 @@ import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+//@TODO revert the name to DirectPreApprovalsResource, because it will be used for preapproval plan, accession, cancel, charge, etc
 public class DirectPreApprovalsRequestResource {
     private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsRequestResource.class.getName());
-    private static final DirectPreApprovalRequestRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
+    private static final DirectPreApprovalRequestRegistrationJsonConverter DIRECT_PRE_APPROVAL_REQUEST_REGISTRATION_JC =
             new DirectPreApprovalRequestRegistrationJsonConverter();
+
+    private static final DirectPreApprovalRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
+            new DirectPreApprovalRegistrationJsonConverter();
+
 //    @TODO add here charge method
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
@@ -36,16 +40,16 @@ public class DirectPreApprovalsRequestResource {
     }
 
     /**
-     * Pre Approval Registration
+     * Pre Approval Request Registration, used to create a Pre Approval Plan
      *
-     * @param directPreApprovalRegistrationBuilder Builder for Pre Approval Registration
+     * @param directPreApprovalRequestRegistrationBuilder Builder for Direct Pre Approval Registration
      * @return Response of pre approval registration
      * @see DirectPreApprovalRequestRegistration
      * @see RegisteredDirectPreApprovalRequest
      */
     public RegisteredDirectPreApprovalRequest register(
-            Builder<DirectPreApprovalRequestRegistration> directPreApprovalRegistrationBuilder) {
-        return register(directPreApprovalRegistrationBuilder.build());
+            Builder<DirectPreApprovalRequestRegistration> directPreApprovalRequestRegistrationBuilder) {
+        return register(directPreApprovalRequestRegistrationBuilder.build());
     }
 
     /**
@@ -57,9 +61,9 @@ public class DirectPreApprovalsRequestResource {
      * @see RegisteredDirectPreApprovalRequest
      */
     public RegisteredDirectPreApprovalRequest register(DirectPreApprovalRequestRegistration directPreApprovalRequestRegistration) {
-        LOGGER.info("Iniciando registro pre approval");
+        LOGGER.info("Iniciando registro direct pre approval");
         LOGGER.info("Convertendo valores");
-        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRequestRegistration);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REQUEST_REGISTRATION_JC.convert(directPreApprovalRequestRegistration);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
@@ -73,16 +77,65 @@ public class DirectPreApprovalsRequestResource {
                     pagSeguro.getHost()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar registro pre approval");
+            LOGGER.error("Erro ao executar registro direct pre approval");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
         RegisterDirectPreApprovalRequestResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
                 RegisterDirectPreApprovalRequestResponseXML.class);
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Registro pre approval finalizado");
+        LOGGER.info("Registro direct pre approval finalizado");
         return registeredPreApproval;
         //return null;
+    }
+
+    /**
+     * Pre Approval Accession Registration, used to do an accession to a Direct Pre Approval Plan
+     *
+     * @param directPreApprovalRegistrationBuilder Builder for Direct Pre Approval Accession Registration
+     * @return Response of direct pre approval accession registration
+     * @see DirectPreApprovalRegistration
+     * @see RegisteredDirectPreApproval
+     */
+    public RegisteredDirectPreApproval accession(
+            Builder<DirectPreApprovalRegistration> directPreApprovalRegistrationBuilder) {
+        return accession(directPreApprovalRegistrationBuilder.build());
+    }
+
+    /**
+     * Direct Pre Approval Acession Registration
+     *
+     * @param directPreApprovalRegistration Direct Pre Approval Registration
+     * @return Response of direct pre approval registration
+     * @see DirectPreApprovalRegistration
+     * @see RegisteredDirectPreApproval
+     */
+    public RegisteredDirectPreApproval accession(DirectPreApprovalRegistration directPreApprovalRegistration) {
+        LOGGER.info("Iniciando registro direct pre approval accession");
+        LOGGER.info("Convertendo valores");
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRegistration);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+        try {
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
+            response = httpClient.executeJson(HttpMethod.POST, String.format(Endpoints.DIRECT_PRE_APPROVAL,
+                    pagSeguro.getHost()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar registro direct pre approval acession");
+            throw new PagSeguroLibException(e);
+        }
+        LOGGER.info("Parseando XML de resposta");
+        RegisterDirectPreApprovalResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
+                RegisterDirectPreApprovalResponseXML.class);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Registro direct pre approval accession finalizado");
+        return registeredPreApproval;
     }
 
 //    @TODO add here cancel method

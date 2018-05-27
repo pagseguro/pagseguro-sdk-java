@@ -95,13 +95,21 @@ public abstract class PagSeguro {
   }
 
   /**
-   * Get factory to direct pre approval
+   * Get factory to direct pre approval request (create a pre approval plan)
    * @return Factory to direct pre approval
    */
   public DirectPreApprovalsRequestResource directPreApprovalsRequest() {
     return new DirectPreApprovalsRequestResource(this, httpClient);
   }
 
+
+  /**
+   * Get factory to direct pre approval request (accession to a direct pre approval plan)
+   * @return Factory to direct pre approval accession
+   */
+  public DirectPreApprovalsRequestResource directPreApprovals() {
+    return new DirectPreApprovalsRequestResource(this, httpClient);
+  }
   /**
    * Get factory to session
    *
