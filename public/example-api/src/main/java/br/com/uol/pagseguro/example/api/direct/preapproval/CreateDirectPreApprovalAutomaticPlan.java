@@ -4,18 +4,17 @@ import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
 import br.com.uol.pagseguro.api.common.domain.builder.ExpirationBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalRequestBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.ReceiverBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.Charge;
 import br.com.uol.pagseguro.api.common.domain.enums.Period;
 import br.com.uol.pagseguro.api.common.domain.enums.Unit;
 import br.com.uol.pagseguro.api.credential.Credential;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRequestRegistration;
 import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRequestRegistrationBuilder;
 import br.com.uol.pagseguro.api.direct.preapproval.RegisteredDirectPreApprovalRequest;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 public class CreateDirectPreApprovalAutomaticPlan {
     public static void main(String[] args){
@@ -49,6 +48,8 @@ public class CreateDirectPreApprovalAutomaticPlan {
                             )
 
             );
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            System.out.println(sdf.format(registeredPreApproval.getPreApprovalDate()));
             System.out.println(registeredPreApproval.getPreApprovalCode());
         }catch (Exception e){
             e.printStackTrace();

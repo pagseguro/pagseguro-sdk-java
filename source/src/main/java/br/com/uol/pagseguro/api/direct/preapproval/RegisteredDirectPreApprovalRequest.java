@@ -21,6 +21,8 @@
 
 package br.com.uol.pagseguro.api.direct.preapproval;
 
+import java.util.Date;
+
 /**
  * Response for pre approval registration
  *
@@ -41,4 +43,10 @@ public interface RegisteredDirectPreApprovalRequest {
    * @return Redirect Url
    */
   String getRedirectURL();
+
+  /**
+   * Get Pre Approval Date
+   * @return Pre Approval Date
+   */
+  Date getPreApprovalDate();
 }

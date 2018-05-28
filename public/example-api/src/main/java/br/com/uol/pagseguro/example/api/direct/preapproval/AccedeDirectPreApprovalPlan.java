@@ -31,7 +31,7 @@ public class AccedeDirectPreApprovalPlan {
             RegisteredDirectPreApproval registeredDirectPreApproval = pagSeguro.directPreApprovals().accession(
                     new DirectPreApprovalRegistrationBuilder()
                             .withPlan("FFAC8AE62424AC5884C90F8DAAE2F21A")
-                            .withReference("José Comprador")
+                            .withReference("XXXXXXXX")
                             .withSender(new SenderBuilder()
                                             .withName("José Comprador")
                                             .withEmail("senderemail@sandbox.pagseguro.com.br")

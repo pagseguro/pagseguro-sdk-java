@@ -74,6 +74,11 @@ public class RegisterDirectPreApprovalRequestResponseXML implements RegisteredDi
   }
 
   @Override
+  public Date getPreApprovalDate() {
+    return getDate();
+  }
+
+  @Override
   public String getRedirectURL() {
     return String.format(Endpoints.PRE_APPROVAL_REDIRECT_URL, pagSeguro.getHostRedirect(), getPreApprovalCode());
   }

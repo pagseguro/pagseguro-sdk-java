@@ -16,6 +16,7 @@ import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 /**
  * @author PagSeguro Internet Ltda.
@@ -47,7 +48,7 @@ public class CreateDirectPreApprovalManualPlan {
                                             .withName("Acesso ao Site Fictício")
                                             .withCharge(Charge.MANUAL)
                                             .withPeriod(Period.WEEKLY)
-                                            .withDetails("Plano de acesso ao Site Ficticio")
+                                            .withDetails("Plano de acesso ao Site Fictício")
                                             .withAmountPerPayment(new BigDecimal(10.00))
                                             .withMembershipFee(new BigDecimal(50.00))
                                             .withExpiration(new ExpirationBuilder()
@@ -59,6 +60,8 @@ public class CreateDirectPreApprovalManualPlan {
                             )
 
             );
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            System.out.println(sdf.format(registeredPreApproval.getPreApprovalDate()));
             System.out.println(registeredPreApproval.getPreApprovalCode());
         }catch (Exception e){
             e.printStackTrace();
