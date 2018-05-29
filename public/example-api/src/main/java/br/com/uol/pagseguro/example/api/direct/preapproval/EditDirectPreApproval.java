@@ -24,7 +24,7 @@ public class EditDirectPreApproval {
                             .withUpdateSubscriptions(false)
             );
 
-            System.out.println("Edicao do valor do plano realizado!");
+            System.out.println("Edição do valor do plano realizado!");
         }catch (Exception e){
             e.printStackTrace();
         }
