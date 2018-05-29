@@ -24,6 +24,9 @@ public class DirectPreApprovalsRequestResource {
     private static final DirectPreApprovalRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
             new DirectPreApprovalRegistrationJsonConverter();
 
+    private static final DirectPreApprovalEditionJsonConvert DIRECT_PRE_APPROVAL_EDITION_JC =
+            new DirectPreApprovalEditionJsonConvert();
+
 //    @TODO add here charge method
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
@@ -136,6 +139,55 @@ public class DirectPreApprovalsRequestResource {
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Registro direct pre approval accession finalizado");
         return registeredPreApproval;
+    }
+
+    /**
+     * Direct Pre Approval Edition
+     *
+     * @param directPreApprovalEditionBuilder Builder for Direct Pre Approval Edition
+     * @return Response of Direct Pre Approval Edition
+     * @see DirectPreApprovalEdition
+     */
+    public void edit(Builder<DirectPreApprovalEdition> directPreApprovalEditionBuilder) {
+        edit(directPreApprovalEditionBuilder.build());
+    }
+
+    /**
+     * Direct Pre Approval Edition
+     *
+     * @param directPreApprovalEdition Direct Pre Approval Edition
+     * @return Response of Direct Pre Approval Edition
+     * @see DirectPreApprovalEdition
+     */
+    public void edit(DirectPreApprovalEdition directPreApprovalEdition) {
+        LOGGER.info("Iniciando edicao direct pre approval");
+        LOGGER.info("Convertendo valores");
+
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_EDITION_JC.convert(directPreApprovalEdition);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+
+        try {
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
+
+            System.out.println(String.format(Endpoints.DIRECT_PRE_APPROVAL_EDIT,
+                    pagSeguro.getHost(), directPreApprovalEdition.getCode()));
+
+            response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_EDIT,
+                    pagSeguro.getHost(), directPreApprovalEdition.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+
+            LOGGER.info(String.format("Status Response: %s", response.getStatus()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar edicao de valor pre approval");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Edicao valor pre approval finalizado");
     }
 
 //    @TODO add here cancel method

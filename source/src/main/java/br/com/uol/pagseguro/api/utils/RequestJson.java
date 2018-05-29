@@ -341,4 +341,22 @@ public final class RequestJson {
     byte[] ptext = toEncodeString.getBytes();
     return new String(ptext, charset);
   }
+
+  /**
+   * Put boolean on map
+   *
+   * @param key   Key
+   * @param value Boolean value
+   * @return Request json
+   */
+  public RequestJson putBoolean(String key, Boolean value) {
+    if (key == null) {
+      throw new NullPointerException();
+    }
+    if (value == null) {
+      return this;
+    }
+    sb.append(String.format("\"%s\":\"%b\",", key, value));
+    return this;
+  }
 }

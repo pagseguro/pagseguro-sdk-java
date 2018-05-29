@@ -162,6 +162,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_REQUEST = "%s/pre-approvals/request";
 
   /**
+   * Direct Pre approval edition
+   */
+  public static final String DIRECT_PRE_APPROVAL_EDIT = "%s/pre-approvals/request/%s/payment";
+
+  /**
    * Direct Pre approval accession to a plan
    */
   public static final String DIRECT_PRE_APPROVAL = "%s/pre-approvals";
