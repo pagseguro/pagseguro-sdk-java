@@ -102,7 +102,43 @@ public class HttpResponse {
           case 400:
             try {
               throw new PagSeguroBadRequestException(this, XMLUtils.unmarshal(pagSeguro,
-                  ServerErrorsXML.class, asString()));
+                      ServerErrorsXML.class, asString()));
+            } catch (JAXBException e) {
+              throw new PagSeguroLibException(e);
+            }
+          case 401:
+            throw new PagSeguroUnauthorizedException(this);
+          case 403:
+            throw new PagSeguroForbiddenException(this);
+        }
+      case SERVER_ERROR:
+        switch (getStatus()) {
+          case 503:
+            throw new PagSeguroServiceUnavailableException(this);
+        }
+      default:
+        throw new PagSeguroInternalServerException(this);
+    }
+
+  }
+
+  /**
+   * Parse xml content when there's no body
+   *
+   * @param pagSeguro   Pagseguro instance
+   * @param <T>         Class converted
+   * @return Response converted
+   */
+  public <T> T parseXMLContentNoBody(PagSeguro pagSeguro) {
+    switch (getStatusFamily()) {
+      case SUCCESSFUL:
+        return null;
+      case CLIENT_ERROR:
+        switch (getStatus()) {
+          case 400:
+            try {
+              throw new PagSeguroBadRequestException(this, XMLUtils.unmarshal(pagSeguro,
+                      ServerErrorsXML.class, asString()));
             } catch (JAXBException e) {
               throw new PagSeguroLibException(e);
             }

@@ -8,7 +8,7 @@ import br.com.uol.pagseguro.api.utils.RequestJson;
  *
  * @author PagSeguro Internet Ltda.
  */
-public class DirectPreApprovalEditionJsonConvert extends AbstractJsonConverter<DirectPreApprovalEdition> {
+public class DirectPreApprovalRequestEditionJsonConvert extends AbstractJsonConverter<DirectPreApprovalRequestEdition> {
 
     /**
      * Convert Interface for Pre Approval Edition in Request Map
@@ -16,11 +16,11 @@ public class DirectPreApprovalEditionJsonConvert extends AbstractJsonConverter<D
      * @param requestJson              Request Map used to pass params to api
      * @param directPreApprovalEdition Interface for Pre Approval Edition
      * @see RequestJson
-     * @see DirectPreApprovalEdition
+     * @see DirectPreApprovalRequestEdition
      * @see AbstractJsonConverter#convert(Object)
      */
     @Override
-    protected void convert(RequestJson requestJson, DirectPreApprovalEdition directPreApprovalEdition) {
+    protected void convert(RequestJson requestJson, DirectPreApprovalRequestEdition directPreApprovalEdition) {
         requestJson.putString("amountPerPayment", directPreApprovalEdition.getAmountPerPayment());
         requestJson.putBoolean("updateSubscriptions", directPreApprovalEdition.getUpdateSubscriptions());
     }
