@@ -30,6 +30,9 @@ public class DirectPreApprovalsRequestResource {
     private static final DirectPreApprovalRequestDiscountJsonConvert DIRECT_PRE_APPROVAL_DISCOUNT_JC =
             new DirectPreApprovalRequestDiscountJsonConvert();
 
+    private static final DirectPreApprovalRequestChargeJsonConvert DIRECT_PRE_APPROVAL_CHARGE_JC =
+            new DirectPreApprovalRequestChargeJsonConvert();
+
 //    @TODO add here charge method
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
@@ -238,6 +241,66 @@ public class DirectPreApprovalsRequestResource {
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Desconto no pagamento finalizado");
     }
+
+
+
+
+
+    //_______________________________________________________________________
+
+    /**
+     * Pre Approval Request Registration, used to create a Pre Approval Plan
+     *
+     * @param directPreApprovalRequestCharge Builder for Direct Pre Approval Registration
+     * @return Response of pre approval registration
+     * @see DirectPreApprovalRequestRegistration
+     * @see RegisteredDirectPreApprovalRequest
+     */
+    public ChargedDirectPreApproval charge(Builder<DirectPreApprovalRequestCharge> directPreApprovalRequestCharge) {
+        return charge(directPreApprovalRequestCharge.build());
+    }
+
+    /**
+     * Direct Pre Approval Edition
+     *
+     * @param directPreApprovalRequestCharge Direct Pre Approval Edition
+     * @see DirectPreApprovalRequestEdition
+     */
+    public ChargedDirectPreApproval charge(DirectPreApprovalRequestCharge directPreApprovalRequestCharge) {
+        LOGGER.info("Iniciando cobranca manual direct pre approval");
+        LOGGER.info("Convertendo valores");
+
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_CHARGE_JC.convert(directPreApprovalRequestCharge);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+
+        try {
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
+
+            response = httpClient.executeJson(HttpMethod.POST, String.format(Endpoints.DIRECT_PRE_APPROVAL_CHARGE,
+                    pagSeguro.getHost()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar cobranca");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Parseando XML de resposta");
+        ChargeDirectPreApprovalResponseXML chargedPreApproval = response.parseXMLContent(pagSeguro,
+                ChargeDirectPreApprovalResponseXML.class);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Cobranca finalizada");
+        return chargedPreApproval;
+    }
+
+
+
 
 
 //    @TODO add here cancel method

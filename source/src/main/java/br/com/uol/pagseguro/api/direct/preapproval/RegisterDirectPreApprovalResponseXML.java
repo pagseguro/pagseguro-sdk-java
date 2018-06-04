@@ -64,9 +64,7 @@ public class RegisterDirectPreApprovalResponseXML implements RegisteredDirectPre
   }
 
   @Override
-  public void onUnmarshal(PagSeguro pagseguro, String rawData) {
-    this.pagSeguro = pagseguro;
-  }
+  public void onUnmarshal(PagSeguro pagseguro, String rawData) { this.pagSeguro = pagseguro; }
 
   @Override
   public String getPreApprovalCode() {
