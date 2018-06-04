@@ -27,6 +27,9 @@ public class DirectPreApprovalsRequestResource {
     private static final DirectPreApprovalRequestEditionJsonConvert DIRECT_PRE_APPROVAL_EDITION_JC =
             new DirectPreApprovalRequestEditionJsonConvert();
 
+    private static final DirectPreApprovalRequestDiscountJsonConvert DIRECT_PRE_APPROVAL_DISCOUNT_JC =
+            new DirectPreApprovalRequestDiscountJsonConvert();
+
 //    @TODO add here charge method
 //    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
 //            new PreApprovalChargingV2MapConverter();
@@ -187,6 +190,55 @@ public class DirectPreApprovalsRequestResource {
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Edicao valor pre approval finalizado");
     }
+
+
+    /**
+     * Direct Pre Approval Edition
+     *
+     * @param directPreApprovalRequestDiscount Builder for Direct Pre Approval Edition
+     * @see DirectPreApprovalRequestDiscount
+     */
+    public void discount(Builder<DirectPreApprovalRequestDiscount> directPreApprovalRequestDiscount) {
+        discount(directPreApprovalRequestDiscount.build());
+    }
+
+    /**
+     * Direct Pre Approval Discount
+     *
+     * @param directPreApprovalRequestDiscount Direct Pre Approval discount
+     * @see DirectPreApprovalRequestDiscount
+     */
+    public void discount(DirectPreApprovalRequestDiscount directPreApprovalRequestDiscount) {
+        LOGGER.info("Iniciando discount direct pre approval");
+        LOGGER.info("Convertendo valores");
+
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_DISCOUNT_JC.convert(directPreApprovalRequestDiscount);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+
+        try {
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
+
+            response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_DISCOUNT,
+                    pagSeguro.getHost(), directPreApprovalRequestDiscount.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar desconto no pagamento");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Parseando XML de resposta");
+        response.parseXMLContentNoBody(pagSeguro);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Desconto no pagamento finalizado");
+    }
+
 
 //    @TODO add here cancel method
 //    /**

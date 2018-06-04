@@ -171,6 +171,9 @@ public final class Endpoints {
    */
   public static final String DIRECT_PRE_APPROVAL = "%s/pre-approvals";
 
+
+  public static final String DIRECT_PRE_APPROVAL_DISCOUNT = "%s/pre-approvals/%s/discount";
+
   /**
    * SESSIONS
    */
