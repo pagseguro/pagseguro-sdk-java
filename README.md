@@ -140,6 +140,9 @@ Changelog
       - 4.2.0.1-SNAPSHOT: criação de plano manual e automático
       - 4.2.0.2-SNAPSHOT: Adesão ao plano
       - 4.2.0.3-SNAPSHOT: Adicionado retorno da data (getDate()) nos métodos de criação de plano
+      - 4.2.0.4-SNAPSHOT: Edição de valores do plano
+      - 4.2.0.5-SNAPSHOT: Adicionado tratamento de retorno de erro para response sem body
+      - 4.2.0.6-SNAPSHOT: Desconto para a próxima parcela da adesão
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais
