@@ -2,8 +2,9 @@ package br.com.uol.pagseguro.example.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
+import br.com.uol.pagseguro.api.common.domain.enums.DiscountType;
 import br.com.uol.pagseguro.api.credential.Credential;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRequestEditionBuilder;
+import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRequestDiscountBuilder;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 
@@ -21,7 +22,7 @@ public class DiscountPayment {
             //Desconto na próxima cobrança
             pagSeguro.directPreApprovalsRequest().discount(
                     new DirectPreApprovalRequestDiscountBuilder()
-                            .withCode("6481F9C82A2A8C7224E45F8994E95A49")
+                            .withCode("4F05C7F7B9B9A34CC48CDFBEC21D9047") //código da assinatura
                             .withType(DiscountType.DISCOUNT_PERCENT)
                             .withValue("10.00")
             );
