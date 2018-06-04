@@ -9,7 +9,7 @@ public class DirectPreApprovalRequestDiscountJsonConvert extends AbstractJsonCon
      * Convert Interface for Pre Approval discount in Request Map
      *
      * @param requestJson              Request Map used to pass params to api
-     * @param DirectPreApprovalRequestDiscount Interface for Pre Approval Discount
+     * @param directPreApprovalDiscount Interface for Pre Approval Discount
      * @see RequestJson
      * @see DirectPreApprovalRequestDiscount
      * @see AbstractJsonConverter#convert(Object)
