@@ -193,9 +193,9 @@ public class DirectPreApprovalsRequestResource {
 
 
     /**
-     * Direct Pre Approval Edition
+     * Direct Pre Approval Discount
      *
-     * @param directPreApprovalRequestDiscount Builder for Direct Pre Approval Edition
+     * @param directPreApprovalRequestDiscount Builder for Direct Pre Approval Discount
      * @see DirectPreApprovalRequestDiscount
      */
     public void discount(Builder<DirectPreApprovalRequestDiscount> directPreApprovalRequestDiscount) {
