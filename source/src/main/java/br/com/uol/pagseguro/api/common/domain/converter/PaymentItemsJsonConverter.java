@@ -15,12 +15,14 @@ public class PaymentItemsJsonConverter extends AbstractJsonConverter<Iterable<? 
     @Override
     protected void convert(RequestJson requestJson, Iterable<? extends PaymentItem> paymentItems) {
         for (PaymentItem paymentItem : paymentItems) {
+            requestJson.putJsonObjectStart();
             requestJson.putString("id", paymentItem.getId());
             requestJson.putString("description", paymentItem.getDescription());
             requestJson.putInteger("quantity", paymentItem.getQuantity());
             requestJson.putString("amount", paymentItem.getAmount().toString());
             requestJson.putInteger("weight", paymentItem.getWeight());
             requestJson.putCurrency("shippingCost", paymentItem.getShippingCost());
+            requestJson.putJsonObjectEnd();
         }
     }
 }

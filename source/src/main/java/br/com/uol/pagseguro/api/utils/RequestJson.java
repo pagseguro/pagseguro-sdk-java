@@ -277,6 +277,32 @@ public final class RequestJson {
   }
 
   /**
+   * Put start key element "{" on json string
+   *
+   * @return Request json
+   */
+  public RequestJson putJsonObjectStart() {
+    sb.append("{");
+    return this;
+  }
+
+  /**
+   * Remove comma and add end key element plus comma "}," on json string
+   *
+   * @return Request json
+   */
+  public RequestJson putJsonObjectEnd() {
+    if (sb == null) {
+      throw new NullPointerException();
+    }
+    if(sb.length() > 0) {
+      sb.setLength(sb.length() - 1);
+    }
+    sb.append(String.format("},"));
+    return this;
+  }
+
+  /**
    * Put config on Json
    *
    * @param key    Key

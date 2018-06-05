@@ -34,9 +34,9 @@ public class ChargeDirectPreApprovalResponseXML implements ChargedDirectPreAppro
     @Override
     public String toString() {
         return "RegisterPreApprovalResponseXML{" +
-                //"pagSeguro=" + pagSeguro +
-                //", transactionCode='" + transactionCode + '\'' +
-                //", date=" + date +
+                "pagSeguro=" + pagSeguro +
+                ", transactionCode='" + transactionCode + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

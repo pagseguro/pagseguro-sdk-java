@@ -22,6 +22,6 @@ public class DirectPreApprovalRequestChargeJsonConvert extends  AbstractJsonConv
         requestJson.putString("reference", directPreApprovalRequestCharge.getReference());
         requestJson.putString("senderHash", directPreApprovalRequestCharge.getSenderHash());
         requestJson.putString("senderIp", directPreApprovalRequestCharge.getSenderIp());
-        requestJson.putJson(PAYMENT_ITEMS_JC.convert(directPreApprovalRequestCharge.getItems()), "items");
+        requestJson.putJsonArray(PAYMENT_ITEMS_JC.convert(directPreApprovalRequestCharge.getItems()), "items");
     }
 }
