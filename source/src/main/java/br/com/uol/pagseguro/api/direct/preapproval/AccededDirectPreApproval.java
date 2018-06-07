@@ -22,11 +22,11 @@
 package br.com.uol.pagseguro.api.direct.preapproval;
 
 /**
- * Response for direct pre approval  accession registration
+ * Response for direct pre approval  accede registration
  *
  * @author PagSeguro Internet Ltda.
  */
-public interface RegisteredDirectPreApproval {
+public interface AccededDirectPreApproval {
 
   /**
    * Get Direct Pre Approval Accession Code

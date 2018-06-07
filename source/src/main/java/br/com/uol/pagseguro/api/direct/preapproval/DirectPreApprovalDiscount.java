@@ -5,7 +5,7 @@ package br.com.uol.pagseguro.api.direct.preapproval;
  *
  * @author PagSeguro Internet Ltda.
  */
-public interface DirectPreApprovalRequestDiscount {
+public interface DirectPreApprovalDiscount {
 
     /**
      * Get Direct Pre Approval Code

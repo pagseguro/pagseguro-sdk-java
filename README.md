@@ -143,6 +143,9 @@ Changelog
       - 4.2.0.4-SNAPSHOT: Edição de valores do plano
       - 4.2.0.5-SNAPSHOT: Adicionado tratamento de retorno de erro para response sem body
       - 4.2.0.6-SNAPSHOT: Desconto para a próxima parcela da adesão
+      - 4.2.0.7-SNAPSHOT: Cancelamento de adesão
+      - 4.2.0.8-SNAPSHOT: Efetuar cobrança manual de assinatura
+      - 4.2.0.9-SNAPSHOT: Refatoração: adequação dos nomes das classes e métodos; atualização dos exemplos 
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais

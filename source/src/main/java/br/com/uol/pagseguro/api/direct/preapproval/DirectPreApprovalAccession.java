@@ -28,11 +28,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Interface for pre approval registration
+ * Interface for pre approval accede
  *
  * @author PagSeguro Internet Ltda.
  */
-public interface DirectPreApprovalRegistration {
+public interface DirectPreApprovalAccession {
 
   /**
    * Plan code that the user will accede

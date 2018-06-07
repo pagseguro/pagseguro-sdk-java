@@ -177,7 +177,7 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_CANCEL = "%s/pre-approvals/%s/cancel";
 
   /**
-   * Direct Pre approval accession to a plan
+   * Direct Pre approval accede to a plan
    */
   public static final String DIRECT_PRE_APPROVAL = "%s/pre-approvals";
 

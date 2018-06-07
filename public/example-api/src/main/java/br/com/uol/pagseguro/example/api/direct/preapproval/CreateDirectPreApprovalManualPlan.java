@@ -33,9 +33,9 @@ public class CreateDirectPreApprovalManualPlan {
                     .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
                             Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
-            //Criação do plano MANUAL de pagamento recorrente
-            //Plano pós-pago (manual) com cobranças semanais de R$ 10,00 a serem efetuadas toda Segunda-feira, com duração ilimitada e taxa de adesão de R$ 50,00
-            RegisteredDirectPreApprovalRequest registeredPreApproval = pagSeguro.directPreApprovalsRequest().register(
+            //Criação do plano personalizado (manual) de pagamento recorrente
+            //Plano personalizado com cobranças semanais de R$ 10,00 a serem efetuadas toda Segunda-feira, com duração ilimitada e taxa de adesão de R$ 50,00
+            RegisteredDirectPreApprovalRequest registeredPreApproval = pagSeguro.directPreApprovals().register(
                     new DirectPreApprovalRequestRegistrationBuilder()
                             .withRedirectURL("http://www.seusite.com.br/assinatura-concluida")
                             .withReference("XXXXXX")

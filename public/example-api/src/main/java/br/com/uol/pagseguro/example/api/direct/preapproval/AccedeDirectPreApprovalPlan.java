@@ -7,8 +7,8 @@ import br.com.uol.pagseguro.api.common.domain.enums.DocumentType;
 import br.com.uol.pagseguro.api.common.domain.enums.PreApprovalPaymentMethodType;
 import br.com.uol.pagseguro.api.common.domain.enums.State;
 import br.com.uol.pagseguro.api.credential.Credential;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalRegistrationBuilder;
-import br.com.uol.pagseguro.api.direct.preapproval.RegisteredDirectPreApproval;
+import br.com.uol.pagseguro.api.direct.preapproval.AccededDirectPreApproval;
+import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalAccessionBuilder;
 import br.com.uol.pagseguro.api.http.JSEHttpClient;
 import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 
@@ -28,8 +28,8 @@ public class AccedeDirectPreApprovalPlan {
                             Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
             // Aderindo ao plano FFAC8AE62424AC5884C90F8DAAE2F21A
-            RegisteredDirectPreApproval registeredDirectPreApproval = pagSeguro.directPreApprovals().accession(
-                    new DirectPreApprovalRegistrationBuilder()
+            AccededDirectPreApproval accededDirectPreApproval = pagSeguro.directPreApprovals().accede(
+                    new DirectPreApprovalAccessionBuilder()
                             .withPlan("FFAC8AE62424AC5884C90F8DAAE2F21A")
                             .withReference("XXXXXXXX")
                             .withSender(new SenderBuilder()
@@ -60,7 +60,7 @@ public class AccedeDirectPreApprovalPlan {
                             .withPaymentMethod(new PreApprovalPaymentMethodBuilder()
                                     .withType(PreApprovalPaymentMethodType.CREDITCARD)
                                     .withCreditCard(new PreApprovalCreditCardBuilder()
-                                            .withToken("3a4d02167d604ee7ae28e49edbf910ba")
+                                            .withToken("bdb962e9b432483f8e12d62c3fc4adc5")
                                             .withHolder(new PreApprovalHolderBuilder()
                                                     .withName("JOSÉ COMPRADOR")
                                                     .withBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse("20/12/1990"))
@@ -87,7 +87,7 @@ public class AccedeDirectPreApprovalPlan {
                             )
             );
 
-            System.out.println(registeredDirectPreApproval.getPreApprovalCode());
+            System.out.println(accededDirectPreApproval.getPreApprovalCode());
         }catch (Exception e){
             e.printStackTrace();
         }

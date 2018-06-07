@@ -29,7 +29,7 @@ public class CreateDirectPreApprovalAutomaticPlan {
 
             //Criação do plano AUTOMATICO de pagamento recorrente transparente
             //Plano Automático com cobranças mensais de R$ 100,00 por 1 ano
-            RegisteredDirectPreApprovalRequest registeredPreApproval = pagSeguro.directPreApprovalsRequest().register(
+            RegisteredDirectPreApprovalRequest registeredPreApproval = pagSeguro.directPreApprovals().register(
                     new DirectPreApprovalRequestRegistrationBuilder()
                             .withRedirectURL("http://www.seusite.com.br/assinatura-concluida")
                             .withReference("XXXXXX")
@@ -56,6 +56,5 @@ public class CreateDirectPreApprovalAutomaticPlan {
         }
     }
 }
-
 
 

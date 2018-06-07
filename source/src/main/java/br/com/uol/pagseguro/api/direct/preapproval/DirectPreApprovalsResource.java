@@ -15,35 +15,29 @@ import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-//@TODO revert the name to DirectPreApprovalsResource, because it will be used for preapproval plan, accession, cancel, charge, etc
-public class DirectPreApprovalsRequestResource {
-    private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsRequestResource.class.getName());
+
+public class DirectPreApprovalsResource {
+    private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsResource.class.getName());
+    /** Used to register (create) a direct pre approval plan */
     private static final DirectPreApprovalRequestRegistrationJsonConverter DIRECT_PRE_APPROVAL_REQUEST_REGISTRATION_JC =
             new DirectPreApprovalRequestRegistrationJsonConverter();
-
-    private static final DirectPreApprovalRegistrationJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
-            new DirectPreApprovalRegistrationJsonConverter();
-
-    private static final DirectPreApprovalRequestEditionJsonConvert DIRECT_PRE_APPROVAL_EDITION_JC =
-            new DirectPreApprovalRequestEditionJsonConvert();
-
-    private static final DirectPreApprovalRequestDiscountJsonConvert DIRECT_PRE_APPROVAL_DISCOUNT_JC =
-            new DirectPreApprovalRequestDiscountJsonConvert();
-
-    private static final DirectPreApprovalRequestChargeJsonConvert DIRECT_PRE_APPROVAL_CHARGE_JC =
-            new DirectPreApprovalRequestChargeJsonConvert();
-
-//    @TODO add here charge method
-//    private static final PreApprovalChargingV2MapConverter PRE_APPROVAL_CHARGING_MC =
-//            new PreApprovalChargingV2MapConverter();
-//    @TODO add here cancel method
-//    private static final PreApprovalCancellationV2MapConverter PRE_APPROVAL_CANCELLATION_MC =
-//            new PreApprovalCancellationV2MapConverter();
+    /** Used to accede to a direct pre approval plan */
+    private static final DirectPreApprovalAccessionJsonConverter DIRECT_PRE_APPROVAL_REGISTRATION_JC =
+            new DirectPreApprovalAccessionJsonConverter();
+    /** Used to edit a direct pre approval plan */
+    private static final DirectPreApprovalEditionJsonConvert DIRECT_PRE_APPROVAL_EDITION_JC =
+            new DirectPreApprovalEditionJsonConvert();
+    /** Used to give a discount in the next pre approval charge */
+    private static final DirectPreApprovalDiscountJsonConvert DIRECT_PRE_APPROVAL_DISCOUNT_JC =
+            new DirectPreApprovalDiscountJsonConvert();
+    /** Used to charge a manual pre approval */
+    private static final DirectPreApprovalChargeJsonConvert DIRECT_PRE_APPROVAL_CHARGE_JC =
+            new DirectPreApprovalChargeJsonConvert();
 
     private final PagSeguro pagSeguro;
     private final HttpClient httpClient;
 
-    public DirectPreApprovalsRequestResource(PagSeguro pagSeguro, HttpClient httpClient) {
+    public DirectPreApprovalsResource(PagSeguro pagSeguro, HttpClient httpClient) {
         this.pagSeguro = pagSeguro;
         this.httpClient = httpClient;
     }
@@ -95,34 +89,33 @@ public class DirectPreApprovalsRequestResource {
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Registro direct pre approval finalizado");
         return registeredPreApproval;
-        //return null;
     }
 
     /**
-     * Pre Approval Accession Registration, used to do an accession to a Direct Pre Approval Plan
+     * Pre Approval Accession, used to accede to a Direct Pre Approval Plan
      *
-     * @param directPreApprovalRegistrationBuilder Builder for Direct Pre Approval Accession Registration
-     * @return Response of direct pre approval accession registration
-     * @see DirectPreApprovalRegistration
-     * @see RegisteredDirectPreApproval
+     * @param directPreApprovalRegistrationBuilder Builder for Direct Pre Approval Accession
+     * @return Response of direct pre approval accede
+     * @see DirectPreApprovalAccession
+     * @see AccededDirectPreApproval
      */
-    public RegisteredDirectPreApproval accession(
-            Builder<DirectPreApprovalRegistration> directPreApprovalRegistrationBuilder) {
-        return accession(directPreApprovalRegistrationBuilder.build());
+    public AccededDirectPreApproval accede(
+            Builder<DirectPreApprovalAccession> directPreApprovalRegistrationBuilder) {
+        return accede(directPreApprovalRegistrationBuilder.build());
     }
 
     /**
-     * Direct Pre Approval Acession Registration
+     * Direct Pre Approval Acession
      *
-     * @param directPreApprovalRegistration Direct Pre Approval Registration
-     * @return Response of direct pre approval registration
-     * @see DirectPreApprovalRegistration
-     * @see RegisteredDirectPreApproval
+     * @param directPreApprovalAccession Direct Pre Approval
+     * @return Response of direct pre approval
+     * @see DirectPreApprovalAccession
+     * @see AccededDirectPreApproval
      */
-    public RegisteredDirectPreApproval accession(DirectPreApprovalRegistration directPreApprovalRegistration) {
-        LOGGER.info("Iniciando registro direct pre approval accession");
+    public AccededDirectPreApproval accede(DirectPreApprovalAccession directPreApprovalAccession) {
+        LOGGER.info("Iniciando adesão direct pre approval");
         LOGGER.info("Convertendo valores");
-        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalRegistration);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalAccession);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
@@ -136,14 +129,14 @@ public class DirectPreApprovalsRequestResource {
                     pagSeguro.getHost()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar registro direct pre approval acession");
+            LOGGER.error("Erro ao executar adesão direct pre approval");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
-        RegisterDirectPreApprovalResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
-                RegisterDirectPreApprovalResponseXML.class);
+        AccedeDirectPreApprovalResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
+                AccedeDirectPreApprovalResponseXML.class);
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Registro direct pre approval accession finalizado");
+        LOGGER.info("Adesão direct pre approval finalizada");
         return registeredPreApproval;
     }
 
@@ -151,23 +144,23 @@ public class DirectPreApprovalsRequestResource {
      * Direct Pre Approval Edition
      *
      * @param directPreApprovalRequestEdition Builder for Direct Pre Approval Edition
-     * @see DirectPreApprovalRequestEdition
+     * @see DirectPreApprovalEdition
      */
-    public void edit(Builder<DirectPreApprovalRequestEdition> directPreApprovalRequestEdition) {
+    public void edit(Builder<DirectPreApprovalEdition> directPreApprovalRequestEdition) {
         edit(directPreApprovalRequestEdition.build());
     }
 
     /**
      * Direct Pre Approval Edition
      *
-     * @param directPreApprovalRequestEdition Direct Pre Approval Edition
-     * @see DirectPreApprovalRequestEdition
+     * @param directPreApprovalEdition Direct Pre Approval Edition
+     * @see DirectPreApprovalEdition
      */
-    public void edit(DirectPreApprovalRequestEdition directPreApprovalRequestEdition) {
+    public void edit(DirectPreApprovalEdition directPreApprovalEdition) {
         LOGGER.info("Iniciando edicao direct pre approval");
         LOGGER.info("Convertendo valores");
 
-        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_EDITION_JC.convert(directPreApprovalRequestEdition);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_EDITION_JC.convert(directPreApprovalEdition);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
@@ -180,18 +173,18 @@ public class DirectPreApprovalsRequestResource {
             LOGGER.debug(String.format("Parametros: %s", jsonBody));
 
             response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_EDIT,
-                    pagSeguro.getHost(), directPreApprovalRequestEdition.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+                    pagSeguro.getHost(), directPreApprovalEdition.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
 
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar edicao de valor pre approval");
+            LOGGER.error("Erro ao executar edicao de valor direct pre approval");
             throw new PagSeguroLibException(e);
         }
 
         LOGGER.info("Parseando XML de resposta");
         response.parseXMLContentNoBody(pagSeguro);
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Edicao valor pre approval finalizado");
+        LOGGER.info("Edicao valor direct pre approval finalizado");
     }
 
 
@@ -199,23 +192,23 @@ public class DirectPreApprovalsRequestResource {
      * Direct Pre Approval Discount
      *
      * @param directPreApprovalRequestDiscount Builder for Direct Pre Approval Discount
-     * @see DirectPreApprovalRequestDiscount
+     * @see DirectPreApprovalDiscount
      */
-    public void discount(Builder<DirectPreApprovalRequestDiscount> directPreApprovalRequestDiscount) {
+    public void discount(Builder<DirectPreApprovalDiscount> directPreApprovalRequestDiscount) {
         discount(directPreApprovalRequestDiscount.build());
     }
 
     /**
      * Direct Pre Approval Discount
      *
-     * @param directPreApprovalRequestDiscount Direct Pre Approval discount
-     * @see DirectPreApprovalRequestDiscount
+     * @param directPreApprovalDiscount Direct Pre Approval discount
+     * @see DirectPreApprovalDiscount
      */
-    public void discount(DirectPreApprovalRequestDiscount directPreApprovalRequestDiscount) {
-        LOGGER.info("Iniciando discount direct pre approval");
+    public void discount(DirectPreApprovalDiscount directPreApprovalDiscount) {
+        LOGGER.info("Iniciando desconto direct pre approval");
         LOGGER.info("Convertendo valores");
 
-        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_DISCOUNT_JC.convert(directPreApprovalRequestDiscount);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_DISCOUNT_JC.convert(directPreApprovalDiscount);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");
@@ -228,7 +221,7 @@ public class DirectPreApprovalsRequestResource {
             LOGGER.debug(String.format("Parametros: %s", jsonBody));
 
             response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_DISCOUNT,
-                    pagSeguro.getHost(), directPreApprovalRequestDiscount.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+                    pagSeguro.getHost(), directPreApprovalDiscount.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
 
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
@@ -246,19 +239,19 @@ public class DirectPreApprovalsRequestResource {
      * Direct Pre Approval Cancellation
      *
      * @param directPreApprovalRequestCancellation Builder for Direct Pre Approval Cancellation
-     * @see DirectPreApprovalRequestCancellation
+     * @see DirectPreApprovalCancellation
      */
-    public void cancel(Builder<DirectPreApprovalRequestCancellation> directPreApprovalRequestCancellation) {
+    public void cancel(Builder<DirectPreApprovalCancellation> directPreApprovalRequestCancellation) {
         cancel(directPreApprovalRequestCancellation.build());
     }
 
     /**
      * Direct Pre Approval Cancellation
      *
-     * @param directPreApprovalRequestCancellation Direct Pre Approval Cancellation
-     * @see DirectPreApprovalRequestCancellation
+     * @param directPreApprovalCancellation Direct Pre Approval Cancellation
+     * @see DirectPreApprovalCancellation
      */
-    public void cancel(DirectPreApprovalRequestCancellation directPreApprovalRequestCancellation) {
+    public void cancel(DirectPreApprovalCancellation directPreApprovalCancellation) {
         LOGGER.info("Iniciando cancelamento de adesao direct pre approval");
 
         Map<String, String> headers = new HashMap<String, String>();
@@ -269,7 +262,7 @@ public class DirectPreApprovalsRequestResource {
 
         try {
             response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_CANCEL,
-                    pagSeguro.getHost(), directPreApprovalRequestCancellation.getCode()), headers, null);
+                    pagSeguro.getHost(), directPreApprovalCancellation.getCode()), headers, null);
 
         } catch (IOException e) {
             LOGGER.error("Erro ao executar cancelamento de adesao direct pre approval");
@@ -290,21 +283,22 @@ public class DirectPreApprovalsRequestResource {
      * @see DirectPreApprovalRequestRegistration
      * @see RegisteredDirectPreApprovalRequest
      */
-    public ChargedDirectPreApproval charge(Builder<DirectPreApprovalRequestCharge> directPreApprovalRequestCharge) {
+    public ChargedDirectPreApproval charge(Builder<DirectPreApprovalCharge> directPreApprovalRequestCharge) {
         return charge(directPreApprovalRequestCharge.build());
     }
 
     /**
      * Direct Pre Approval Edition
      *
-     * @param directPreApprovalRequestCharge Direct Pre Approval Edition
-     * @see DirectPreApprovalRequestEdition
+     * @param directPreApprovalCharge Direct Pre Approval Edition
+     * @return Response of pre approval charge
+     * @see DirectPreApprovalEdition
      */
-    public ChargedDirectPreApproval charge(DirectPreApprovalRequestCharge directPreApprovalRequestCharge) {
+    public ChargedDirectPreApproval charge(DirectPreApprovalCharge directPreApprovalCharge) {
         LOGGER.info("Iniciando cobranca manual direct pre approval");
         LOGGER.info("Convertendo valores");
 
-        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_CHARGE_JC.convert(directPreApprovalRequestCharge);
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_CHARGE_JC.convert(directPreApprovalCharge);
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");

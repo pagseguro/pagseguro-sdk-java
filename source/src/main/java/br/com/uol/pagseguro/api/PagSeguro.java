@@ -24,7 +24,7 @@ import br.com.uol.pagseguro.api.application.authorization.AuthorizationsResource
 import br.com.uol.pagseguro.api.checkout.CheckoutsResource;
 import br.com.uol.pagseguro.api.credential.Credential;
 import br.com.uol.pagseguro.api.credential.DefaultCredentialProviderChain;
-import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalsRequestResource;
+import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalsResource;
 import br.com.uol.pagseguro.api.environment.DefaultEnvironmentProviderChain;
 import br.com.uol.pagseguro.api.exception.PagSeguroLibException;
 import br.com.uol.pagseguro.api.http.AuthenticatedHttpClient;
@@ -95,20 +95,11 @@ public abstract class PagSeguro {
   }
 
   /**
-   * Get factory to direct pre approval request (create a pre approval plan)
+   * Get factory to direct pre approval
    * @return Factory to direct pre approval
    */
-  public DirectPreApprovalsRequestResource directPreApprovalsRequest() {
-    return new DirectPreApprovalsRequestResource(this, httpClient);
-  }
-
-
-  /**
-   * Get factory to direct pre approval request (accession to a direct pre approval plan)
-   * @return Factory to direct pre approval accession
-   */
-  public DirectPreApprovalsRequestResource directPreApprovals() {
-    return new DirectPreApprovalsRequestResource(this, httpClient);
+  public DirectPreApprovalsResource directPreApprovals() {
+    return new DirectPreApprovalsResource(this, httpClient);
   }
   /**
    * Get factory to session

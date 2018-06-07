@@ -4,7 +4,7 @@ import br.com.uol.pagseguro.api.common.domain.PaymentItem;
 
 import java.util.List;
 
-public interface DirectPreApprovalRequestCharge {
+public interface DirectPreApprovalCharge {
 
     /**
      * Get Direct Pre Approval Code

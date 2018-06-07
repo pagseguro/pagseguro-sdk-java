@@ -1,7 +1,6 @@
 package br.com.uol.pagseguro.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.common.domain.PaymentItem;
-import br.com.uol.pagseguro.api.common.domain.builder.PaymentItemBuilder;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
  *
  * @author PagSeguro Internet Ltda.
  */
-public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreApprovalRequestCharge>{
+public class DirectPreApprovalChargeBuilder implements Builder<DirectPreApprovalCharge>{
 
     private String preApprovalCode = null;
     private String reference = null;
@@ -25,9 +24,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param preApprovalCode Pre Approval Code
      * @return Builder for Pre Approval Edition
-     * @see DirectPreApprovalRequestCharge#getPreApprovalCode()
+     * @see DirectPreApprovalCharge#getPreApprovalCode()
      */
-    public DirectPreApprovalRequestChargeBuilder withCode(String preApprovalCode) {
+    public DirectPreApprovalChargeBuilder withCode(String preApprovalCode) {
         this.preApprovalCode = preApprovalCode;
         return this;
     }
@@ -37,9 +36,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param reference Pre Approval Code
      * @return Builder for Pre Approval Edition
-     * @see DirectPreApprovalRequestCharge#getReference()
+     * @see DirectPreApprovalCharge#getReference()
      */
-    public DirectPreApprovalRequestChargeBuilder withReference(String reference) {
+    public DirectPreApprovalChargeBuilder withReference(String reference) {
         this.reference = reference;
         return this;
     }
@@ -49,9 +48,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param senderHash Pre Approval Code
      * @return Builder for Pre Approval Edition
-     * @see DirectPreApprovalRequestCharge#getSenderHash()
+     * @see DirectPreApprovalCharge#getSenderHash()
      */
-    public DirectPreApprovalRequestChargeBuilder withSenderHash(String senderHash) {
+    public DirectPreApprovalChargeBuilder withSenderHash(String senderHash) {
         this.senderHash = senderHash;
         return this;
     }
@@ -61,9 +60,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param senderIp Pre Approval Code
      * @return Builder for Pre Approval Edition
-     * @see DirectPreApprovalRequestCharge#getSenderIp()
+     * @see DirectPreApprovalCharge#getSenderIp()
      */
-    public DirectPreApprovalRequestChargeBuilder withSenderIp(String senderIp) {
+    public DirectPreApprovalChargeBuilder withSenderIp(String senderIp) {
         this.senderIp = senderIp;
         return this;
     }
@@ -73,9 +72,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param item Item of Pre Approval charging
      * @return Builder for Pre Approval charging
-     * @see DirectPreApprovalRequestCharge#getItems()
+     * @see DirectPreApprovalCharge#getItems()
      */
-    public DirectPreApprovalRequestChargeBuilder addItem(PaymentItem item) {
+    public DirectPreApprovalChargeBuilder addItem(PaymentItem item) {
         this.items.add(item);
         return this;
     }
@@ -85,9 +84,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param paymentItemBuilder Builder for Item of Pre Approval charging
      * @return Builder for Pre Approval charging
-     * @see DirectPreApprovalRequestCharge#getItems()
+     * @see DirectPreApprovalCharge#getItems()
      */
-    public DirectPreApprovalRequestChargeBuilder addItem(Builder<PaymentItem> paymentItemBuilder) {
+    public DirectPreApprovalChargeBuilder addItem(Builder<PaymentItem> paymentItemBuilder) {
         return addItem(paymentItemBuilder.build());
     }
 
@@ -96,9 +95,9 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      *
      * @param items Items of Pre Approval charging
      * @return Builder for Pre Approval charging
-     * @see DirectPreApprovalRequestCharge#getItems()
+     * @see DirectPreApprovalCharge#getItems()
      */
-    public DirectPreApprovalRequestChargeBuilder addItems(Iterable<? extends PaymentItem> items) {
+    public DirectPreApprovalChargeBuilder addItems(Iterable<? extends PaymentItem> items) {
         for (PaymentItem item : items) {
             addItem(item);
         }
@@ -109,35 +108,35 @@ public class DirectPreApprovalRequestChargeBuilder implements Builder<DirectPreA
      * Build the Direct Pre Approval Charge
      *
      * @return Interface for Direct Pre Approval Charge
-     * @see DirectPreApprovalRequestEdition
+     * @see DirectPreApprovalEdition
      */
     @Override
-    public DirectPreApprovalRequestCharge build() { return new SimpleDirectPreApprovalRequestCharge(this); }
+    public DirectPreApprovalCharge build() { return new SimpleDirectPreApprovalCharge(this); }
 
     /**
-     * Implementation of {@amountPerPayment DirectPreApprovalRequestEdition and @updateSubscriptions DirectPreApprovalRequestEdition}
+     * Implementation of {@amountPerPayment DirectPreApprovalEdition and @updateSubscriptions DirectPreApprovalEdition}
      */
-    private static class SimpleDirectPreApprovalRequestCharge implements DirectPreApprovalRequestCharge {
+    private static class SimpleDirectPreApprovalCharge implements DirectPreApprovalCharge {
 
-        private final DirectPreApprovalRequestChargeBuilder directPreApprovalRequestChargeBuilder;
+        private final DirectPreApprovalChargeBuilder directPreApprovalChargeBuilder;
 
-        private SimpleDirectPreApprovalRequestCharge(DirectPreApprovalRequestChargeBuilder directPreApprovalRequestChargeBuilder) {
-            this.directPreApprovalRequestChargeBuilder = directPreApprovalRequestChargeBuilder;
+        private SimpleDirectPreApprovalCharge(DirectPreApprovalChargeBuilder directPreApprovalChargeBuilder) {
+            this.directPreApprovalChargeBuilder = directPreApprovalChargeBuilder;
         }
 
         @Override
-        public String getPreApprovalCode() { return directPreApprovalRequestChargeBuilder.preApprovalCode; }
+        public String getPreApprovalCode() { return directPreApprovalChargeBuilder.preApprovalCode; }
 
         @Override
-        public String getReference() { return directPreApprovalRequestChargeBuilder.reference; }
+        public String getReference() { return directPreApprovalChargeBuilder.reference; }
 
         @Override
-        public String getSenderHash() { return directPreApprovalRequestChargeBuilder.senderHash; }
+        public String getSenderHash() { return directPreApprovalChargeBuilder.senderHash; }
 
         @Override
-        public String getSenderIp() { return directPreApprovalRequestChargeBuilder.senderIp; }
+        public String getSenderIp() { return directPreApprovalChargeBuilder.senderIp; }
 
         @Override
-        public List<PaymentItem> getItems() { return directPreApprovalRequestChargeBuilder.items; }
+        public List<PaymentItem> getItems() { return directPreApprovalChargeBuilder.items; }
     }
 }
