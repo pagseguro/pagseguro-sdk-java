@@ -11,8 +11,8 @@ import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 public class ChangeStatusDirectPreApproval {
 
     public static void main(String[] args){
-        String sellerEmail = "your_seller_email";
-        String sellerToken = "your_seller_token";
+        String sellerEmail = "eduardosorokin@gmail.com";
+        String sellerToken = "45625DB016DF42FDAEABB1520B4355A5";
 
         try{
             final PagSeguro pagSeguro = PagSeguro
@@ -23,10 +23,10 @@ public class ChangeStatusDirectPreApproval {
             pagSeguro.directPreApprovals().changeStatus(
                     new DirectPreApprovalChangingStatusBuilder()
                             .withCode("0213D5537C7CE858840B8FBF0854CAA3")
-                            .withStatus(PreApprovalStatus.SUSPENDED)
+                            .withStatus(PreApprovalStatus.ACTIVE)
             );
 
-            System.out.println("Alteração de status de adesão realizado!");
+            System.out.println("Alteracao de status de adesao realizado!");
         }catch (Exception e){
             e.printStackTrace();
         }
