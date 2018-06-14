@@ -347,7 +347,7 @@ public class DirectPreApprovalsResource {
      * @see DirectPreApprovalChangingStatus
      */
     public void changeStatus(DirectPreApprovalChangingStatus directPreApprovalChangingStatus) {
-        LOGGER.info("Iniciando alteração de status de adesao direct pre approval");
+        LOGGER.info("Iniciando alteracao de status de adesao direct pre approval");
         LOGGER.info("Convertendo valores");
 
         final RequestJson jsonBody = DIRECT_PRE_APPROVAL_CHANGING_STATUS_JC.convert(directPreApprovalChangingStatus);
@@ -365,13 +365,13 @@ public class DirectPreApprovalsResource {
                     pagSeguro.getHost(), directPreApprovalChangingStatus.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar alteração de status de adesao direct pre approval");
+            LOGGER.error("Erro ao executar alteracao de status de adesao direct pre approval");
             throw new PagSeguroLibException(e);
         }
 
         LOGGER.info("Parseando XML de resposta");
         response.parseXMLContentNoBody(pagSeguro);
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Alteração de status de adesao direct pre approval finalizado");
+        LOGGER.info("Alteracao de status de adesao direct pre approval finalizado");
     }
 }
