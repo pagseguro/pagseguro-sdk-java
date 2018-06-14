@@ -33,6 +33,9 @@ public class DirectPreApprovalsResource {
     /** Used to charge a manual pre approval */
     private static final DirectPreApprovalChargeJsonConvert DIRECT_PRE_APPROVAL_CHARGE_JC =
             new DirectPreApprovalChargeJsonConvert();
+    /** Used to edit a direct pre approval plan */
+    private static final DirectPreApprovalChangingStatusJsonConvert DIRECT_PRE_APPROVAL_CHANGING_STATUS_JC =
+            new DirectPreApprovalChangingStatusJsonConvert();
 
     private final PagSeguro pagSeguro;
     private final HttpClient httpClient;
@@ -325,5 +328,50 @@ public class DirectPreApprovalsResource {
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Cobranca finalizada");
         return chargedPreApproval;
+    }
+
+    /**
+     * Direct Pre Approval Changing Status
+     *
+     * @param directPreApprovalRequestChangingStatus Builder for Direct Pre Approval Changing Status
+     * @see DirectPreApprovalChangingStatus
+     */
+    public void changeStatus(Builder<DirectPreApprovalChangingStatus> directPreApprovalRequestChangingStatus) {
+        changeStatus(directPreApprovalRequestChangingStatus.build());
+    }
+
+    /**
+     * Direct Pre Approval Changing Status
+     *
+     * @param directPreApprovalChangingStatus Direct Pre Approval ChangingStatus
+     * @see DirectPreApprovalChangingStatus
+     */
+    public void changeStatus(DirectPreApprovalChangingStatus directPreApprovalChangingStatus) {
+        LOGGER.info("Iniciando alteração de status de adesao direct pre approval");
+        LOGGER.info("Convertendo valores");
+
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_CHANGING_STATUS_JC.convert(directPreApprovalChangingStatus);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+
+        try {
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
+            response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_CHANGE_STATUS,
+                    pagSeguro.getHost(), directPreApprovalChangingStatus.getCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar alteração de status de adesao direct pre approval");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Parseando XML de resposta");
+        response.parseXMLContentNoBody(pagSeguro);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Alteração de status de adesao direct pre approval finalizado");
     }
 }
