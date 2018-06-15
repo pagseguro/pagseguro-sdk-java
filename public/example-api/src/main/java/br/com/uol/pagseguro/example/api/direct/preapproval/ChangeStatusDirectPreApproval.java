@@ -11,8 +11,8 @@ import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
 public class ChangeStatusDirectPreApproval {
 
     public static void main(String[] args){
-        String sellerEmail = "eduardosorokin@gmail.com";
-        String sellerToken = "45625DB016DF42FDAEABB1520B4355A5";
+        String sellerEmail = "your_seller_email";
+        String sellerToken = "your_seller_token";
 
         try{
             final PagSeguro pagSeguro = PagSeguro
