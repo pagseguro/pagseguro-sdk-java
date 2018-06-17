@@ -186,8 +186,15 @@ public final class Endpoints {
    */
   public static final String DIRECT_PRE_APPROVAL = "%s/pre-approvals";
 
-
+  /**
+   * Direct Pre approval discount
+   */
   public static final String DIRECT_PRE_APPROVAL_DISCOUNT = "%s/pre-approvals/%s/discount";
+
+  /**
+   * Direct Pre approval payment orders list
+   */
+  public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS = "%s/pre-approvals/%s/payment-orders";
 
   /**
    * SESSIONS

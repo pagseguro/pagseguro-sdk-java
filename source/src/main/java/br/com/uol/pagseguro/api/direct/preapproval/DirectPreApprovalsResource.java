@@ -2,6 +2,7 @@ package br.com.uol.pagseguro.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.Endpoints;
 import br.com.uol.pagseguro.api.PagSeguro;
+import br.com.uol.pagseguro.api.common.domain.DirectPreApprovalDataList;
 import br.com.uol.pagseguro.api.exception.PagSeguroLibException;
 import br.com.uol.pagseguro.api.http.HttpClient;
 import br.com.uol.pagseguro.api.http.HttpMethod;
@@ -9,6 +10,7 @@ import br.com.uol.pagseguro.api.http.HttpResponse;
 import br.com.uol.pagseguro.api.utils.Builder;
 import br.com.uol.pagseguro.api.utils.CharSet;
 import br.com.uol.pagseguro.api.utils.RequestJson;
+import br.com.uol.pagseguro.api.utils.RequestMap;
 import br.com.uol.pagseguro.api.utils.logging.Log;
 import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
 
@@ -36,6 +38,9 @@ public class DirectPreApprovalsResource {
     /** Used to edit a direct pre approval plan */
     private static final DirectPreApprovalChangingStatusJsonConvert DIRECT_PRE_APPROVAL_CHANGING_STATUS_JC =
             new DirectPreApprovalChangingStatusJsonConvert();
+    /** Used to list direct pre approval payment orders */
+    private static final DirectPreApprovalPaymentOrdersListMapConvert DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_LIST_MC =
+            new DirectPreApprovalPaymentOrdersListMapConvert();
 
     private final PagSeguro pagSeguro;
     private final HttpClient httpClient;
@@ -97,14 +102,14 @@ public class DirectPreApprovalsResource {
     /**
      * Pre Approval Accession, used to accede to a Direct Pre Approval Plan
      *
-     * @param directPreApprovalRegistrationBuilder Builder for Direct Pre Approval Accession
+     * @param directPreApprovalAccessionBuilder Builder for Direct Pre Approval Accession
      * @return Response of direct pre approval accede
      * @see DirectPreApprovalAccession
      * @see AccededDirectPreApproval
      */
     public AccededDirectPreApproval accede(
-            Builder<DirectPreApprovalAccession> directPreApprovalRegistrationBuilder) {
-        return accede(directPreApprovalRegistrationBuilder.build());
+            Builder<DirectPreApprovalAccession> directPreApprovalAccessionBuilder) {
+        return accede(directPreApprovalAccessionBuilder.build());
     }
 
     /**
@@ -373,5 +378,57 @@ public class DirectPreApprovalsResource {
         response.parseXMLContentNoBody(pagSeguro);
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Alteracao de status de adesao direct pre approval finalizado");
+    }
+
+    /**
+     * Direct Pre Approval Payment Orders List, used to list Pre Approval payment orders
+     *
+     * @param directPreApprovalPaymentOrdersListBuilder Builder for Direct Pre Approval Payment Order Listing
+     * @return Payment order list
+     * @see DirectPreApprovalDataList
+     * @see PaymentOrder
+     */
+    public DirectPreApprovalDataList<? extends PaymentOrder> listPaymentOrders(
+            Builder<DirectPreApprovalPaymentOrdersList> directPreApprovalPaymentOrdersListBuilder) {
+        return listPaymentOrders(directPreApprovalPaymentOrdersListBuilder.build());
+    }
+
+    /**
+     * Pre Approval Payment Orders List
+     *
+     * @param directPreApprovalPaymentOrdersList Direct Pre Approval Payment Order Listing
+     * @return Response of Direct Pre Approval Payment Order Listing
+     * @see DirectPreApprovalDataList
+     * @see PaymentOrder
+     */
+    public DirectPreApprovalDataList<? extends PaymentOrder> listPaymentOrders(DirectPreApprovalPaymentOrdersList directPreApprovalPaymentOrdersList) {
+        LOGGER.info("Iniciando registro direct pre approval");
+        LOGGER.info("Convertendo valores");
+        final RequestMap map = DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_LIST_MC.convert(directPreApprovalPaymentOrdersList);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        //headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+        try {
+            LOGGER.debug(String.format("Parametros: %s", map));
+            response = httpClient.execute(HttpMethod.GET, String.format(Endpoints.DIRECT_PRE_APPROVAL_PAYMENT_ORDERS,
+                    pagSeguro.getHost(), directPreApprovalPaymentOrdersList.getCode()), headers, null);
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar registro direct pre approval");
+            throw new PagSeguroLibException(e);
+        }
+        LOGGER.info("Parseando XML de resposta");
+        //@TODO implement response (parseXML) as in transaction sumary (\api\transaction\search\TransactionSearchByDateRange.java)
+        DirectPreApprovalDataList<? extends PaymentOrder> paymentOrder = response.parseXMLContent(pagSeguro, DirectPreApprovalPaymentOrdersListResponseXML.class);
+//        RegisterDirectPreApprovalRequestResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
+//                RegisterDirectPreApprovalRequestResponseXML.class);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Registro direct pre approval finalizado");
+
+        return paymentOrder;
     }
 }
