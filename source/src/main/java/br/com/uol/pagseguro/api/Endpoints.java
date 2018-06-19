@@ -194,7 +194,7 @@ public final class Endpoints {
   /**
    * Direct Pre approval payment orders list
    */
-  public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS = "%s/pre-approvals/%s/payment-orders";
+  public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS = "%s/pre-approvals/%s/payment-orders?%s";
 
   /**
    * SESSIONS

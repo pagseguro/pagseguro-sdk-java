@@ -63,7 +63,7 @@ public interface PaymentOrder {
      *
      * @return Last Event Date
      */
-    String getLastEeventDate();
+    String getLastEventDate();
 
     /**
      * Payment Order Scheduling Date

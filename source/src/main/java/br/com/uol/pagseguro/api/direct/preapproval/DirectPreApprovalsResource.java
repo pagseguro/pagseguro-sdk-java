@@ -415,7 +415,7 @@ public class DirectPreApprovalsResource {
         try {
             LOGGER.debug(String.format("Parametros: %s", map));
             response = httpClient.execute(HttpMethod.GET, String.format(Endpoints.DIRECT_PRE_APPROVAL_PAYMENT_ORDERS,
-                    pagSeguro.getHost(), directPreApprovalPaymentOrdersList.getCode()), headers, null);
+                    pagSeguro.getHost(), directPreApprovalPaymentOrdersList.getCode(), map.toUrlEncode(CharSet.ENCODING_UTF)), headers, null);
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
             LOGGER.error("Erro ao executar registro direct pre approval");
