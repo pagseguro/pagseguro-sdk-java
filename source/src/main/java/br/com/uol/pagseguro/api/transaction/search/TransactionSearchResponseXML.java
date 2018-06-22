@@ -22,6 +22,7 @@
 package br.com.uol.pagseguro.api.transaction.search;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -94,6 +95,16 @@ public class TransactionSearchResponseXML implements DataList<TransactionSummary
   @Override
   public Boolean isEmpty() {
     return getData().isEmpty();
+  }
+
+  @Override
+  public Integer getCurrentPage() {
+    return null;
+  }
+
+  @Override
+  public Date getDate() {
+    return null;
   }
 
   @Override

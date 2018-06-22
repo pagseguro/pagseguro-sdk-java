@@ -20,6 +20,7 @@
  */
 package br.com.uol.pagseguro.api.common.domain;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,5 +58,19 @@ public interface DataList<T> extends Iterable<T> {
    * @return Is empty
    */
   Boolean isEmpty();
+
+  /**
+   * Current page of the search
+   *
+   * @return Current Page
+   */
+  Integer getCurrentPage();
+
+  /**
+   * Date of the search
+   *
+   * @return Date
+   */
+  Date getDate();
 
 }

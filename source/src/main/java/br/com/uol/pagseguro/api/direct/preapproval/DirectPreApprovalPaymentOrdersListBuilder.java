@@ -21,6 +21,7 @@
 
 package br.com.uol.pagseguro.api.direct.preapproval;
 
+import br.com.uol.pagseguro.api.common.domain.enums.PaymentOrderStatus;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 /**
@@ -38,7 +39,7 @@ public final class DirectPreApprovalPaymentOrdersListBuilder implements Builder<
     /**
      * Set the direct pre approval payment order  code
      *
-     * @param code
+     * @param code Pre approval code
      * @return Builder for direct pre approval payment orders list
      * @see DirectPreApprovalPaymentOrdersList#getCode()
      */
@@ -50,7 +51,7 @@ public final class DirectPreApprovalPaymentOrdersListBuilder implements Builder<
     /**
      * Set the direct pre approval payment order  status to filter
      *
-     * @param status
+     * @param status Status of the order payment
      * @return Builder for direct pre approval payment orders list
      * @see DirectPreApprovalPaymentOrdersList#getStatus()
      */
@@ -60,9 +61,21 @@ public final class DirectPreApprovalPaymentOrdersListBuilder implements Builder<
     }
 
     /**
+     * Set the direct pre approval payment order  status to filter
+     *
+     * @param status Status of the order payment
+     * @return Builder for direct pre approval payment orders list
+     * @see DirectPreApprovalPaymentOrdersList#getStatus()
+     */
+    public DirectPreApprovalPaymentOrdersListBuilder withStatus(PaymentOrderStatus status) {
+        this.status = status.getValue();
+        return this;
+    }
+
+    /**
      * Set the direct pre approval payment order  page to filter
      *
-     * @param page
+     * @param page Page number
      * @return Builder for direct pre approval payment orders list
      * @see DirectPreApprovalPaymentOrdersList#getPage()
      */
@@ -74,7 +87,7 @@ public final class DirectPreApprovalPaymentOrdersListBuilder implements Builder<
     /**
      * Set the direct pre approval payment order  max page results to filter
      *
-     * @param maxPageResults
+     * @param maxPageResults Max number of results returned in each page
      * @return Builder for direct pre approval payment orders list
      * @see DirectPreApprovalPaymentOrdersList#getMaxPageResults()
      */
@@ -86,7 +99,7 @@ public final class DirectPreApprovalPaymentOrdersListBuilder implements Builder<
     /**
      * Build the direct pre approval payment order list
      *
-     * @return
+     * @return DirectPreApprovalPaymentOrdersList build
      */
     @Override
     public DirectPreApprovalPaymentOrdersList build() { return new SimpleDirectPreApprovalPaymentOrderList(this); }

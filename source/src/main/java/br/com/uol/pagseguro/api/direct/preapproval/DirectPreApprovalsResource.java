@@ -2,7 +2,7 @@ package br.com.uol.pagseguro.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.Endpoints;
 import br.com.uol.pagseguro.api.PagSeguro;
-import br.com.uol.pagseguro.api.common.domain.DirectPreApprovalDataList;
+import br.com.uol.pagseguro.api.common.domain.DataList;
 import br.com.uol.pagseguro.api.exception.PagSeguroLibException;
 import br.com.uol.pagseguro.api.http.HttpClient;
 import br.com.uol.pagseguro.api.http.HttpMethod;
@@ -385,29 +385,28 @@ public class DirectPreApprovalsResource {
      *
      * @param directPreApprovalPaymentOrdersListBuilder Builder for Direct Pre Approval Payment Order Listing
      * @return Payment order list
-     * @see DirectPreApprovalDataList
+     * @see DataList
      * @see PaymentOrder
      */
-    public DirectPreApprovalDataList<? extends PaymentOrder> listPaymentOrders(
+    public DataList<? extends PaymentOrder> listPaymentOrders(
             Builder<DirectPreApprovalPaymentOrdersList> directPreApprovalPaymentOrdersListBuilder) {
         return listPaymentOrders(directPreApprovalPaymentOrdersListBuilder.build());
     }
 
     /**
-     * Pre Approval Payment Orders List
+     * Direct Pre Approval Payment Orders List
      *
      * @param directPreApprovalPaymentOrdersList Direct Pre Approval Payment Order Listing
      * @return Response of Direct Pre Approval Payment Order Listing
-     * @see DirectPreApprovalDataList
+     * @see DataList
      * @see PaymentOrder
      */
-    public DirectPreApprovalDataList<? extends PaymentOrder> listPaymentOrders(DirectPreApprovalPaymentOrdersList directPreApprovalPaymentOrdersList) {
-        LOGGER.info("Iniciando registro direct pre approval");
+    public DataList<? extends PaymentOrder> listPaymentOrders(DirectPreApprovalPaymentOrdersList directPreApprovalPaymentOrdersList) {
+        LOGGER.info("Iniciando lista de ordens de pagamento");
         LOGGER.info("Convertendo valores");
         final RequestMap map = DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_LIST_MC.convert(directPreApprovalPaymentOrdersList);
 
         Map<String, String> headers = new HashMap<String, String>();
-        //headers.put("Content-Type", "application/json");
         headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
 
         LOGGER.info("Valores convertidos");
@@ -418,16 +417,15 @@ public class DirectPreApprovalsResource {
                     pagSeguro.getHost(), directPreApprovalPaymentOrdersList.getCode(), map.toUrlEncode(CharSet.ENCODING_UTF)), headers, null);
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar registro direct pre approval");
+            LOGGER.error("Erro ao executar lista de ordens de pagamento");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
-        //@TODO implement response (parseXML) as in transaction sumary (\api\transaction\search\TransactionSearchByDateRange.java)
-        DirectPreApprovalDataList<? extends PaymentOrder> paymentOrder = response.parseXMLContent(pagSeguro, DirectPreApprovalPaymentOrdersListResponseXML.class);
-//        RegisterDirectPreApprovalRequestResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
-//                RegisterDirectPreApprovalRequestResponseXML.class);
+
+        DataList<? extends PaymentOrder> paymentOrder = response.parseXMLContent(pagSeguro, DirectPreApprovalPaymentOrdersListResponseXML.class);
+
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Registro direct pre approval finalizado");
+        LOGGER.info("Listagem de ordens de pagamento finalizada");
 
         return paymentOrder;
     }

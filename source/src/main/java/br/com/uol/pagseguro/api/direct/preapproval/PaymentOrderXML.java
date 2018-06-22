@@ -29,12 +29,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Implementation of {@code PaymentOrder} and {@code XMLUnmarshallListener}. Responsible for parse the XML response of
+ * Implementation of {@code PaymentOrder}. Responsible for parse the XML response of
  * Payment Order
  *
  * @author PagSeguro Internet Ltda.
  */
-public class PaymentOrderXML implements PaymentOrder {
+public class PaymentOrderXML implements PaymentOrder, XMLUnmarshallListener {
     private String code;
     private Integer status;
     private BigDecimal amount;
@@ -43,11 +43,11 @@ public class PaymentOrderXML implements PaymentOrder {
     private String schedulingDate;
     private List<TransactionXML> transactions;
     private DiscountXML discount;
+    private PagSeguro pagseguro;
 
     PaymentOrderXML() {
     }
 
-    //@Override
     public String getCode() {
         return code;
     }
@@ -57,7 +57,6 @@ public class PaymentOrderXML implements PaymentOrder {
         this.code = code;
     }
 
-    //@Override
     public Integer getStatus() {
         return status;
     }
@@ -67,7 +66,6 @@ public class PaymentOrderXML implements PaymentOrder {
         this.status = status;
     }
 
-    //@Override
     public BigDecimal getAmount() {
         return amount;
     }
@@ -77,7 +75,6 @@ public class PaymentOrderXML implements PaymentOrder {
         this.amount = amount;
     }
 
-    //@Override
     public BigDecimal getGrossAmount() {
         return grossAmount;
     }
@@ -96,7 +93,6 @@ public class PaymentOrderXML implements PaymentOrder {
         this.lastEventDate = lastEventDate;
     }
 
-    //@Override
     public String getSchedulingDate() {
         return schedulingDate;
     }
@@ -109,16 +105,12 @@ public class PaymentOrderXML implements PaymentOrder {
     @Override
     public List<TransactionXML> getTransactions() {
         return transactions;
-        //return new ArrayList<Transaction>();
     }
 
-    //@XmlElement(name = "transaction")
-    //@XmlElementWrapper(name = "transactions")
     public void setTransactions(List<TransactionXML> transactions) {
         this.transactions = transactions;
     }
 
-    //@Override
     public DiscountXML getDiscount() {
         return discount;
     }
@@ -132,13 +124,18 @@ public class PaymentOrderXML implements PaymentOrder {
         return "PaymentOrderXML{" +
                 "code=" + code +
                 ", status=" + status +
-                //", code='" + code + '\'' +
                 ", amount=" + amount +
                 ", grossAmount=" + grossAmount +
                 ", lastEventDate=" + lastEventDate +
                 ", discount=" + discount +
                 ", schedulingDate=" + schedulingDate +
                 ", transactions=" + transactions +
+                ", pagseguro=" + pagseguro +
                 '}';
+    }
+
+    @Override
+    public void onUnmarshal(PagSeguro pagseguro, String rawData) {
+        this.pagseguro = pagseguro;
     }
 }

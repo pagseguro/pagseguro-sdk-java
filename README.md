@@ -147,6 +147,7 @@ Changelog
       - 4.2.0.8-SNAPSHOT: Efetuar cobrança manual de assinatura
       - 4.2.0.9-SNAPSHOT: Refatoração: adequação dos nomes das classes e métodos; atualização dos exemplos 
       - 4.2.0.10-SNAPSHOT: Alteração de status de assinatura
+      - 4.2.0.11-SNAPSHOT: Listar Ordens de Pagamento
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais
