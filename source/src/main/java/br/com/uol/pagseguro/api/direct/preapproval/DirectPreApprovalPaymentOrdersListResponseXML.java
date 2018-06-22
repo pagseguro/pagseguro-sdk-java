@@ -27,6 +27,7 @@ import br.com.uol.pagseguro.api.common.domain.DataList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -113,13 +114,15 @@ public class DirectPreApprovalPaymentOrdersListResponseXML implements DataList<P
         return getData().iterator();
     }
 
+
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         return "PaymentOrdersListResponseXML{" +
                 "totalPages=" + totalPages +
                 ", resultsInThisPage=" + resultsInThisPage +
                 ", currentPage=" + currentPage +
-                ", date='" + date + '\'' +
+                ", date='" + sdf.format(date) + '\'' +
                 ", paymentOrders=" + paymentOrders +
                 '}';
     }

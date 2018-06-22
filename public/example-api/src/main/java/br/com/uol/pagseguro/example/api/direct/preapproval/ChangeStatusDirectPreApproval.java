@@ -19,7 +19,7 @@ public class ChangeStatusDirectPreApproval {
                     .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
                             Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
-            // Altetação do status de adesão (assinatura) [ suspenção: "SUSPENDED" | reativação: "ACTIVE" ]
+            // Alteração do status de adesão (assinatura) [ suspenção: "SUSPENDED" | reativação: "ACTIVE" ]
             pagSeguro.directPreApprovals().changeStatus(
                     new DirectPreApprovalChangingStatusBuilder()
                             .withCode("0213D5537C7CE858840B8FBF0854CAA3")
