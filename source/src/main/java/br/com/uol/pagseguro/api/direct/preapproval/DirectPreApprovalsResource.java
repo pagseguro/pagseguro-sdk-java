@@ -429,4 +429,49 @@ public class DirectPreApprovalsResource {
 
         return paymentOrder;
     }
+
+    /**
+     * Direct Pre Approval Search By Code
+     *
+     * @param directPreApprovalSearchByAccessionCode Builder for Direct Pre Approval Search By Accession Code
+     * @see DirectPreApprovalSearchByAccessionCode
+     * @return Searched Direct Pre Approval Data
+     */
+    public SearchedDirectPreApprovalByAccessionCode searchByAccessionCode(
+            Builder<DirectPreApprovalSearchByAccessionCode> directPreApprovalSearchByAccessionCode) {
+        return searchByAccessionCode(directPreApprovalSearchByAccessionCode.build());
+    }
+
+    /**
+     * Direct Pre Approval Search By Accession Code
+     *
+     * @param directPreApprovalSearchByAccessionCode Direct Pre Approval Search By Accession Code
+     * @see DirectPreApprovalSearchByAccessionCode
+     * @return Searched Direct Pre Approval Data
+     */
+    public SearchedDirectPreApprovalByAccessionCode searchByAccessionCode(DirectPreApprovalSearchByAccessionCode directPreApprovalSearchByAccessionCode) {
+        LOGGER.info("Iniciando consulta por codigo de adesao");
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        final HttpResponse response;
+
+        try {
+            response = httpClient.executeJson(HttpMethod.GET, String.format(Endpoints.DIRECT_PRE_APPROVAL_SEARCH_BY_ACCESSION_CODE,
+                    pagSeguro.getHost(), directPreApprovalSearchByAccessionCode.getCode()), headers, null);
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar consulta por codigo de adesao");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Parseando XML de resposta");
+        SearchedDirectPreApprovalByAccessionCodeResponseXML searchedPreApproval = response.parseXMLContent(pagSeguro,
+                SearchedDirectPreApprovalByAccessionCodeResponseXML.class);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Consulta por codigo de adesao finalizada");
+
+        return searchedPreApproval;
+    }
 }

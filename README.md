@@ -137,7 +137,7 @@ Changelog
 - Adicionado serviço de Recorrência Transparente:
   - Dev changelog:
       - 4.2.0.0-SNAPSHOT: Criação de sessão para recorrência transparente
-      - 4.2.0.1-SNAPSHOT: criação de plano manual e automático
+      - 4.2.0.1-SNAPSHOT: Criação de plano manual e automático
       - 4.2.0.2-SNAPSHOT: Adesão ao plano
       - 4.2.0.3-SNAPSHOT: Adicionado retorno da data (getDate()) nos métodos de criação de plano
       - 4.2.0.4-SNAPSHOT: Edição de valores do plano
@@ -148,6 +148,7 @@ Changelog
       - 4.2.0.9-SNAPSHOT: Refatoração: adequação dos nomes das classes e métodos; atualização dos exemplos 
       - 4.2.0.10-SNAPSHOT: Alteração de status de assinatura
       - 4.2.0.11-SNAPSHOT: Listar Ordens de Pagamento
+      - 4.2.0.12-SNAPSHOT: Consulta por código de adesão
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais

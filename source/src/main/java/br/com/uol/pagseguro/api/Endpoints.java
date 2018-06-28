@@ -197,6 +197,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS = "%s/pre-approvals/%s/payment-orders?%s";
 
   /**
+   * Direct Pre approval search by accession code
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_ACCESSION_CODE = "%s/pre-approvals/%s";
+
+  /**
    * SESSIONS
    */
 
