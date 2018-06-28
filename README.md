@@ -149,6 +149,7 @@ Changelog
       - 4.2.0.10-SNAPSHOT: Alteração de status de assinatura
       - 4.2.0.11-SNAPSHOT: Listar Ordens de Pagamento
       - 4.2.0.12-SNAPSHOT: Consulta por código de adesão
+      - 4.2.0.13-SNAPSHOT: Consulta por código de notificação
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais

@@ -202,6 +202,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_ACCESSION_CODE = "%s/pre-approvals/%s";
 
   /**
+   * Direct Pre approval search by notification code
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_NOTIFICATION_CODE = "%s/pre-approvals/notifications/%s";
+
+  /**
    * SESSIONS
    */
 

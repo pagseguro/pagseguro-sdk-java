@@ -474,4 +474,49 @@ public class DirectPreApprovalsResource {
 
         return searchedPreApproval;
     }
+
+    /**
+     * Direct Pre Approval Search By Notification Code
+     *
+     * @param directPreApprovalSearchByNotificationCode Builder for Direct Pre Approval Search By Notification Code
+     * @see DirectPreApprovalSearchByNotificationCode
+     * @return Searched Direct Pre Approval Data
+     */
+    public SearchedDirectPreApprovalByNotificationCode searchByNotificationCode(
+            Builder<DirectPreApprovalSearchByNotificationCode> directPreApprovalSearchByNotificationCode) {
+        return searchByNotificationCode(directPreApprovalSearchByNotificationCode.build());
+    }
+
+    /**
+     * Direct Pre Approval Search By Notification Code
+     *
+     * @param directPreApprovalSearchByNotificationCode Direct Pre Approval Search By Notification Code
+     * @see DirectPreApprovalSearchByNotificationCode
+     * @return Searched Direct Pre Approval Data
+     */
+    public SearchedDirectPreApprovalByNotificationCode searchByNotificationCode(DirectPreApprovalSearchByNotificationCode directPreApprovalSearchByNotificationCode) {
+        LOGGER.info("Iniciando consulta por codigo de notificacao");
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        final HttpResponse response;
+
+        try {
+            response = httpClient.executeJson(HttpMethod.GET, String.format(Endpoints.DIRECT_PRE_APPROVAL_SEARCH_BY_NOTIFICATION_CODE,
+                    pagSeguro.getHost(), directPreApprovalSearchByNotificationCode.getCode()), headers, null);
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar consulta por codigo de notificacao");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Parseando XML de resposta");
+        SearchedDirectPreApprovalByNotificationCodeResponseXML searchedPreApproval = response.parseXMLContent(pagSeguro,
+                SearchedDirectPreApprovalByNotificationCodeResponseXML.class);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Consulta por codigo de notificacao finalizada");
+
+        return searchedPreApproval;
+    }
 }
