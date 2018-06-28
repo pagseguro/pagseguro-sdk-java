@@ -46,9 +46,9 @@ public class SenderXML implements Sender {
 
   private String hash;
 
-  private String ip;
+  private String ip = null;
 
-  private List<Document> documents = null;
+  private List<DocumentXML> documents = null;
 
   SenderXML() {
   }
@@ -115,12 +115,12 @@ public class SenderXML implements Sender {
 
   //@TODO validate methods below (documents and ip) and add they to toString
   @Override
-  public List<Document> getDocuments() {
+  public List<DocumentXML> getDocuments() {
     return documents;
   }
 
   @XmlElement
-  public void setDocuments(List<Document> documents) {
+  public void setDocuments(List<DocumentXML> documents) {
     this.documents = documents;
   }
 
@@ -143,6 +143,7 @@ public class SenderXML implements Sender {
         ", address=" + address +
         ", cpf='" + cpf + '\'' +
         ", hash='" + hash + '\'' +
+        ", documents=" + documents +
         '}';
   }
 }

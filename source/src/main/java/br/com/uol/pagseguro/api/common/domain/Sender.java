@@ -85,5 +85,5 @@ public interface Sender {
    * @return Documents
    * @see Document
    */
-  List<Document> getDocuments();
+  List<? extends Document> getDocuments();
 }

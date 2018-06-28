@@ -34,7 +34,7 @@ import java.util.List;
  *
  * @author PagSeguro Internet Ltda.
  */
-public abstract class AbstractDocumentJsonConverter extends AbstractJsonConverter<List<Document>> {
+public abstract class AbstractDocumentJsonConverter extends AbstractJsonConverter<List<? extends Document>> {
 
   /**
    * Convert attributes of documents in request json
@@ -45,7 +45,7 @@ public abstract class AbstractDocumentJsonConverter extends AbstractJsonConverte
    * @see Document
    * @see AbstractJsonConverter#convert(Object)
    */
-  protected void convert(RequestJson requestJson, List<Document> documentList) {
+  protected void convert(RequestJson requestJson, List<? extends Document> documentList) {
     for (Document document : documentList) {
       if (document.getType().equals(DocumentType.CPF)) {
           requestJson.putDocument(getTypeKey(), getValueKey(), document);
