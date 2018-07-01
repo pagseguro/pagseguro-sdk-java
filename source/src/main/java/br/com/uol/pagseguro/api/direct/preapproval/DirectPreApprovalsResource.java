@@ -519,4 +519,50 @@ public class DirectPreApprovalsResource {
 
         return searchedPreApproval;
     }
+
+    /**
+     * Payment Retry, used to retry a payment of a direct pre approval order
+     *
+     * @param directPreApprovalPaymentRetryBuilder Builder for Direct Pre Approval Accession
+     * @return Response of direct pre approval payment retry
+     * @see DirectPreApprovalPaymentRetry
+     * @see RetriedPayment
+     */
+    public RetriedPayment paymentRetry(
+            Builder<DirectPreApprovalPaymentRetry> directPreApprovalPaymentRetryBuilder) {
+        return paymentRetry(directPreApprovalPaymentRetryBuilder.build());
+    }
+
+    /**
+     * Payment Retry, used to retry a payment of a direct pre approval order
+     *
+     * @param directPreApprovalPaymentRetry Direct Pre Approval
+     * @return Response of direct pre approval payment retry
+     * @see DirectPreApprovalPaymentRetry
+     * @see RetriedPayment
+     */
+    public RetriedPayment paymentRetry(DirectPreApprovalPaymentRetry directPreApprovalPaymentRetry) {
+        LOGGER.info("Iniciando retentativa de pagamento direct pre approval");
+        LOGGER.info("Convertendo valores");
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+        try {
+            response = httpClient.executeJson(HttpMethod.POST, String.format(Endpoints.DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_PAYMENT_RETRY,
+                    pagSeguro.getHost(),directPreApprovalPaymentRetry.getPreApprovalCode(), directPreApprovalPaymentRetry.getPaymentOrderCode()), headers, null);
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar adesão direct pre approval");
+            throw new PagSeguroLibException(e);
+        }
+        LOGGER.info("Parseando XML de resposta");
+        RetriedPaymentResponseXML retriedPayment = response.parseXMLContent(pagSeguro,
+                RetriedPaymentResponseXML.class);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Retantativa de pagamento direct pre approval finalizada");
+        return retriedPayment;
+    }
 }

@@ -207,6 +207,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_NOTIFICATION_CODE = "%s/pre-approvals/notifications/%s";
 
   /**
+   * Direct Pre approval payment order retry, needs pre approval code and payment order code
+   */
+  public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_PAYMENT_RETRY = "%s/pre-approvals/%s/payment-orders/%s/payment";
+
+  /**
    * SESSIONS
    */
 

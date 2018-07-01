@@ -150,6 +150,7 @@ Changelog
       - 4.2.0.11-SNAPSHOT: Listar Ordens de Pagamento
       - 4.2.0.12-SNAPSHOT: Consulta por código de adesão
       - 4.2.0.13-SNAPSHOT: Consulta por código de notificação
+      - 4.2.0.14-SNAPSHOT: Retentativa de pagamento
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais
