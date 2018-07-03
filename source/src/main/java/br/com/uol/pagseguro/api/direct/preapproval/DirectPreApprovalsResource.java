@@ -20,6 +20,7 @@ import java.util.Map;
 
 public class DirectPreApprovalsResource {
     private static final Log LOGGER = LoggerFactory.getLogger(DirectPreApprovalsResource.class.getName());
+
     /** Used to register (create) a direct pre approval plan */
     private static final DirectPreApprovalRequestRegistrationJsonConverter DIRECT_PRE_APPROVAL_REQUEST_REGISTRATION_JC =
             new DirectPreApprovalRequestRegistrationJsonConverter();
@@ -41,6 +42,9 @@ public class DirectPreApprovalsResource {
     /** Used to list direct pre approval payment orders */
     private static final DirectPreApprovalPaymentOrdersListMapConvert DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_LIST_MC =
             new DirectPreApprovalPaymentOrdersListMapConvert();
+    /** Used to change direct pre approval payment method */
+    private static final DirectPreApprovalChangingPaymentMethodJsonConvert DIRECT_PRE_APPROVAL_CHANGING_PAYMENT_METHOD_JC =
+            new DirectPreApprovalChangingPaymentMethodJsonConvert();
 
     private final PagSeguro pagSeguro;
     private final HttpClient httpClient;
@@ -564,5 +568,52 @@ public class DirectPreApprovalsResource {
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Retantativa de pagamento direct pre approval finalizada");
         return retriedPayment;
+    }
+
+    /**
+     * Direct Pre Approval Change Payment Method
+     *
+     * @param directPreApprovalChangingPaymentMethod Builder for Direct Pre Approval Change Payment Method
+     * @see DirectPreApprovalChangingPaymentMethod
+     */
+    public void changePaymentMethod(Builder<DirectPreApprovalChangingPaymentMethod> directPreApprovalChangingPaymentMethod) {
+        changePaymentMethod(directPreApprovalChangingPaymentMethod.build());
+    }
+
+    /**
+     * Direct Pre Approval Change Payment Method
+     *
+     * @param directPreApprovalChangingPaymentMethod Direct Pre Approval Edition
+     * @see DirectPreApprovalChangingPaymentMethod
+     */
+    public void changePaymentMethod(DirectPreApprovalChangingPaymentMethod directPreApprovalChangingPaymentMethod) {
+        LOGGER.info("Iniciando mudanca de meio de pagamento direct pre approval");
+        LOGGER.info("Convertendo valores");
+
+        final RequestJson jsonBody = DIRECT_PRE_APPROVAL_CHANGING_PAYMENT_METHOD_JC.convert(directPreApprovalChangingPaymentMethod);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+
+        try {
+            LOGGER.debug(String.format("Parametros: %s", jsonBody));
+
+            response = httpClient.executeJson(HttpMethod.PUT, String.format(Endpoints.DIRECT_PRE_APPROVAL_CHANGE_PAYMENT_METHOD,
+                    pagSeguro.getHost(), directPreApprovalChangingPaymentMethod.getPreApprovalCode()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
+
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao executar mudanca de meio de pagamento direct pre approval");
+            throw new PagSeguroLibException(e);
+        }
+
+        LOGGER.info("Parseando XML de resposta");
+        response.parseXMLContentNoBody(pagSeguro);
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Mudanca de meio de pagamento direct pre approval finalizado");
     }
 }

@@ -6,8 +6,8 @@ import br.com.uol.pagseguro.api.common.domain.PreApprovalPaymentMethod;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 public class PreApprovalCreditCardBuilder implements Builder<PreApprovalCreditCard>{
-    String token = null;
-    PreApprovalHolder holder = null;
+    private String token = null;
+    private PreApprovalHolder holder = null;
 
     /**
      * Set token of pre approval credit card
@@ -33,7 +33,7 @@ public class PreApprovalCreditCardBuilder implements Builder<PreApprovalCreditCa
     }
 
     /**
-     * Set credit card of direct pre approval payment method
+     * Set credit card holder of direct pre approval payment method
      *
      * @param holderBuilder Builder for Pre Approval Credit Card Holder
      * @return Builder for pre approval credit card

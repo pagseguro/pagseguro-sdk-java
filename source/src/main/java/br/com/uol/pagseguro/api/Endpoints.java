@@ -212,6 +212,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_PAYMENT_RETRY = "%s/pre-approvals/%s/payment-orders/%s/payment";
 
   /**
+   * Direct Pre approval payment change, needs the pre approval code to change payment method
+   */
+  public static final String DIRECT_PRE_APPROVAL_CHANGE_PAYMENT_METHOD= "%s/pre-approvals/%s/payment-method";
+
+  /**
    * SESSIONS
    */
 
