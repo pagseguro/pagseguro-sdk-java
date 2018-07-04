@@ -152,6 +152,7 @@ Changelog
       - 4.2.0.13-SNAPSHOT: Consulta por código de notificação
       - 4.2.0.14-SNAPSHOT: Retentativa de pagamento
       - 4.2.0.15-SNAPSHOT: Mudar meio de pagamento
+      - 4.2.0.16-SNAPSHOT: Consulta recorrências por intervalo de datas
 
 4.1.1
 - Publicação da biblioteca no Repositório Global do Maven: ajustes no javadoc e melhorias gerais

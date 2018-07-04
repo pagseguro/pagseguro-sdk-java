@@ -45,6 +45,9 @@ public class DirectPreApprovalsResource {
     /** Used to change direct pre approval payment method */
     private static final DirectPreApprovalChangingPaymentMethodJsonConvert DIRECT_PRE_APPROVAL_CHANGING_PAYMENT_METHOD_JC =
             new DirectPreApprovalChangingPaymentMethodJsonConvert();
+    /** Used to list direct pre approval by date interval */
+    private static final DirectPreApprovalByDateIntervalListMapConvert DIRECT_PRE_APPROVAL_BY_DATE_INTERVAL_LIST_MC =
+        new DirectPreApprovalByDateIntervalListMapConvert();
 
     private final PagSeguro pagSeguro;
     private final HttpClient httpClient;
@@ -615,5 +618,55 @@ public class DirectPreApprovalsResource {
         response.parseXMLContentNoBody(pagSeguro);
         LOGGER.info("Parseamento finalizado");
         LOGGER.info("Mudanca de meio de pagamento direct pre approval finalizado");
+    }
+
+    /**
+     * Direct Pre Approval By Date Interval List
+     *
+     * @param directPreApprovalByDateIntervalListBuilder Builder for Direct Pre Approval By Date Interval Listing
+     * @return Direct Pre Approval By Date Interval List
+     * @see DataList
+     * @see DirectPreApprovalData
+     */
+    public DataList<? extends DirectPreApprovalData> listDirectPreApprovalByDateInterval(
+        Builder<DirectPreApprovalByDateIntervalList> directPreApprovalByDateIntervalListBuilder) {
+        return listDirectPreApprovalByDateInterval(directPreApprovalByDateIntervalListBuilder.build());
+    }
+
+    /**
+     * Direct Pre Approval By Date Interval List
+     *
+     * @param directPreApprovalByDateIntervalList Direct Pre Approval By Date Interval Listing
+     * @return Response of Direct Pre Approval By Date Interval Listing
+     * @see DataList
+     * @see DirectPreApprovalData
+     */
+    public DataList<? extends DirectPreApprovalData> listDirectPreApprovalByDateInterval(DirectPreApprovalByDateIntervalList directPreApprovalByDateIntervalList) {
+        LOGGER.info("Iniciando lista de recorrências dentro do intervalo de datas");
+        LOGGER.info("Convertendo valores");
+        final RequestMap map = DIRECT_PRE_APPROVAL_BY_DATE_INTERVAL_LIST_MC.convert(directPreApprovalByDateIntervalList);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Accept", "application/vnd.pagseguro.com.br.v3+xml;charset=ISO-8859-1");
+
+        LOGGER.info("Valores convertidos");
+        final HttpResponse response;
+        try {
+            LOGGER.debug(String.format("Parametros: %s", map));
+            response = httpClient.execute(HttpMethod.GET, String.format(Endpoints.DIRECT_PRE_APPROVAL_SEARCH_BY_DATE_INTERVAL,
+                pagSeguro.getHost(), map.toUrlEncode(CharSet.ENCODING_UTF)), headers, null);
+            LOGGER.debug(String.format("Resposta: %s", response.toString()));
+        } catch (IOException e) {
+            LOGGER.error("Erro ao pesquisar pelas reconrrências dentro de um intervalo de datas");
+            throw new PagSeguroLibException(e);
+        }
+        LOGGER.info("Parseando XML de resposta");
+
+        DataList<? extends DirectPreApprovalData> directPreApprovalData = response.parseXMLContent(pagSeguro, DirectPreApprovalByDateIntervalListResponseXML.class);
+
+        LOGGER.info("Parseamento finalizado");
+        LOGGER.info("Listagem de recorrências por intervalo de datas finalizada");
+
+        return directPreApprovalData;
     }
 }

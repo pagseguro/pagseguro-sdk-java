@@ -217,6 +217,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_CHANGE_PAYMENT_METHOD= "%s/pre-approvals/%s/payment-method";
 
   /**
+   * Direct Pre approval by date interval list
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_DATE_INTERVAL = "%s/pre-approvals/?%s";
+
+  /**
    * SESSIONS
    */
 
