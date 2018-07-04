@@ -222,6 +222,11 @@ public final class Endpoints {
   public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_DATE_INTERVAL = "%s/pre-approvals/?%s";
 
   /**
+   * Direct Pre approval by day interval list
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_DAY_INTERVAL = "%s/pre-approvals/notifications/?%s";
+
+  /**
    * SESSIONS
    */
 
