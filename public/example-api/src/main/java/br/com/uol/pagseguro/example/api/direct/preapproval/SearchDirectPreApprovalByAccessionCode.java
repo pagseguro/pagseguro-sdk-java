@@ -22,7 +22,7 @@ public class SearchDirectPreApprovalByAccessionCode {
                     PagSeguroEnv.SANDBOX
             );
 
-            // Consulta uma recorrência pelo código da notificação
+            // Consulta uma recorrência pelo código
             SearchedDirectPreApprovalByAccessionCode searchedPreApproval = pagSeguro.directPreApprovals().searchByAccessionCode(
                     new DirectPreApprovalSearchByAccessionCodeBuilder()
                             .withCode("0213D5537C7CE858840B8FBF0854CAA3")
