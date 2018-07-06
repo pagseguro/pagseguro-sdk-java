@@ -19,7 +19,7 @@ public class SearchDirectPreApprovalByDayInterval {
                 PagSeguroEnv.SANDBOX
             );
 
-            // Listando as recorrências criadas dentro do intervalo de datas
+            // Listando as recorrências  que tiveram algum tipo de notificação dentro de um intervalo de dias
             final DataList<? extends DirectPreApprovalData> directPreApprovalByDayInterval = pagSeguro.directPreApprovals()
                 .listDirectPreApprovalByDayInterval(new DirectPreApprovalByDayIntervalListBuilder()
                     .withInterval(20) // (obrigatório) quantidade de dias de intervalo (máx: 30)

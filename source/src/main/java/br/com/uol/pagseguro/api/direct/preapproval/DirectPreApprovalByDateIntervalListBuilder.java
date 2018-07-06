@@ -1,6 +1,7 @@
 package br.com.uol.pagseguro.api.direct.preapproval;
 
 import br.com.uol.pagseguro.api.common.domain.DateRange;
+import br.com.uol.pagseguro.api.common.domain.enums.DirectPreApprovalStatus;
 import br.com.uol.pagseguro.api.utils.Builder;
 
 /**
@@ -14,6 +15,9 @@ public final class DirectPreApprovalByDateIntervalListBuilder implements Builder
     private DateRange dateRange = null;
     private Integer page = null;
     private Integer maxPageResults = null;
+    private String status = null;
+    private String code = null;
+    private String senderEmail = null;
 
     /**
      * Set the direct pre approval by date interval date range to filter
@@ -63,6 +67,54 @@ public final class DirectPreApprovalByDateIntervalListBuilder implements Builder
     }
 
     /**
+     * Set the direct pre approval by date interval status to filter
+     *
+     * @param status Direct Pre Approval Status
+     * @return Builder for direct pre approval by date interval list
+     * @see DirectPreApprovalByDateIntervalList#getStatus()
+     */
+    public DirectPreApprovalByDateIntervalListBuilder withStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Set the direct pre approval by date interval status to filter
+     *
+     * @param status Direct Pre Approval Status
+     * @return Builder for direct pre approval by date interval list
+     * @see DirectPreApprovalByDateIntervalList#getStatus()
+     */
+    public DirectPreApprovalByDateIntervalListBuilder withStatus(DirectPreApprovalStatus status) {
+        this.status = status.getValue();
+        return this;
+    }
+
+    /**
+     * Set the direct pre approval by date interval status to filter
+     *
+     * @param code Pre Approval Request
+     * @return Builder for direct pre approval by date interval list
+     * @see DirectPreApprovalByDateIntervalList#getCode()
+     */
+    public DirectPreApprovalByDateIntervalListBuilder withCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * Set the direct pre approval by date interval sender email to filter
+     *
+     * @param senderEmail Sender Email
+     * @return Builder for direct pre approval by date interval list
+     * @see DirectPreApprovalByDateIntervalList#getSenderEmail()
+     */
+    public DirectPreApprovalByDateIntervalListBuilder withSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
+        return this;
+    }
+
+    /**
      * Build the direct pre approval by date interval list
      *
      * @return DirectPreApprovalByDateIntervalList build
@@ -90,6 +142,21 @@ public final class DirectPreApprovalByDateIntervalListBuilder implements Builder
         @Override
         public Integer getMaxPageResults() {
             return directPreApprovalByDateIntervalListBuilder.maxPageResults;
+        }
+
+        @Override
+        public String getStatus() {
+            return directPreApprovalByDateIntervalListBuilder.status;
+        }
+
+        @Override
+        public String getCode() {
+            return directPreApprovalByDateIntervalListBuilder.code;
+        }
+
+        @Override
+        public String getSenderEmail() {
+            return directPreApprovalByDateIntervalListBuilder.senderEmail;
         }
     }
 }

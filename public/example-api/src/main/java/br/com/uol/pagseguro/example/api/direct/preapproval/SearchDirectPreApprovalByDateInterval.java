@@ -4,6 +4,7 @@ import br.com.uol.pagseguro.api.PagSeguro;
 import br.com.uol.pagseguro.api.PagSeguroEnv;
 import br.com.uol.pagseguro.api.common.domain.DataList;
 import br.com.uol.pagseguro.api.common.domain.builder.DateRangeBuilder;
+import br.com.uol.pagseguro.api.common.domain.enums.DirectPreApprovalStatus;
 import br.com.uol.pagseguro.api.credential.Credential;
 import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalByDateIntervalListBuilder;
 import br.com.uol.pagseguro.api.direct.preapproval.DirectPreApprovalData;
@@ -33,6 +34,9 @@ public class SearchDirectPreApprovalByDateInterval {
                     )
                     //.withPage(1) //(opcional) página na qual se quer observar os resultados
                     //.withMaxPageResults(1) //(opcional) Número máximo de registros por página
+                    //.withStatus(DirectPreApprovalStatus.CANCELLED_BY_RECEIVER) //(opcional) Status em que se encontra a recorrência.
+                    //.withCode("C08984179E9EDF3DD4023F87B71DE349") // (opcional) código do plano
+                    //.withSenderEmail("senderemail@sandbox.pagseguro.com.br") // (opcional) E-mail do Comprador
                 );
 
             System.out.println(directPreApprovalByDateInterval);

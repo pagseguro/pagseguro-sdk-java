@@ -29,4 +29,25 @@ public interface DirectPreApprovalByDateIntervalList {
      * @return Date Range
      */
     DateRange getDateRange();
+
+    /**
+     * Status of the direct pre approval
+     *
+     * @return Direct Pre Approval Status
+     */
+    String getStatus();
+
+    /**
+     * Direct Pre Approval Code
+     *
+     * @return Direct Pre Approval Code
+     */
+    String getCode();
+
+    /**
+     * Sender Email
+     *
+     * @return Sender Email
+     */
+    String getSenderEmail();
 }

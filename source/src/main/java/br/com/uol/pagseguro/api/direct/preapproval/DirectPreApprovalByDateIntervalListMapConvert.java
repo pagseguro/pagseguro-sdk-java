@@ -31,5 +31,8 @@ public class DirectPreApprovalByDateIntervalListMapConvert extends AbstractMapCo
         requestMap.putInteger("maxPageResults", directPreApprovalByDateIntervalList.getMaxPageResults());
         requestMap.putDate("initialDate", directPreApprovalByDateIntervalList.getDateRange().getFrom(), sdf);
         requestMap.putDate("finalDate", directPreApprovalByDateIntervalList.getDateRange().getTo(), sdf);
+        requestMap.putString("status", directPreApprovalByDateIntervalList.getStatus());
+        requestMap.putString("code", directPreApprovalByDateIntervalList.getCode());
+        requestMap.putString("senderEmail", directPreApprovalByDateIntervalList.getSenderEmail());
     }
 }
