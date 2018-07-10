@@ -49,6 +49,8 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
 
   private String reference = null;
 
+  private String notificationUrl = null;
+
   private Sender sender = null;
 
   private Shipping shipping = null;
@@ -72,6 +74,18 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
    */
   public CheckoutRegistrationBuilder withReference(String reference) {
     this.reference = reference;
+    return this;
+  }
+
+  /**
+   * Set notificationUrl of checkout
+   *
+   * @param notificationUrl NotificationURL of checkout
+   * @return Builder for checkout registration
+   * @see CheckoutRegistration#getNotificationUrl()
+   */
+  public CheckoutRegistrationBuilder withNotificationUrl(String notificationUrl) {
+    this.notificationUrl = notificationUrl;
     return this;
   }
 
@@ -339,6 +353,9 @@ public final class CheckoutRegistrationBuilder implements Builder<CheckoutRegist
     public String getReference() {
       return checkoutRegistrationBuilder.reference;
     }
+
+    @Override
+    public String getNotificationUrl() {return checkoutRegistrationBuilder.notificationUrl; }
 
     @Override
     public BigDecimal getExtraAmount() {
