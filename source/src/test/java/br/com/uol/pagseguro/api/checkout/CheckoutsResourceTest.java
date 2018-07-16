@@ -20,7 +20,7 @@ import br.com.uol.pagseguro.api.common.domain.builder.PaymentItemBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PaymentMethodBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PaymentMethodConfigBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PhoneBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalRequestBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.SenderBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.ShippingBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.ConfigKey;
@@ -107,7 +107,7 @@ public class CheckoutsResourceTest extends Resource4Test {
             .withWeight(123)
             .withShippingCost(new BigDecimal(99.99))
         )
-        .withPreApproval(new PreApprovalBuilder()
+        .withPreApproval(new PreApprovalRequestBuilder()
             .withCharge("charge")
             .withName("name")
             .withDetails("details")

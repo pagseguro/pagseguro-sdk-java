@@ -22,7 +22,10 @@ package br.com.uol.pagseguro.api.common.domain.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import br.com.uol.pagseguro.api.common.domain.Document;
 import br.com.uol.pagseguro.api.common.domain.Sender;
+
+import java.util.List;
 
 /**
  * Implementation of {@code Sender}
@@ -42,6 +45,10 @@ public class SenderXML implements Sender {
   private String cpf;
 
   private String hash;
+
+  private String ip = null;
+
+  private List<DocumentXML> documents = null;
 
   SenderXML() {
   }
@@ -106,6 +113,27 @@ public class SenderXML implements Sender {
     this.hash = hash;
   }
 
+  //@TODO validate methods below (documents and ip) and add they to toString
+  @Override
+  public List<DocumentXML> getDocuments() {
+    return documents;
+  }
+
+  @XmlElement
+  public void setDocuments(List<DocumentXML> documents) {
+    this.documents = documents;
+  }
+
+  @Override
+  public String getIp() {
+    return ip;
+  }
+
+  @XmlElement
+  public void setIp(String ip) {
+    this.ip = ip;
+  }
+
   @Override
   public String toString() {
     return "SenderXML{" +
@@ -115,6 +143,7 @@ public class SenderXML implements Sender {
         ", address=" + address +
         ", cpf='" + cpf + '\'' +
         ", hash='" + hash + '\'' +
+        ", documents=" + documents +
         '}';
   }
 }

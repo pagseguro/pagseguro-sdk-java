@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.uol.pagseguro.api.common.domain.Parameter;
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import br.com.uol.pagseguro.api.common.domain.Sender;
 import br.com.uol.pagseguro.api.common.domain.Shipping;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
@@ -47,7 +47,7 @@ public final class PreApprovalRegistrationBuilder implements Builder<PreApproval
   private String reference = null;
   private Shipping shipping = null;
   private Sender sender = null;
-  private PreApproval preApproval = null;
+  private PreApprovalRequest preApprovalRequest = null;
   private List<Parameter> parameters = new ArrayList<Parameter>();
 
   /**
@@ -160,12 +160,12 @@ public final class PreApprovalRegistrationBuilder implements Builder<PreApproval
   /**
    * Set Pre Approval of pre approval registration
    *
-   * @param preApproval Pre Approval
+   * @param preApprovalRequest Pre Approval
    * @return Builder for pre approval registration
    * @see PreApprovalRegistration#getPreApproval()
    */
-  public PreApprovalRegistrationBuilder withPreApproval(PreApproval preApproval) {
-    this.preApproval = preApproval;
+  public PreApprovalRegistrationBuilder withPreApproval(PreApprovalRequest preApprovalRequest) {
+    this.preApprovalRequest = preApprovalRequest;
     return this;
   }
 
@@ -176,7 +176,7 @@ public final class PreApprovalRegistrationBuilder implements Builder<PreApproval
    * @return Builder for pre approval registration
    * @see PreApprovalRegistration#getPreApproval()
    */
-  public PreApprovalRegistrationBuilder withPreApproval(Builder<PreApproval> preApprovalBuilder) {
+  public PreApprovalRegistrationBuilder withPreApproval(Builder<PreApprovalRequest> preApprovalBuilder) {
     return withPreApproval(preApprovalBuilder.build());
   }
 
@@ -275,8 +275,8 @@ public final class PreApprovalRegistrationBuilder implements Builder<PreApproval
     }
 
     @Override
-    public PreApproval getPreApproval() {
-      return preApprovalRegistrationBuilder.preApproval;
+    public PreApprovalRequest getPreApproval() {
+      return preApprovalRegistrationBuilder.preApprovalRequest;
     }
 
     @Override

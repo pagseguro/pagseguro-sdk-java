@@ -30,17 +30,17 @@ import br.com.uol.pagseguro.api.utils.Builder;
  */
 public final class ReceiverBuilder implements Builder<Receiver> {
 
-  private String publicKey;
+  private String email;
 
   /**
    * Set public key of receiver
    *
-   * @param publicKey Public key
+   * @param email Email
    * @return Builder for receiver
-   * @see Receiver#getPublicKey()
+   * @see Receiver#getEmail()
    */
-  public ReceiverBuilder withPublicKey(String publicKey) {
-    this.publicKey = publicKey;
+  public ReceiverBuilder withEmail(String email) {
+    this.email = email;
     return this;
   }
 
@@ -67,8 +67,8 @@ public final class ReceiverBuilder implements Builder<Receiver> {
     }
 
     @Override
-    public String getPublicKey() {
-      return receiverBuilder.publicKey;
+    public String getEmail() {
+      return receiverBuilder.email;
     }
   }
 }

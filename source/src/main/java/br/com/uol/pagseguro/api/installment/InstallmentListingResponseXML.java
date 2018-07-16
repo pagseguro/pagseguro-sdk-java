@@ -21,6 +21,7 @@
 package br.com.uol.pagseguro.api.installment;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,6 +62,16 @@ public class InstallmentListingResponseXML implements DataList<InstallmentDetail
   @Override
   public Boolean isEmpty() {
     return getData().isEmpty();
+  }
+
+  @Override
+  public Integer getCurrentPage() {
+    return null;
+  }
+
+  @Override
+  public Date getDate() {
+    return null;
   }
 
   @Override

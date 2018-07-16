@@ -65,6 +65,29 @@ public class SessionResourceTest extends Resource4Test {
     assertEquals(createdSession.getId(), "d8ebd56d32444161852eeb33a6112df6");
   }
 
+  @Test
+  public void shouldCreateDirectPreApprovalSellerSession() throws IOException {
+    HttpResponse response = new HttpResponse(200, responseAsString);
+    when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
+            any(HttpRequestBody.class))).thenReturn(response);
+
+    CreatedSession createdSession = sessionResource.createDirectPreApproval();
+
+    assertEquals(createdSession.getId(), "d8ebd56d32444161852eeb33a6112df6");
+  }
+
+  @Test
+  public void shouldBeCreateDirectPreApprovalApplicationSession() throws IOException {
+
+    HttpResponse response = new HttpResponse(200, responseAsString);
+    when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
+            any(HttpRequestBody.class))).thenReturn(response);
+
+    CreatedSession createdSession = sessionResource.createDirectPreApproval("Code");
+
+    assertEquals(createdSession.getId(), "d8ebd56d32444161852eeb33a6112df6");
+  }
+
   @Test(expected = PagSeguroUnauthorizedException.class)
   public void shouldThrowsUnauthorizedWhenCreateApplication() throws IOException {
     HttpResponse response = new HttpResponse(401, responseAsString);

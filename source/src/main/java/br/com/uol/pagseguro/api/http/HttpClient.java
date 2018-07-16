@@ -43,4 +43,7 @@ public interface HttpClient {
   HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers, HttpRequestBody body)
       throws IOException;
 
+  //TODO: validate if need to change to only execute without to have to implement it in every class that extends HttpClient, maybe create an JsonCliente
+  HttpResponse executeJson(HttpMethod method, String targetURL, Map<String, String> headers, HttpJsonRequestBody body)
+          throws IOException;
 }

@@ -105,6 +105,11 @@ public class PreApprovalSearchResponseXML implements DataList<PreApprovalSummary
   }
 
   @Override
+  public Integer getCurrentPage() {
+    return null;
+  }
+
+  @Override
   public Iterator<PreApprovalSummaryXML> iterator() {
     return getData().iterator();
   }

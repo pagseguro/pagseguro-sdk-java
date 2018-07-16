@@ -38,7 +38,7 @@ import br.com.uol.pagseguro.api.common.domain.builder.PaymentItemBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PaymentMethodBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PaymentMethodConfigBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.PhoneBuilder;
-import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalBuilder;
+import br.com.uol.pagseguro.api.common.domain.builder.PreApprovalRequestBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.SenderBuilder;
 import br.com.uol.pagseguro.api.common.domain.builder.ShippingBuilder;
 import br.com.uol.pagseguro.api.common.domain.enums.ConfigKey;
@@ -84,7 +84,7 @@ public class CheckoutRegisterWithPreApproval {
                   .withAddress(new AddressBuilder() //
                       .withPostalCode("99999999")
                       .withCountry("BRA")
-                      .withState(State.XX)//
+                      .withState(State.SP)//
                       .withCity("Cidade Exemplo")
                       .withComplement("99o andar")
                       .withDistrict("Jardim Internet")
@@ -172,7 +172,7 @@ public class CheckoutRegisterWithPreApproval {
               )
 
               //Adciona a assinatura ao checkout
-              .withPreApproval(new PreApprovalBuilder()//
+              .withPreApproval(new PreApprovalRequestBuilder()//
                   .withCharge("manual") //
                   .withName("Seguro contra roubo do Notebook Prata")
                   .withDetails("Cada dia 28 será cobrado o valor de R$100,00 referente ao seguro " +
@@ -185,7 +185,7 @@ public class CheckoutRegisterWithPreApproval {
                   .withDateRange(new DateRangeBuilder()
                       .between(
                           new Date(),
-                          DatatypeConverter.parseDateTime("2017-09-27T23:59:59.000-03:00")
+                          DatatypeConverter.parseDateTime("2018-09-27T23:59:59.000-03:00")
                               .getTime())
                   )
               )

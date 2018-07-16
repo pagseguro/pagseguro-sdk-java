@@ -85,4 +85,44 @@ public class SessionResource {
 
     return response.parseXMLContent(pagSeguro, CreatedSessionXML.class);
   }
+
+  /**
+   * Create session by application for direct pre approval
+   *
+   * @param authorizationCode Authorization code
+   * @return Response of session create
+   * @see CreatedSession
+   */
+  public CreatedSession createDirectPreApproval(String authorizationCode) {
+    final RequestMap map = new RequestMap();
+    map.putString("authorizationCode", authorizationCode);
+    final HttpResponse response;
+    try {
+      response = httpClient.execute(HttpMethod.POST,
+              String.format(Endpoints.SESSION_DIRECT_PRE_APPROVAL_CREATE_APPLICATION, pagSeguro.getHost(),
+                      map.toUrlEncode(CharSet.ENCODING_UTF)), null, null);
+    } catch (IOException e) {
+      throw new PagSeguroLibException(e);
+    }
+
+    return response.parseXMLContent(pagSeguro, CreatedSessionXML.class);
+  }
+
+  /**
+   * Create seller session for direct pre approval
+   *
+   * @return Response of session create
+   * @see CreatedSession
+   */
+  public CreatedSession createDirectPreApproval() {
+    final HttpResponse response;
+    try {
+      response = httpClient.execute(HttpMethod.POST, String.format(Endpoints.SESSION_DIRECT_PRE_APPROVAL_CREATE,
+              pagSeguro.getHost()), null, null);
+    } catch (IOException e) {
+      throw new PagSeguroLibException(e);
+    }
+
+    return response.parseXMLContent(pagSeguro, CreatedSessionXML.class);
+  }
 }

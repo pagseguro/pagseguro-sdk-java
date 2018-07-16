@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.uol.pagseguro.api.common.domain.Parameter;
-import br.com.uol.pagseguro.api.common.domain.PreApproval;
+import br.com.uol.pagseguro.api.common.domain.PreApprovalRequest;
 import br.com.uol.pagseguro.api.common.domain.Sender;
 import br.com.uol.pagseguro.api.common.domain.Shipping;
 import br.com.uol.pagseguro.api.common.domain.enums.Currency;
@@ -95,9 +95,9 @@ public interface PreApprovalRegistration {
    * Pre Approval
    *
    * @return Pre Approval
-   * @see PreApproval
+   * @see PreApprovalRequest
    */
-  PreApproval getPreApproval();
+  PreApprovalRequest getPreApproval();
 
   /**
    * Extra Parameters for another versions
