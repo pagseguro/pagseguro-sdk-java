@@ -1,5 +1,7 @@
 package br.com.uol.pagseguro.api.common.domain.converterXML;
 
+import br.com.uol.pagseguro.api.common.domain.Address;
+
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = {"postalCode", "street", "number", "complement", "district", "city", "state", "country"})
@@ -99,5 +101,25 @@ public class AddressV2XMLConverter {
     public AddressV2XMLConverter setCountry(String country) {
         this.country = country;
         return this;
+    }
+
+    /**
+     * Convert attributes in request XML
+     *
+     * @param address Address data
+     * @see Address
+     * @return AddressV2XMLConverter
+     */
+    public AddressV2XMLConverter convert(Address address) {
+        AddressV2XMLConverter convertedAddress = new AddressV2XMLConverter();
+        convertedAddress.setPostalCode(address.getPostalCode());
+        convertedAddress.setStreet(address.getStreet());
+        convertedAddress.setNumber(address.getNumber());
+        convertedAddress.setComplement(address.getComplement());
+        convertedAddress.setDistrict(address.getDistrict());
+        convertedAddress.setCity(address.getCity());
+        convertedAddress.setState(address.getState());
+        convertedAddress.setCountry(address.getCountry());
+        return convertedAddress;
     }
 }

@@ -43,34 +43,34 @@ public class PreApprovalRequestSearchByIntervalTest extends Resource4Test {
   @Test
   public void shouldSearch() throws Exception {
     String responseAsString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                              "<preApprovalSearchResult>" +
-                              "<resultsInThisPage>2</resultsInThisPage>" +
-                              "<currentPage>1</currentPage>" +
-                              "<totalPages>1</totalPages>" +
-                              "<date>2016-11-09T00:00:00.000-02:00</date>" +
-                              "<preApprovals>" +
-                              "<preApproval>" +
-                              "<name>Pre Approval 3</name>" +
-                              "<code>code 3</code>" +
-                              "<date>2016-11-09T00:00:00.000-02:00</date>" +
-                              "<tracker>tracker</tracker>" +
-                              "<status>INITIATED</status>" +
-                              "<reference>reference</reference>" +
-                              "<lastEventDate>2016-11-09T23:59:59.000-02:00</lastEventDate>" +
-                              "<charge>auto</charge>" +
-                              "</preApproval>" +
-                              "<preApproval>" +
-                              "<name>Pre Approval 4</name>" +
-                              "<code>code 4</code>" +
-                              "<date>2016-11-09T00:00:00.000-02:00</date>" +
-                              "<tracker>tracker</tracker>" +
-                              "<status>INITIATED</status>" +
-                              "<reference>reference</reference>" +
-                              "<lastEventDate>2016-11-09T23:59:59.000-02:00</lastEventDate>" +
-                              "<charge>auto</charge>" +
-                              "</preApproval>" +
-                              "</preApprovals>" +
-                              "</preApprovalSearchResult>";
+        "<preApprovalSearchResult>" +
+        "<resultsInThisPage>2</resultsInThisPage>" +
+        "<currentPage>1</currentPage>" +
+        "<totalPages>1</totalPages>" +
+        "<date>2016-11-09T00:00:00.000-02:00</date>" +
+        "<preApprovals>" +
+        "<preApproval>" +
+        "<name>Pre Approval 3</name>" +
+        "<code>code 3</code>" +
+        "<date>2016-11-09T00:00:00.000-02:00</date>" +
+        "<tracker>tracker</tracker>" +
+        "<status>INITIATED</status>" +
+        "<reference>reference</reference>" +
+        "<lastEventDate>2016-11-09T23:59:59.000-02:00</lastEventDate>" +
+        "<charge>auto</charge>" +
+        "</preApproval>" +
+        "<preApproval>" +
+        "<name>Pre Approval 4</name>" +
+        "<code>code 4</code>" +
+        "<date>2016-11-09T00:00:00.000-02:00</date>" +
+        "<tracker>tracker</tracker>" +
+        "<status>INITIATED</status>" +
+        "<reference>reference</reference>" +
+        "<lastEventDate>2016-11-09T23:59:59.000-02:00</lastEventDate>" +
+        "<charge>auto</charge>" +
+        "</preApproval>" +
+        "</preApprovals>" +
+        "</preApprovalSearchResult>";
     HttpResponse response = new HttpResponse(200, responseAsString);
     when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
         any(HttpRequestBody.class))).thenReturn(response);
@@ -111,12 +111,12 @@ public class PreApprovalRequestSearchByIntervalTest extends Resource4Test {
   public void shouldThrowsBadRequest() {
     try {
       String responseAsString = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
-                                "<errors>" +
-                                "<error>" +
-                                "<code>0001</code>" +
-                                "<message>Interval is required.</message>" +
-                                "</error>" +
-                                "</errors>";
+          "<errors>" +
+          "<error>" +
+          "<code>0001</code>" +
+          "<message>Interval is required.</message>" +
+          "</error>" +
+          "</errors>";
       HttpResponse response = new HttpResponse(400, responseAsString);
       when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
           any(HttpRequestBody.class))).thenReturn(response);
@@ -135,4 +135,6 @@ public class PreApprovalRequestSearchByIntervalTest extends Resource4Test {
   public void shouldThrowsErrorLib() throws Exception {
     when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
         any(HttpRequestBody.class))).thenThrow(new IOException());
-    preApprovalSearchByInterval.execute(pagSeguro, httpClient);
+    preApprovalSearchByInterval.execute(pagSeguro, httpClient);
+  }
+}

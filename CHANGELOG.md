@@ -1,3 +1,6 @@
+4.3.0
+- Solicitar autorização com envio opcional dos dados do cliente para sugestão de cadastro
+
 4.2.0
 - Criar requisições de assinaturas transparente e gerenciá-las (aderir, cancelar, consultar, efetuar cobrança, etc)
 

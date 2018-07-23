@@ -51,4 +51,6 @@ public class PreApprovalRequestSearchV2MapConverterTest {
     RequestMap map = mapConverter.convert(preApprovalSearch);
 
     assertEquals(expectedMap, map);
+  }
+}
  
