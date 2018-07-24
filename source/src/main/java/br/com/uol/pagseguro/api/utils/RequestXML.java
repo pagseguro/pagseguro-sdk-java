@@ -56,4 +56,11 @@ public class RequestXML {
         byte[] ptext = toEncodeString.getBytes();
         return new String(ptext, charset);
     }
+
+    @Override
+    public String toString() {
+        return "RequestXML{" +
+            "xmlBody='" + xmlBody + '\'' +
+            '}';
+    }
 }
