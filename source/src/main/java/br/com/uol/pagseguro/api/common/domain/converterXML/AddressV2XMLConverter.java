@@ -111,6 +111,10 @@ public class AddressV2XMLConverter {
      * @return AddressV2XMLConverter
      */
     public AddressV2XMLConverter convert(Address address) {
+        if (address == null) {
+            return null;
+        }
+
         AddressV2XMLConverter convertedAddress = new AddressV2XMLConverter();
         convertedAddress.setPostalCode(address.getPostalCode());
         convertedAddress.setStreet(address.getStreet());

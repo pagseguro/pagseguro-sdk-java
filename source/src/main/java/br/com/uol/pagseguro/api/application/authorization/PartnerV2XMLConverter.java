@@ -58,6 +58,10 @@ public class PartnerV2XMLConverter {
      * @return PartnerV2XMLConverter
      */
     public PartnerV2XMLConverter convert(Partner partner) {
+        if (partner == null) {
+            return null;
+        }
+
         PartnerV2XMLConverter convertedPartner = new PartnerV2XMLConverter();
         convertedPartner.setName(partner.getName());
         convertedPartner.setBirthDate(partner.getBirthDate());
