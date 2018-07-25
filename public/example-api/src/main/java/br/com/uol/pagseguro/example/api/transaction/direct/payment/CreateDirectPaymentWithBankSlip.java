@@ -51,7 +51,7 @@ public class CreateDirectPaymentWithBankSlip {
     final PagSeguro pagSeguro = PagSeguro
         .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
             Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
-    
+
     try{
       // Checkout transparente (pagamento direto) com boleto
       TransactionDetail bankSlipTransaction =
@@ -79,6 +79,7 @@ public class CreateDirectPaymentWithBankSlip {
                   .withEmail("comprador@uol.com.br")//
                   .withName("Jose Comprador")
                   .withCPF("99999999999")
+                  .withHash("abc123")
                   .withPhone(new PhoneBuilder()//
                       .withAreaCode("99") //
                       .withNumber("99999999"))) //
@@ -88,7 +89,7 @@ public class CreateDirectPaymentWithBankSlip {
                   .withAddress(new AddressBuilder() //
                       .withPostalCode("99999999")
                       .withCountry("BRA")
-                      .withState(State.XX)//
+                      .withState(State.SP)//
                       .withCity("Cidade Exemplo")
                       .withComplement("99o andar")
                       .withDistrict("Jardim Internet")
@@ -96,8 +97,8 @@ public class CreateDirectPaymentWithBankSlip {
                       .withStreet("Av. PagSeguro")))
           ).withBankSlip();
       System.out.println(bankSlipTransaction);
-      
-      
+
+
     }catch (Exception e){
       e.printStackTrace();
     }

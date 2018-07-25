@@ -49,90 +49,91 @@ import br.com.uol.pagseguro.api.utils.logging.SimpleLoggerFactory;
  */
 public class CreateDirectPaymentWithCreditCard {
 
-  public static void main(String[] args){
-    try{
+    public static void main(String[] args){
+        try{
 
-      String sellerEmail = "your_seller_email";
-      String sellerToken = "your_seller_token";
+            String sellerEmail = "your_seller_email";
+            String sellerToken = "your_seller_token";
 
-      final PagSeguro pagSeguro = PagSeguro
-          .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
-              Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
+            final PagSeguro pagSeguro = PagSeguro
+                .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
+                    Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
 
-      // Checkout transparente (pagamento direto) com cartao de credito
-      TransactionDetail creditCardTransaction =
-          pagSeguro.transactions().register(new DirectPaymentRegistrationBuilder()
-              .withPaymentMode("default")
-              .withCurrency(Currency.BRL)
-              .addItem(new PaymentItemBuilder()//
-                  .withId("0001")//
-                  .withDescription("Produto PagSeguroI") //
-                  .withAmount(new BigDecimal(99999.99))//
-                  .withQuantity(1)
-                  .withWeight(1000))
+            // Checkout transparente (pagamento direto) com cartao de credito
+            TransactionDetail creditCardTransaction =
+                pagSeguro.transactions().register(new DirectPaymentRegistrationBuilder()
+                        .withPaymentMode("default")
+                        .withCurrency(Currency.BRL)
+                        .addItem(new PaymentItemBuilder()//
+                            .withId("0001")//
+                            .withDescription("Produto PagSeguroI") //
+                            .withAmount(new BigDecimal(99999.99))//
+                            .withQuantity(1)
+                            .withWeight(1000))
 
-              .addItem(new PaymentItemBuilder()//
-                  .withId("0002")//
-                  .withDescription("Produto PagSeguroII") //
-                  .withAmount(new BigDecimal(99999.98))//
-                  .withQuantity(2)
-                  .withWeight(750)
-              )
-              .withNotificationURL("www.sualoja.com.br/notification")
-              .withReference("LIBJAVA_DIRECT_PAYMENT")
-              .withSender(new SenderBuilder()//
-                  .withEmail("comprador@uol.com.br")//
-                  .withName("Jose Comprador")
-                  .withCPF("99999999999")
-                  .withPhone(new PhoneBuilder()//
-                      .withAreaCode("99") //
-                      .withNumber("99999999"))) //
-              .withShipping(new ShippingBuilder()//
-                  .withType(ShippingType.Type.SEDEX) //
-                  .withCost(BigDecimal.TEN)//
-                  .withAddress(new AddressBuilder() //
-                      .withPostalCode("99999999")
-                      .withCountry("BRA")
-                      .withState(State.XX)//
-                      .withCity("Cidade Exemplo")
-                      .withComplement("99o andar")
-                      .withDistrict("Jardim Internet")
-                      .withNumber("9999")
-                      .withStreet("Av. PagSeguro"))
-              )
-          ).withCreditCard(new CreditCardBuilder()
-              .withBillingAddress(new AddressBuilder() //
-                  .withPostalCode("99999999")
-                  .withCountry("BRA")
-                  .withState(State.XX)//
-                  .withCity("Cidade Exemplo")
-                  .withComplement("99o andar")
-                  .withDistrict("Jardim Internet")
-                  .withNumber("9999")
-                  .withStreet("Av. PagSeguro")
-              )
-              .withInstallment(new InstallmentBuilder()
-                  .withQuantity(2)
-                  .withValue(new BigDecimal(135.50))
-              )
-              .withHolder(new HolderBuilder()
-                  .addDocument(new DocumentBuilder()
-                      .withType(DocumentType.CPF)
-                      .withValue("99999999999")
-                  )
-                  .withName("Jose Comprador")
-                  .withBithDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"))
-                  .withPhone(new PhoneBuilder()
-                      .withAreaCode("99")
-                      .withNumber("99999999")
-                  )
-              )
-              .withToken("token")
-          );
-      System.out.println(creditCardTransaction);
+                        .addItem(new PaymentItemBuilder()//
+                            .withId("0002")//
+                            .withDescription("Produto PagSeguroII") //
+                            .withAmount(new BigDecimal(99999.98))//
+                            .withQuantity(2)
+                            .withWeight(750)
+                        )
+                        .withNotificationURL("www.sualoja.com.br/notification")
+                        .withReference("LIBJAVA_DIRECT_PAYMENT")
+                        .withSender(new SenderBuilder()//
+                            .withEmail("comprador@uol.com.br")//
+                            .withName("Jose Comprador")
+                            .withCPF("99999999999")
+                            .withHash("abc123")
+                            .withPhone(new PhoneBuilder()//
+                                .withAreaCode("99") //
+                                .withNumber("99999999"))) //
+                        .withShipping(new ShippingBuilder()//
+                            .withType(ShippingType.Type.SEDEX) //
+                            .withCost(BigDecimal.TEN)//
+                            .withAddress(new AddressBuilder() //
+                                .withPostalCode("99999999")
+                                .withCountry("BRA")
+                                .withState(State.SP)//
+                                .withCity("Cidade Exemplo")
+                                .withComplement("99o andar")
+                                .withDistrict("Jardim Internet")
+                                .withNumber("9999")
+                                .withStreet("Av. PagSeguro"))
+                        )
+                ).withCreditCard(new CreditCardBuilder()
+                    .withBillingAddress(new AddressBuilder() //
+                        .withPostalCode("99999999")
+                        .withCountry("BRA")
+                        .withState(State.SP)
+                        .withCity("Cidade Exemplo")
+                        .withComplement("99o andar")
+                        .withDistrict("Jardim Internet")
+                        .withNumber("9999")
+                        .withStreet("Av. PagSeguro")
+                    )
+                    .withInstallment(new InstallmentBuilder()
+                        .withQuantity(2)
+                        .withValue(new BigDecimal(135.50))
+                    )
+                    .withHolder(new HolderBuilder()
+                        .addDocument(new DocumentBuilder()
+                            .withType(DocumentType.CPF)
+                            .withValue("99999999999")
+                        )
+                        .withName("Jose Comprador")
+                        .withBithDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900"))
+                        .withPhone(new PhoneBuilder()
+                            .withAreaCode("99")
+                            .withNumber("99999999")
+                        )
+                    )
+                    .withToken("token")
+                );
+            System.out.println(creditCardTransaction);
 
-    }catch (Exception e){
-      e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-  }
 }
