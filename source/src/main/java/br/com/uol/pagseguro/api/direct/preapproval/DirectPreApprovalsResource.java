@@ -131,7 +131,7 @@ public class DirectPreApprovalsResource {
      * @see AccededDirectPreApproval
      */
     public AccededDirectPreApproval accede(DirectPreApprovalAccession directPreApprovalAccession) {
-        LOGGER.info("Iniciando adesão direct pre approval");
+        LOGGER.info("Iniciando adesao direct pre approval");
         LOGGER.info("Convertendo valores");
         final RequestJson jsonBody = DIRECT_PRE_APPROVAL_REGISTRATION_JC.convert(directPreApprovalAccession);
 
@@ -147,14 +147,14 @@ public class DirectPreApprovalsResource {
                     pagSeguro.getHost()), headers, jsonBody.toHttpJsonRequestBody(CharSet.ENCODING_ISO));
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar adesão direct pre approval");
+            LOGGER.error("Erro ao executar adesao direct pre approval");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
         AccedeDirectPreApprovalResponseXML registeredPreApproval = response.parseXMLContent(pagSeguro,
                 AccedeDirectPreApprovalResponseXML.class);
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Adesão direct pre approval finalizada");
+        LOGGER.info("Adesao direct pre approval finalizada");
         return registeredPreApproval;
     }
 
@@ -565,7 +565,7 @@ public class DirectPreApprovalsResource {
                     pagSeguro.getHost(),directPreApprovalPaymentRetry.getPreApprovalCode(), directPreApprovalPaymentRetry.getPaymentOrderCode()), headers, null);
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao executar adesão direct pre approval");
+            LOGGER.error("Erro ao executar adesao direct pre approval");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
@@ -645,7 +645,7 @@ public class DirectPreApprovalsResource {
      * @see DirectPreApprovalData
      */
     public DataList<? extends DirectPreApprovalData> listDirectPreApprovalByDateInterval(DirectPreApprovalByDateIntervalList directPreApprovalByDateIntervalList) {
-        LOGGER.info("Iniciando lista de recorrências dentro do intervalo de datas");
+        LOGGER.info("Iniciando lista de recorrencias dentro do intervalo de datas");
         LOGGER.info("Convertendo valores");
         final RequestMap map = DIRECT_PRE_APPROVAL_BY_DATE_INTERVAL_LIST_MC.convert(directPreApprovalByDateIntervalList);
 
@@ -660,7 +660,7 @@ public class DirectPreApprovalsResource {
                 pagSeguro.getHost(), map.toUrlEncode(CharSet.ENCODING_UTF)), headers, null);
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao pesquisar pelas reconrrências dentro de um intervalo de datas");
+            LOGGER.error("Erro ao pesquisar pelas reconrrencias dentro de um intervalo de datas");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
@@ -668,7 +668,7 @@ public class DirectPreApprovalsResource {
         DataList<? extends DirectPreApprovalData> directPreApprovalData = response.parseXMLContent(pagSeguro, DirectPreApprovalByDateIntervalListResponseXML.class);
 
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Listagem de recorrências por intervalo de datas finalizada");
+        LOGGER.info("Listagem de recorrencias por intervalo de datas finalizada");
 
         return directPreApprovalData;
     }
@@ -695,7 +695,7 @@ public class DirectPreApprovalsResource {
      * @see DirectPreApprovalData
      */
     public DataList<? extends DirectPreApprovalData> listDirectPreApprovalByDayInterval(DirectPreApprovalByDayIntervalList directPreApprovalByDayIntervalList) {
-        LOGGER.info("Iniciando lista de recorrências dentro do intervalo de dias");
+        LOGGER.info("Iniciando lista de recorrencias dentro do intervalo de dias");
         LOGGER.info("Convertendo valores");
         final RequestMap map = DIRECT_PRE_APPROVAL_BY_DAY_INTERVAL_LIST_MC.convert(directPreApprovalByDayIntervalList);
 
@@ -710,7 +710,7 @@ public class DirectPreApprovalsResource {
                 pagSeguro.getHost(), map.toUrlEncode(CharSet.ENCODING_UTF)), headers, null);
             LOGGER.debug(String.format("Resposta: %s", response.toString()));
         } catch (IOException e) {
-            LOGGER.error("Erro ao pesquisar pelas reconrrências dentro de um intervalo de dias");
+            LOGGER.error("Erro ao pesquisar pelas reconrrencias dentro de um intervalo de dias");
             throw new PagSeguroLibException(e);
         }
         LOGGER.info("Parseando XML de resposta");
@@ -718,7 +718,7 @@ public class DirectPreApprovalsResource {
         DataList<? extends DirectPreApprovalData> directPreApprovalData = response.parseXMLContent(pagSeguro, DirectPreApprovalByDayIntervalListResponseXML.class);
 
         LOGGER.info("Parseamento finalizado");
-        LOGGER.info("Listagem de recorrências por intervalo de dias finalizada");
+        LOGGER.info("Listagem de recorrencias por intervalo de dias finalizada");
 
         return directPreApprovalData;
     }

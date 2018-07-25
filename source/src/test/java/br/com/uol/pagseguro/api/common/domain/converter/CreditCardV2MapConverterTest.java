@@ -41,7 +41,7 @@ public class CreditCardV2MapConverterTest {
                 .withValue("cpf")
             )
             .addDocument(new DocumentBuilder()
-                .withType(DocumentType.CPNJ)
+                .withType(DocumentType.CNPJ)
                 .withValue("cnpj")
             )
             .withBithDate(dateFormat.parse("2016/11/09 00:00:00"))

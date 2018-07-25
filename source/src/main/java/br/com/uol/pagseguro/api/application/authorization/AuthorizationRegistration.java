@@ -22,6 +22,8 @@ package br.com.uol.pagseguro.api.application.authorization;
 
 import java.util.List;
 
+import br.com.uol.pagseguro.api.common.domain.Account;
+import br.com.uol.pagseguro.api.common.domain.AccountRegisterSuggestion;
 import br.com.uol.pagseguro.api.common.domain.PermissionCode;
 
 /**
@@ -72,5 +74,12 @@ public interface AuthorizationRegistration {
    */
   String getNotificationURL();
 
-
+  /**
+   * Account data suggested for registration.
+   *
+   * Optional
+   *
+   * @return Account Data suggested for registration
+   */
+  AccountRegisterSuggestion getAccount();
 }
