@@ -24,8 +24,17 @@ Requisitos Mínimos
  - [Java] 1.6+
  - [Gradle] (somente para edição da lib)
 
-Instalação
-----------
+
+Utilização via Gradle
+---------------------
+
+ ```groovy
+ compile (group: 'br.com.uol.pagseguro', name: 'pagseguro-api', version: 'X.Y.Z')
+ ```
+
+
+Instalação Manual
+-----------------
 
  - Baixe o repositório como arquivo zip ou faça um clone;
  - Descompacte os arquivos em seu computador;
