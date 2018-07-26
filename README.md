@@ -22,11 +22,7 @@ Requisitos Mínimos
 ------------------
 
  - [Java] 1.6+
-
-Requisitos Mínimos (desenvolvimento)
-------------------------------------
-
- - [Gradle]
+ - [Gradle] (somente para edição da lib)
 
 Instalação
 ----------
