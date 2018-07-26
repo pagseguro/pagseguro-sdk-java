@@ -28,6 +28,8 @@ Requisitos Mínimos
 Utilização via Gradle
 ---------------------
 
+ Adicionar no arquivo _build.gradle_ do seu projeto, na seção de dependências, o seguinte trecho de código:
+
  ```groovy
  compile (group: 'br.com.uol.pagseguro', name: 'pagseguro-api', version: 'X.Y.Z')
  ```
