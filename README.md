@@ -7,6 +7,7 @@ Descrição
 A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilitam, para o desenvolvedor Java, a utilização das funcionalidades que o PagSeguro oferece na forma de APIs. Com a biblioteca instalada e configurada, você pode facilmente integrar funcionalidades como:
 
  - Criar [requisições de pagamentos]
+ - Criar [requisições de pagamento recorrente] (assinatura transparente)
  - Criar [requisições de assinaturas]
  - Cancelar [assinaturas]
  - Cancelar [transações por código]
@@ -16,6 +17,7 @@ A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilit
  - Consultar [transações por intervalo de datas]
  - Consultar [transações abandonadas]
  - Receber [notificações]
+ - Solicitar [autorização]
 
 
 Requisitos Mínimos
@@ -186,7 +188,9 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
   [requisições de assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
   [assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
   [requisições de pagamentos]: https://dev.pagseguro.uol.com.br/documentacao/pagamentos
+  [requisições de pagamento recorrente]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente
   [notificações]: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
+  [autorização]: https://devs.pagseguro.uol.com.br/docs/modelo-de-aplicacoes-solicitando-autorizacao
   [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
   [transações por código]: https://pagseguro.uol.com.br/v3/guia-de-integracao/consulta-de-transacoes-por-codigo.html
   [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
