@@ -1,8 +1,7 @@
 Biblioteca de integração PagSeguro para Java
 ===========================================
 
-Descrição
----------
+## Descrição
 
 A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilitam, para o desenvolvedor Java, a utilização das funcionalidades que o PagSeguro oferece na forma de APIs. Com a biblioteca instalada e configurada, você pode facilmente integrar funcionalidades como:
 
@@ -20,28 +19,34 @@ A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilit
  - Solicitar [autorização]
 
 
-Requisitos Mínimos
-------------------
+## Requisitos Mínimos
 
  - [Java] 1.6+
- - [Gradle] (somente para edição da lib)
+ - [Gradle] (somente para editar o código-fonte deste SDK)
 
 
-Utilização via Gradle
----------------------
+## Utilizando este SDK
 
- Adicionar no arquivo _build.gradle_ do seu projeto, na seção de dependências, o seguinte trecho de código:
+Este repositório contém 2 projetos: o código-fonte e um projeto com exemplos de uso das funcionalidades do SDK.
+
+ - Para utilizar o SDK como dependência do seu projeto siga as orientações da seção [Utilização via Grade](#utilização-via-gradle)
+ - Para modificar o código-fonte deste SDK siga as orientações da seção [Instalação Manual](#instalação-manual)
+ - Para apenas executar os exemplos de uso deste SDK, abra o projeto do diretório *public/example-api* como um projeto do Gradle
+
+
+## Utilização via Gradle
+
+ Adicionar no arquivo *build.gradle* do seu projeto, na seção de dependências, o seguinte trecho de código:
 
  ```groovy
  compile (group: 'br.com.uol.pagseguro', name: 'pagseguro-api', version: 'X.Y.Z')
  ```
 
 
-Instalação Manual
------------------
+## Instalação Manual
 
- - Baixe o repositório como arquivo zip ou faça um clone;
- - Descompacte os arquivos em seu computador;
+ - Baixe o repositório como arquivo zip ou faça um clone
+ - Descompacte os arquivos em seu computador
  - Navega até a pasta *source*
  - Execute o comando ```gradle build```
  - Navegue até a pasta *build/libs*
@@ -49,8 +54,7 @@ Instalação Manual
  - O diretório *public* contém exemplos de chamadas utilizando a API e o diretório *source* contém a biblioteca propriamente dita.
 
 
-Configuração
-------------
+## Configuração
 
 Para fazer uso real da biblioteca, é preciso fazer as configurações de credenciais e de ambiente.
 As duas configurações seguem a ordem de precedência:
@@ -95,8 +99,6 @@ As duas configurações seguem a ordem de precedência:
 ```PagSeguro pagSeguro = PagSeguro.instance();```
 
 
-
-
 ### Ambiente
 
 É necessário configurar o ambiente do pagseguro que deseja utilizar. Segue abaixo como configurar de acordo com cada método.
@@ -139,17 +141,16 @@ PagSeguro pagSeguro = PagSeguro.instance(credential, environment);
 ```PagSeguro pagSeguro = PagSeguro.instance();```
 
 
-Dúvidas?
-----------
+## Dúvidas?
+
 Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 
-Changelog
----------
+## Changelog
+
 Para consultar o log de alterações acesse o arquivo [CHANGELOG.md](CHANGELOG.md).
 
-Licença
--------
+## Licença
 
 Copyright 2016 PagSeguro Internet LTDA.
 
@@ -160,8 +161,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 
-Notas
------
+## Notas
 
  - O PagSeguro somente aceita pagamento utilizando a moeda Real brasileiro (BRL).
  - Certifique-se que o email e o token informados estejam relacionados a uma conta que possua o perfil de vendedor ou empresarial.
@@ -170,8 +170,7 @@ Notas
  - Para a utilizar o checkout transparente, é necessária a solicitação de ativação junto com a equipe do PagSeguro, maiores informações podem ser encontradas em [Como receber pagamentos pelo PagSeguro].
 
 
-Contribuições
--------------
+## Contribuições
 
 Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
