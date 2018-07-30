@@ -70,7 +70,6 @@ public class CheckoutRegister {
                         .withEmail("comprador@uol.com.br")
                         .withName("Jose Comprador")
                         .withCPF("99999999999")
-                        .withHash("abc123")
                         .withPhone(new PhoneBuilder()
                             .withAreaCode("99")
                             .withNumber("99999999")))
