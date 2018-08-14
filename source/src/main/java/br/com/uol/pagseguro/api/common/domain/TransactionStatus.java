@@ -27,127 +27,127 @@ package br.com.uol.pagseguro.api.common.domain;
  */
 public class TransactionStatus {
 
-  private final Integer statusId;
-
-  /**
-   * Constructor
-   *
-   * @param statusId Status id
-   */
-  public TransactionStatus(Integer statusId) {
-    this.statusId = statusId;
-  }
-
-  /**
-   * Get status id
-   *
-   * @return Status id
-   */
-  public int getStatusId() {
-    return statusId;
-  }
-
-  /**
-   * Get status by status id
-   *
-   * @return Status
-   * @see Status
-   */
-  public Status getStatus() {
-    return Status.fromStatusId(statusId);
-  }
-
-  /**
-   * Status enum
-   */
-  public enum Status {
-
-    /**
-     * INITIAL
-     */
-    INITIAL(1),
-
-    /**
-     * WAITING PAYMENT
-     */
-    WAITING_PAYMENT(2),
-
-    /**
-     * IN REVIEW
-     */
-    IN_REVIEW(3),
-
-    /**
-     * APPROVED
-     */
-    APPROVED(4),
-
-    /**
-     * AVAILABLE
-     */
-    AVAILABLE(5),
-
-    /**
-     * IN DISPUTE
-     */
-    IN_DISPUTE(6),
-
-    /**
-     * RETURNED
-     */
-    RETURNED(7),
-
-    /**
-     * CANCELLED
-     */
-    CANCELLED(8),
-
-    /**
-     * SELLER CHARGEBACK
-     */
-    SELLER_CHARGEBACK(9),
-
-    /**
-     * CONTESTATION
-     */
-    CONTESTATION(10),
-
-    /**
-     * PROCESSING REFUND
-     */
-    PROCESSING_REFUND(11),
-
-    /**
-     * UNRECOGNIZED
-     */
-    UNRECOGNIZED(null);
-
-    private Integer statusId;
+    private final Integer statusId;
 
     /**
      * Constructor
      *
      * @param statusId Status id
      */
-    Status(Integer statusId) {
-      this.statusId = statusId;
+    public TransactionStatus(Integer statusId) {
+        this.statusId = statusId;
+    }
+
+    /**
+     * Get status id
+     *
+     * @return Status id
+     */
+    public int getStatusId() {
+        return statusId;
     }
 
     /**
      * Get status by status id
      *
-     * @param statusId Status id
      * @return Status
+     * @see Status
      */
-    public static Status fromStatusId(Integer statusId) {
-      for (Status status : Status.values()) {
-        if (status.statusId != null && status.statusId == statusId) {
-          return status;
-        }
-      }
-      return UNRECOGNIZED;
+    public Status getStatus() {
+        return Status.fromStatusId(statusId);
     }
 
-  }
+    /**
+     * Status enum
+     */
+    public enum Status {
+
+        /**
+         * INITIAL
+         */
+        INITIAL(0),
+
+        /**
+         * WAITING PAYMENT
+         */
+        WAITING_PAYMENT(1),
+
+        /**
+         * IN REVIEW
+         */
+        IN_REVIEW(2),
+
+        /**
+         * APPROVED
+         */
+        APPROVED(3),
+
+        /**
+         * AVAILABLE
+         */
+        AVAILABLE(4),
+
+        /**
+         * IN DISPUTE
+         */
+        IN_DISPUTE(5),
+
+        /**
+         * RETURNED
+         */
+        RETURNED(6),
+
+        /**
+         * CANCELLED
+         */
+        CANCELLED(7),
+
+        /**
+         * SELLER CHARGEBACK
+         */
+        SELLER_CHARGEBACK(8),
+
+        /**
+         * CONTESTATION
+         */
+        CONTESTATION(9),
+
+        /**
+         * PROCESSING REFUND
+         */
+        PROCESSING_REFUND(11),
+
+        /**
+         * UNRECOGNIZED
+         */
+        UNRECOGNIZED(null);
+
+        private Integer statusId;
+
+        /**
+         * Constructor
+         *
+         * @param statusId Status id
+         */
+        Status(Integer statusId) {
+            this.statusId = statusId;
+        }
+
+        /**
+         * Get status by status id
+         *
+         * @param statusId Status id
+         * @return Status
+         */
+        public static Status fromStatusId(Integer statusId) {
+            for (Status status : Status.values()) {
+                if (status.statusId != null && status.statusId == statusId) {
+                    return status;
+                }
+            }
+            return UNRECOGNIZED;
+        }
+
+    }
 
 }

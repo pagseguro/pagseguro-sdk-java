@@ -39,158 +39,158 @@ import static org.mockito.Mockito.when;
 @RunWith(PowerMockRunner.class)
 public class TransactionSearchByAbandonedTest extends Resource4Test {
 
-  private TransactionSearchByAbandoned transactionSearchByAbandoned;
+    private TransactionSearchByAbandoned transactionSearchByAbandoned;
 
-  private TransactionSearch transactionSearch;
+    private TransactionSearch transactionSearch;
 
-  @Before
-  public void setUp() throws Exception {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    transactionSearch = new TransactionSearchBuilder()
-        .withDateRange(new DateRangeBuilder()
-            .between(dateFormat.parse("2016/11/09 00:00:00"),
-                dateFormat.parse("2016/11/09 23:59:59"))
-        )
-        .withReference("reference")
-        .withPage(1)
-        .withMaxResults(5)
-        .addParameter(new ParameterBuilder()
-            .withName("param1")
-            .withValue("value1")
-        )
-        .build();
+    @Before
+    public void setUp() throws Exception {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        transactionSearch = new TransactionSearchBuilder()
+            .withDateRange(new DateRangeBuilder()
+                .between(dateFormat.parse("2016/11/09 00:00:00"),
+                    dateFormat.parse("2016/11/09 23:59:59"))
+            )
+            .withReference("reference")
+            .withPage(1)
+            .withMaxResults(5)
+            .addParameter(new ParameterBuilder()
+                .withName("param1")
+                .withValue("value1")
+            )
+            .build();
 
-    transactionSearchByAbandoned = new TransactionSearchByAbandoned(transactionSearch);
-  }
-
-  @Test
-  public void shouldSearch() throws Exception {
-    String responseAsString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                              "<transactionSearchResult>" +
-                              "<date>2016-09-11T00:00:00.000-02:00</date>" +
-                              "<currentPage>1</currentPage>" +
-                              "<resultsInThisPage>2</resultsInThisPage>" +
-                              "<totalPages>1</totalPages>" +
-                              "<transactions>" +
-                              "<transaction>" +
-                              "<date>2016-11-09T01:01:01.000-02:00</date>" +
-                              "<lastEventDate>2016-11-09T02:02:02.000-02:00</lastEventDate>" +
-                              "<code>code1</code>" +
-                              "<reference>reference</reference>" +
-                              "<type>1</type>" +
-                              "<status>3</status>" +
-                              "<paymentMethod>" +
-                              "<type>1</type>" +
-                              "</paymentMethod>" +
-                              "<grossAmount>9.99</grossAmount>" +
-                              "<discountAmount>0.00</discountAmount>" +
-                              "<feeAmount>3.33</feeAmount>" +
-                              "<netAmount>2.22</netAmount>" +
-                              "<extraAmount>1.11</extraAmount>" +
-                              "</transaction>" +
-                              "<transaction>" +
-                              "<date>2016-11-09T01:01:01.000-02:00</date>" +
-                              "<lastEventDate>2016-11-09T02:02:02.000-02:00</lastEventDate>" +
-                              "<code>code2</code>" +
-                              "<reference>reference</reference>" +
-                              "<type>1</type>" +
-                              "<status>3</status>" +
-                              "<paymentMethod>" +
-                              "<type>1</type>" +
-                              "</paymentMethod>" +
-                              "<grossAmount>9.99</grossAmount>" +
-                              "<discountAmount>0.00</discountAmount>" +
-                              "<feeAmount>3.33</feeAmount>" +
-                              "<netAmount>2.22</netAmount>" +
-                              "<extraAmount>1.11</extraAmount>" +
-                              "</transaction>" +
-                              "</transactions>" +
-                              "</transactionSearchResult>";
-    HttpResponse response = new HttpResponse(200, responseAsString);
-    when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
-        any(HttpRequestBody.class))).thenReturn(response);
-
-    DataList<? extends TransactionSummary> data = transactionSearchByAbandoned.execute(pagSeguro,
-        httpClient);
-
-    assertEquals(new Integer(1), data.getTotalPages());
-    assertEquals(false, data.isEmpty());
-
-    Iterator<TransactionSummary> authorizationSummaryIterator =
-        (Iterator<TransactionSummary>) data.getData().iterator();
-
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    TransactionSummary preApproval = authorizationSummaryIterator.next();
-    assertEquals(dateFormat.parse("2016-11-09 01:01:01"), preApproval.getDate());
-    assertEquals(dateFormat.parse("2016-11-09 02:02:02"), preApproval.getLastEvent());
-    assertEquals("code1", preApproval.getCode());
-    assertEquals("reference", preApproval.getReference());
-    assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
-    assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
-    assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
-        preApproval.getPaymentMethod().getType());
-    assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getGrossAmount());
-    assertEquals(new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getDiscountAmount());
-    assertEquals(new BigDecimal(3.33).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getFeeAmount());
-    assertEquals(new BigDecimal(2.22).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getNetAmount());
-    assertEquals(new BigDecimal(1.11).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getExtraAmount());
-
-    preApproval = authorizationSummaryIterator.next();
-    assertEquals(dateFormat.parse("2016-11-09 01:01:01"), preApproval.getDate());
-    assertEquals(dateFormat.parse("2016-11-09 02:02:02"), preApproval.getLastEvent());
-    assertEquals("code2", preApproval.getCode());
-    assertEquals("reference", preApproval.getReference());
-    assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
-    assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
-    assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
-        preApproval.getPaymentMethod().getType());
-    assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getGrossAmount());
-    assertEquals(new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getDiscountAmount());
-    assertEquals(new BigDecimal(3.33).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getFeeAmount());
-    assertEquals(new BigDecimal(2.22).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getNetAmount());
-    assertEquals(new BigDecimal(1.11).setScale(2, RoundingMode.HALF_EVEN),
-        preApproval.getExtraAmount());
-  }
-
-  @Test
-  public void shouldThrowsBadRequest() {
-    try {
-      String responseAsString = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
-                                "<errors>" +
-                                "<error>" +
-                                "<code>0001</code>" +
-                                "<message>Abandoned date range is required.</message>" +
-                                "</error>" +
-                                "</errors>";
-      HttpResponse response = new HttpResponse(400, responseAsString);
-      when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
-          any(HttpRequestBody.class))).thenReturn(response);
-
-      transactionSearchByAbandoned.execute(pagSeguro, httpClient);
-    } catch (PagSeguroBadRequestException e) {
-      ServerErrors errors = e.getErrors();
-      ServerError error = errors.getErrors().iterator().next();
-      assertEquals(new Integer(0001), error.getCode());
-      assertEquals("Abandoned date range is required.", error.getMessage());
-    } catch (Exception e) {
+        transactionSearchByAbandoned = new TransactionSearchByAbandoned(transactionSearch);
     }
-  }
 
-  @Test(expected = PagSeguroLibException.class)
-  public void shouldThrowsErrorLib() throws Exception {
-    when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
-        any(HttpRequestBody.class))).thenThrow(new IOException());
-    transactionSearchByAbandoned.execute(pagSeguro, httpClient);
-  }
+    @Test
+    public void shouldSearch() throws Exception {
+        String responseAsString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<transactionSearchResult>" +
+            "<date>2016-09-11T00:00:00.000-02:00</date>" +
+            "<currentPage>1</currentPage>" +
+            "<resultsInThisPage>2</resultsInThisPage>" +
+            "<totalPages>1</totalPages>" +
+            "<transactions>" +
+            "<transaction>" +
+            "<date>2016-11-09T01:01:01.000-02:00</date>" +
+            "<lastEventDate>2016-11-09T02:02:02.000-02:00</lastEventDate>" +
+            "<code>code1</code>" +
+            "<reference>reference</reference>" +
+            "<type>1</type>" +
+            "<status>2</status>" +
+            "<paymentMethod>" +
+            "<type>1</type>" +
+            "</paymentMethod>" +
+            "<grossAmount>9.99</grossAmount>" +
+            "<discountAmount>0.00</discountAmount>" +
+            "<feeAmount>3.33</feeAmount>" +
+            "<netAmount>2.22</netAmount>" +
+            "<extraAmount>1.11</extraAmount>" +
+            "</transaction>" +
+            "<transaction>" +
+            "<date>2016-11-09T01:01:01.000-02:00</date>" +
+            "<lastEventDate>2016-11-09T02:02:02.000-02:00</lastEventDate>" +
+            "<code>code2</code>" +
+            "<reference>reference</reference>" +
+            "<type>1</type>" +
+            "<status>2</status>" +
+            "<paymentMethod>" +
+            "<type>1</type>" +
+            "</paymentMethod>" +
+            "<grossAmount>9.99</grossAmount>" +
+            "<discountAmount>0.00</discountAmount>" +
+            "<feeAmount>3.33</feeAmount>" +
+            "<netAmount>2.22</netAmount>" +
+            "<extraAmount>1.11</extraAmount>" +
+            "</transaction>" +
+            "</transactions>" +
+            "</transactionSearchResult>";
+        HttpResponse response = new HttpResponse(200, responseAsString);
+        when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
+            any(HttpRequestBody.class))).thenReturn(response);
+
+        DataList<? extends TransactionSummary> data = transactionSearchByAbandoned.execute(pagSeguro,
+            httpClient);
+
+        assertEquals(new Integer(1), data.getTotalPages());
+        assertEquals(false, data.isEmpty());
+
+        Iterator<TransactionSummary> authorizationSummaryIterator =
+            (Iterator<TransactionSummary>) data.getData().iterator();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        TransactionSummary preApproval = authorizationSummaryIterator.next();
+        assertEquals(dateFormat.parse("2016-11-09 01:01:01"), preApproval.getDate());
+        assertEquals(dateFormat.parse("2016-11-09 02:02:02"), preApproval.getLastEvent());
+        assertEquals("code1", preApproval.getCode());
+        assertEquals("reference", preApproval.getReference());
+        assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
+        assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
+        assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
+            preApproval.getPaymentMethod().getType());
+        assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getGrossAmount());
+        assertEquals(new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getDiscountAmount());
+        assertEquals(new BigDecimal(3.33).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getFeeAmount());
+        assertEquals(new BigDecimal(2.22).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getNetAmount());
+        assertEquals(new BigDecimal(1.11).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getExtraAmount());
+
+        preApproval = authorizationSummaryIterator.next();
+        assertEquals(dateFormat.parse("2016-11-09 01:01:01"), preApproval.getDate());
+        assertEquals(dateFormat.parse("2016-11-09 02:02:02"), preApproval.getLastEvent());
+        assertEquals("code2", preApproval.getCode());
+        assertEquals("reference", preApproval.getReference());
+        assertEquals(TransactionType.Type.CHECKOUT, preApproval.getType().getType());
+        assertEquals(TransactionStatus.Status.IN_REVIEW, preApproval.getStatus().getStatus());
+        assertEquals(TransactionPaymentMethod.Type.CREDIT_CARD,
+            preApproval.getPaymentMethod().getType());
+        assertEquals(new BigDecimal(9.99).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getGrossAmount());
+        assertEquals(new BigDecimal(0.00).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getDiscountAmount());
+        assertEquals(new BigDecimal(3.33).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getFeeAmount());
+        assertEquals(new BigDecimal(2.22).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getNetAmount());
+        assertEquals(new BigDecimal(1.11).setScale(2, RoundingMode.HALF_EVEN),
+            preApproval.getExtraAmount());
+    }
+
+    @Test
+    public void shouldThrowsBadRequest() {
+        try {
+            String responseAsString = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                "<errors>" +
+                "<error>" +
+                "<code>0001</code>" +
+                "<message>Abandoned date range is required.</message>" +
+                "</error>" +
+                "</errors>";
+            HttpResponse response = new HttpResponse(400, responseAsString);
+            when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
+                any(HttpRequestBody.class))).thenReturn(response);
+
+            transactionSearchByAbandoned.execute(pagSeguro, httpClient);
+        } catch (PagSeguroBadRequestException e) {
+            ServerErrors errors = e.getErrors();
+            ServerError error = errors.getErrors().iterator().next();
+            assertEquals(new Integer(0001), error.getCode());
+            assertEquals("Abandoned date range is required.", error.getMessage());
+        } catch (Exception e) {
+        }
+    }
+
+    @Test(expected = PagSeguroLibException.class)
+    public void shouldThrowsErrorLib() throws Exception {
+        when(httpClient.execute(any(HttpMethod.class), anyString(), anyMap(),
+            any(HttpRequestBody.class))).thenThrow(new IOException());
+        transactionSearchByAbandoned.execute(pagSeguro, httpClient);
+    }
 
 }

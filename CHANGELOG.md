@@ -1,3 +1,10 @@
+4.3.2
+- Corrigidos os IDs de status da transação
+
+4.3.1
+- Adicionado o parâmetro sender hash nos exemplos de checkout
+- Corrigido o valor padrão do estado no endereço dos exemplos
+
 4.3.0
 - Solicitar autorização com envio opcional dos dados do cliente para sugestão de cadastro
 
