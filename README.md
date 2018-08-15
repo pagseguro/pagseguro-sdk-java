@@ -14,7 +14,6 @@ A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilit
  - Consultar [assinaturas]
  - Consultar [transações por código]
  - Consultar [transações por intervalo de datas]
- - Consultar [transações abandonadas]
  - Receber [notificações]
  - Solicitar [autorização]
 
@@ -184,16 +183,15 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
   [gradle]: https://gradle.org/
   [java]: https://www.java.com
-  [requisições de assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
-  [assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
-  [requisições de pagamentos]: https://dev.pagseguro.uol.com.br/documentacao/pagamentos
+  [requisições de assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [requisições de pagamentos]: https://devs.pagseguro.uol.com.br/docs/checkout-web
   [requisições de pagamento recorrente]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente
-  [notificações]: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
+  [notificações]: https://devs.pagseguro.uol.com.br/docs/checkout-web-notificacoes
   [autorização]: https://devs.pagseguro.uol.com.br/docs/modelo-de-aplicacoes-solicitando-autorizacao
   [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
-  [transações por código]: https://pagseguro.uol.com.br/v3/guia-de-integracao/consulta-de-transacoes-por-codigo.html
-  [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
-  [transações abandonadas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-abandonadas.html
+  [transações por código]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-pelo-codigo-de-adesao
+  [transações por intervalo de datas]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-por-intervalo-de-datas
   [fórum]: https://comunidade.pagseguro.uol.com.br/hc/pt-br/community/topics
   [GitHub]: https://github.com/pagseguro/pagseguro-java-sdk
   [documentação oficial]: https://dev.pagseguro.uol.com.br/bibliotecas/java
