@@ -5,17 +5,17 @@ Biblioteca de integração PagSeguro para Java
 
 A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilitam, para o desenvolvedor Java, a utilização das funcionalidades que o PagSeguro oferece na forma de APIs. Com a biblioteca instalada e configurada, você pode facilmente integrar funcionalidades como:
 
- - Criar [requisições de pagamentos]
- - Criar [requisições de pagamento recorrente] (assinatura transparente)
- - Criar [requisições de assinaturas]
- - Cancelar [assinaturas]
- - Cancelar [transações por código]
- - Estornar [transações por código]
- - Consultar [assinaturas]
- - Consultar [transações por código]
- - Consultar [transações por intervalo de datas]
- - Receber [notificações]
- - Solicitar [autorização]
+ - [Criar Requisições de Pagamentos]
+ - [Criar Requisições de Pagamento Recorrente] (assinatura transparente)
+ - [Criar Requisições de assinaturas]
+ - [Cancelar Assinaturas]
+ - [Cancelar Transações por Código]
+ - [Estornar Transações por Código]
+ - [Consultar Assinaturas]
+ - [Consultar Transações por Código]
+ - [Consultar Transações por Intervalo de Datas]
+ - [Receber Notificações]
+ - [Solicitar Autorização]
 
 
 ## Requisitos Mínimos
@@ -181,19 +181,18 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 * Obs.: Adicione exemplos para sua nova feature. Se seu Pull Request for relacionado a uma versão específica, o Pull Request não deve ser enviado para o branch master e sim para o branch correspondente a versão.
 * Obs2: Não serão aceitos PR's na branch master. Utilizar a branch de desenvolvimento.
 
+  [Criar Requisições de Pagamentos]: https://devs.pagseguro.uol.com.br/docs/checkout-web
+  [Criar Requisições de Pagamento Recorrente]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente
+  [Criar Requisições de assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [Cancelar Assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [Cancelar Transações por Código]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-cancelamento-de-adesao
+  [Estornar Transações por Código]: https://devs.pagseguro.uol.com.br/docs/checkout-web-cancelamento-e-estorno
+  [Consultar Assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [Consultar Transações por Código]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-pelo-codigo-de-adesao
+  [Consultar Transações por Intervalo de Datas]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-por-intervalo-de-datas
+  [Receber Notificações]: https://devs.pagseguro.uol.com.br/docs/checkout-web-notificacoes
+  [Solicitar Autorização]: https://devs.pagseguro.uol.com.br/docs/modelo-de-aplicacoes-solicitando-autorizacao
   [gradle]: https://gradle.org/
   [java]: https://www.java.com
-  [requisições de assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
-  [assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
-  [requisições de pagamentos]: https://devs.pagseguro.uol.com.br/docs/checkout-web
-  [requisições de pagamento recorrente]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente
-  [notificações]: https://devs.pagseguro.uol.com.br/docs/checkout-web-notificacoes
-  [autorização]: https://devs.pagseguro.uol.com.br/docs/modelo-de-aplicacoes-solicitando-autorizacao
-  [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
-  [transações por código]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-pelo-codigo-de-adesao
-  [transações por intervalo de datas]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-por-intervalo-de-datas
   [fórum]: https://comunidade.pagseguro.uol.com.br/hc/pt-br/community/topics
-  [GitHub]: https://github.com/pagseguro/pagseguro-java-sdk
-  [documentação oficial]: https://dev.pagseguro.uol.com.br/bibliotecas/java
   [Como receber pagamentos pelo PagSeguro]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
-
