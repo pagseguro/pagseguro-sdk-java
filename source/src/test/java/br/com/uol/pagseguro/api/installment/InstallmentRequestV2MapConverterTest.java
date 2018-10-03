@@ -23,7 +23,7 @@ public class InstallmentRequestV2MapConverterTest {
   public void setUp() throws Exception {
     mapConverter = new InstallmentRequestV2MapConverter();
 
-    installmentRequest = new InstallmentRequestBuilder()
+    installmentRequest = new InstallmentListingBuilder()
         .withCardBrand("cardBrand")
         .withAmount(new BigDecimal(99.99))
         .withMaxInstallmentNoInterest(3)

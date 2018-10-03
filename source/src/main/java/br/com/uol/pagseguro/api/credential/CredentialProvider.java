@@ -31,8 +31,9 @@ public interface CredentialProvider {
   /**
    * Get credential
    *
-   * @return The credential used by user.
    * @see Credential
+   * @return The credential used by user.
+   * @throws Exception if a problem occurs
    */
   Credential getCredential() throws Exception;
 

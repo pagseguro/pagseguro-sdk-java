@@ -28,5 +28,5 @@ package br.com.uol.pagseguro.api.common.domain.enums;
  */
 public enum DocumentType {
 
-  CPF, CPNJ;
+  CPF, CNPJ;
 }

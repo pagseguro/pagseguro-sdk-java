@@ -51,7 +51,7 @@ public class CreateDirectPaymentWithBankSlip {
     final PagSeguro pagSeguro = PagSeguro
         .instance(new SimpleLoggerFactory(), new JSEHttpClient(),
             Credential.sellerCredential(sellerEmail, sellerToken), PagSeguroEnv.SANDBOX);
-    
+
     try{
       // Checkout transparente (pagamento direto) com boleto
       TransactionDetail bankSlipTransaction =
@@ -59,36 +59,41 @@ public class CreateDirectPaymentWithBankSlip {
               .withPaymentMode("default")
               .withCurrency(Currency.BRL)
               .withExtraAmount(new BigDecimal(100.00))
-              .addItem(new PaymentItemBuilder()//
-                  .withId("0001")//
-                  .withDescription("Produto PagSeguroI") //
-                  .withAmount(new BigDecimal(99999.99))//
+              .addItem(new PaymentItemBuilder()
+                  .withId("0001")
+                  .withDescription("Produto PagSeguroI")
+                  .withAmount(new BigDecimal(99999.99))
                   .withQuantity(1)
                   .withWeight(1000))
 
-              .addItem(new PaymentItemBuilder()//
-                  .withId("0002")//
-                  .withDescription("Produto PagSeguroII") //
-                  .withAmount(new BigDecimal(99999.98))//
+              .addItem(new PaymentItemBuilder()
+                  .withId("0002")
+                  .withDescription("Produto PagSeguroII")
+                  .withAmount(new BigDecimal(99999.98))
                   .withQuantity(2)
                   .withWeight(750)
               )
               .withNotificationURL("www.sualoja.com.br/notification")
               .withReference("LIBJAVA_DIRECT_PAYMENT")
-              .withSender(new SenderBuilder()//
-                  .withEmail("comprador@uol.com.br")//
+              .withSender(new SenderBuilder()
+                  .withEmail("comprador@uol.com.br")
                   .withName("Jose Comprador")
                   .withCPF("99999999999")
-                  .withPhone(new PhoneBuilder()//
-                      .withAreaCode("99") //
-                      .withNumber("99999999"))) //
-              .withShipping(new ShippingBuilder()//
-                  .withType(ShippingType.Type.SEDEX) //
-                  .withCost(BigDecimal.TEN)//
-                  .withAddress(new AddressBuilder() //
+                  /*
+                   * Para saber como obter o valor do Hash, acesse:
+                   * https://devs.pagseguro.uol.com.br/docs/checkout-web-usando-a-sua-tela#obter-identificacao-do-comprador
+                   */
+                  .withHash("abc123")
+                  .withPhone(new PhoneBuilder()
+                      .withAreaCode("99")
+                      .withNumber("99999999")))
+              .withShipping(new ShippingBuilder()
+                  .withType(ShippingType.Type.SEDEX)
+                  .withCost(BigDecimal.TEN)
+                  .withAddress(new AddressBuilder()
                       .withPostalCode("99999999")
                       .withCountry("BRA")
-                      .withState(State.XX)//
+                      .withState(State.SP)
                       .withCity("Cidade Exemplo")
                       .withComplement("99o andar")
                       .withDistrict("Jardim Internet")
@@ -96,8 +101,8 @@ public class CreateDirectPaymentWithBankSlip {
                       .withStreet("Av. PagSeguro")))
           ).withBankSlip();
       System.out.println(bankSlipTransaction);
-      
-      
+
+
     }catch (Exception e){
       e.printStackTrace();
     }

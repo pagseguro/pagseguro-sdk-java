@@ -153,6 +153,80 @@ public final class Endpoints {
   public static final String PRE_APPROVAL_CHARGE = "%s/v2/pre-approvals/payment";
 
   /**
+   * DIRECT PRE APPROVALS
+   */
+
+  /**
+   * Direct Pre approval plan registration
+   */
+  public static final String DIRECT_PRE_APPROVAL_REQUEST = "%s/pre-approvals/request";
+
+  /**
+   * Direct Pre approval edition
+   */
+  public static final String DIRECT_PRE_APPROVAL_EDIT = "%s/pre-approvals/request/%s/payment";
+
+    /**
+   * Direct Pre approval charge
+   */
+  public static final String DIRECT_PRE_APPROVAL_CHARGE = "%s/pre-approvals/payment";
+
+  /**
+   * Direct Pre approval cancellation
+   */
+  public static final String DIRECT_PRE_APPROVAL_CANCEL = "%s/pre-approvals/%s/cancel";
+
+  /**
+   * Direct Pre approval changing status
+   */
+  public static final String DIRECT_PRE_APPROVAL_CHANGE_STATUS = "%s/pre-approvals/%s/status";
+
+  /**
+   * Direct Pre approval accede to a plan
+   */
+  public static final String DIRECT_PRE_APPROVAL = "%s/pre-approvals";
+
+  /**
+   * Direct Pre approval discount
+   */
+  public static final String DIRECT_PRE_APPROVAL_DISCOUNT = "%s/pre-approvals/%s/discount";
+
+  /**
+   * Direct Pre approval payment orders list
+   */
+  public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS = "%s/pre-approvals/%s/payment-orders?%s";
+
+  /**
+   * Direct Pre approval search by accession code
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_ACCESSION_CODE = "%s/pre-approvals/%s";
+
+  /**
+   * Direct Pre approval search by notification code
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_NOTIFICATION_CODE = "%s/pre-approvals/notifications/%s";
+
+  /**
+   * Direct Pre approval payment order retry, needs pre approval code and payment order code
+   */
+  public static final String DIRECT_PRE_APPROVAL_PAYMENT_ORDERS_PAYMENT_RETRY = "%s/pre-approvals/%s/payment-orders/%s/payment";
+
+  /**
+   * Direct Pre approval payment change, needs the pre approval code to change payment method
+   */
+  public static final String DIRECT_PRE_APPROVAL_CHANGE_PAYMENT_METHOD= "%s/pre-approvals/%s/payment-method";
+
+  /**
+   * Direct Pre approval by date interval list
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_DATE_INTERVAL = "%s/pre-approvals/?%s";
+
+  /**
+   * Direct Pre approval by day interval list
+   */
+  public static final String DIRECT_PRE_APPROVAL_SEARCH_BY_DAY_INTERVAL = "%s/pre-approvals/notifications/?%s";
+
+  /**
    * SESSIONS
    */
 
@@ -165,6 +239,16 @@ public final class Endpoints {
    * Session creation for application
    */
   public static final String SESSION_CREATE_APPLICATION = "%s/v2/sessions?%s";
+
+  /**
+   * Session creation for seller
+   */
+  public static final String SESSION_DIRECT_PRE_APPROVAL_CREATE = "%s/sessions";
+
+  /**
+   * Session creation for application
+   */
+  public static final String SESSION_DIRECT_PRE_APPROVAL_CREATE_APPLICATION = "%s/sessions?%s";
 
   /**
    * DIRECT PAYMENT

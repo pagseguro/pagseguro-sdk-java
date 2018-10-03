@@ -30,16 +30,33 @@ import java.util.Map;
  */
 public interface HttpClient {
 
-  /**
-   * Execute the requests
-   *
-   * @param method    Http method
-   * @param targetURL target url
-   * @param headers   Headers
-   * @param body      Body
-   * @return Http response
-   */
-  HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers, HttpRequestBody body)
-      throws IOException;
+    /**
+     * Execute the requests
+     *
+     * @param method    Http method
+     * @param targetURL target url
+     * @param headers   Headers
+     * @param body      Body
+     * @return Http response
+     * @throws IOException if a problem occurs
+     */
+    HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers, HttpRequestBody body)
+        throws IOException;
 
+    /**
+     * Execute the requests
+     *
+     * @param method    Http method
+     * @param targetURL target url
+     * @param headers   Headers
+     * @param body      Body
+     * @return Http response
+     * @throws IOException if a problem occurs
+     */
+    HttpResponse executeXML(HttpMethod method, String targetURL, Map<String, String> headers, HttpXMLRequestBody body)
+        throws IOException;
+
+    //TODO: validate if need to change to only execute without to have to implement it in every class that extends HttpClient, maybe create an JsonCliente
+    HttpResponse executeJson(HttpMethod method, String targetURL, Map<String, String> headers, HttpJsonRequestBody body)
+        throws IOException;
 }

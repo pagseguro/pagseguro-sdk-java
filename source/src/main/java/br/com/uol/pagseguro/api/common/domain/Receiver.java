@@ -21,18 +21,15 @@
 package br.com.uol.pagseguro.api.common.domain;
 
 /**
- * Interface for receiver. You can set one or more sellers to receive part of the payment. You can define the
- * primaryReceiver and the other receivers by using the seller publicKey, received through the
- * application model.
+ * Interface for receiver.
  *
  * @author PagSeguro Internet Ltda.
  */
 public interface Receiver {
-
   /**
-   * Get public key of receiver. Seller public key
+   * Get email of receiver
    *
-   * @return Public key
+   * @return Email
    */
-  String getPublicKey();
+  String getEmail();
 }

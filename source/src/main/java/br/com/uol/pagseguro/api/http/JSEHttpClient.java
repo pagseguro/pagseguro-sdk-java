@@ -44,174 +44,351 @@ import br.com.uol.pagseguro.api.utils.logging.LoggerFactory;
  */
 public class JSEHttpClient implements HttpClient {
 
-  private static Log LOGGER = LoggerFactory.getLogger(JSEHttpClient.class.getName());
-  private static String DEFAULT_RESPONSE_CHARSET = "ISO-8859-1";
-  private final static String LIB_VERSION = "3.1.1";
+    private static Log LOGGER = LoggerFactory.getLogger(JSEHttpClient.class.getName());
+    private static String DEFAULT_RESPONSE_CHARSET = "ISO-8859-1";
+    private final static String LIB_VERSION = "4.2.0";
 
-  /**
-   * Execute the communication with api.
-   *
-   * @param method    Http method
-   * @param targetURL target url
-   * @param headers   Headers
-   * @param body      Body
-   * @return Http Response
-   */
-  @Override
-  public HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers,
-                              HttpRequestBody body) throws IOException {
+    /**
+     * Execute the communication with api.
+     *
+     * @param method    Http method
+     * @param targetURL target url
+     * @param headers   Headers
+     * @param body      Body
+     * @return Http Response
+     */
+    @Override
+    public HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers,
+                                HttpRequestBody body) throws IOException {
 
-    LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
+        LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
 
-    HttpURLConnection connection = null;
-    try {
-      final URL url = new URL(targetURL);
-      LOGGER.info("Abrindo conexao");
-      connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod(method.toString());
-      connection.setUseCaches(false);
+        HttpURLConnection connection = null;
+        try {
+            final URL url = new URL(targetURL);
+            LOGGER.info("Abrindo conexao");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(method.toString());
+            connection.setUseCaches(false);
 
-      writeHeaders(connection, headers);
-      LOGGER.info("Escrevendo body");
-      writeBody(connection, body);
+            writeHeaders(connection, headers);
+            LOGGER.info("Escrevendo body");
+            writeBody(connection, body);
 
-      // le response response
-      final String responseCharset = getResponseCharset(connection);
-      LOGGER.info("Lendo resposta");
-      final InputStream responseStream = getResponseStream(connection);
-      final String responseString = getResponseString(responseStream, responseCharset);
-      return new HttpResponse(connection.getResponseCode(), responseString);
-    } finally {
-      if (connection != null) {
-        LOGGER.info("Fechando conexao");
-        connection.disconnect();
-      }
-    }
-  }
-
-  /**
-   * Write headers on request
-   *
-   * @param connection Connection
-   * @param headers    Headers
-   */
-  private static void writeHeaders(HttpURLConnection connection, Map<String, String> headers) {
-    if (headers == null) {
-      headers = new HashMap<String, String>();
+            // le response response
+            final String responseCharset = getResponseCharset(connection);
+            LOGGER.info("Lendo resposta");
+            final InputStream responseStream = getResponseStream(connection);
+            final String responseString = getResponseString(responseStream, responseCharset);
+            return new HttpResponse(connection.getResponseCode(), responseString);
+        } finally {
+            if (connection != null) {
+                LOGGER.info("Fechando conexao");
+                connection.disconnect();
+            }
+        }
     }
 
-    headers.put("lib-description", "java:" + LIB_VERSION);
-    headers.put("language-engine-description", "java:" + System.getProperty("java.version"));
+    /**
+     * Execute the communication with api.
+     *
+     * @param method    Http method
+     * @param targetURL target url
+     * @param headers   Headers
+     * @param body      Body
+     * @return Http Response
+     */
+    @Override
+    public HttpResponse executeXML(HttpMethod method, String targetURL, Map<String, String> headers,
+                                HttpXMLRequestBody body) throws IOException {
 
-    for (Entry<String, String> e : headers.entrySet()) {
-      connection.setRequestProperty(e.getKey(), e.getValue());
+        LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
+
+        HttpURLConnection connection = null;
+        try {
+            final URL url = new URL(targetURL);
+            LOGGER.info("Abrindo conexao");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(method.toString());
+            connection.setUseCaches(false);
+
+            writeHeaders(connection, headers);
+            LOGGER.info("Escrevendo body");
+            writeBody(connection, body);
+
+            // le response response
+            final String responseCharset = getResponseCharset(connection);
+            LOGGER.info("Lendo resposta");
+            final InputStream responseStream = getResponseStream(connection);
+            final String responseString = getResponseString(responseStream, responseCharset);
+            return new HttpResponse(connection.getResponseCode(), responseString);
+        } finally {
+            if (connection != null) {
+                LOGGER.info("Fechando conexao");
+                connection.disconnect();
+            }
+        }
     }
 
-  }
+    /**
+     * Execute the communication with api.
+     *
+     * @param method    Http method
+     * @param targetURL target url
+     * @param headers   Headers
+     * @param body      Body
+     * @return Http Response
+     */
+    @Override
+    public HttpResponse executeJson(HttpMethod method, String targetURL, Map<String, String> headers,
+                                    HttpJsonRequestBody body) throws IOException {
 
-  /**
-   * Write body on request
-   *
-   * @param connection Connection
-   * @param body       Body
-   */
-  private static void writeBody(HttpURLConnection connection, HttpRequestBody body) throws
-          IOException {
-    if (body == null) {
-      return;
-    }
-    final String charset = body.getCharset();
-    final String content = body.getContent();
-    //connection.setRequestProperty("Content-Type", body.getContentTypeWithCharset());
-    //connection.setRequestProperty("Content-Length", Integer.toString(content.getBytes(charset).length));
-    connection.setDoOutput(true);
+        LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
 
-    DataOutputStream wr = null;
-    BufferedWriter buffWr = null;
-    try {
-      wr = new DataOutputStream(connection.getOutputStream());
-      buffWr = new BufferedWriter(new OutputStreamWriter(wr, charset));
-      buffWr.write(content);
-    } finally {
-      if (buffWr != null) {
-        buffWr.close();
-      }
-      if (wr != null) {
-        wr.close();
-      }
-    }
-  }
+        HttpURLConnection connection = null;
+        try {
+            final URL url = new URL(targetURL);
+            LOGGER.info("Abrindo conexao");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(method.toString());
+            connection.setUseCaches(false);
 
-  /**
-   * Get response as string
-   *
-   * @param responseStream  Response Stream
-   * @param responseCharset Response charset
-   * @return Response string
-   */
-  private static String getResponseString(InputStream responseStream, String responseCharset) throws
-          IOException {
-    if (responseStream == null || responseCharset == null) {
-      throw new IllegalArgumentException();
-    }
-    BufferedReader rd = null;
-    try {
-      rd = new BufferedReader(new InputStreamReader(responseStream, responseCharset));
-      final StringBuilder responseString = new StringBuilder();
-      String line;
-      while ((line = rd.readLine()) != null) {
-        responseString.append(line);
-      }
-      return responseString.toString();
-    } finally {
-      if (rd != null) {
-        rd.close();
-      }
-    }
-  }
+            writeHeaders(connection, headers);
+            LOGGER.info("Escrevendo body");
+            writeBody(connection, body);
 
-  /**
-   * Get response stream
-   *
-   * @param connection Connection
-   * @return Input Stream
-   */
-  private static InputStream getResponseStream(HttpURLConnection connection) throws IOException {
-    if (connection == null) {
-      throw new IllegalArgumentException();
+            // le response response
+            final String responseCharset = getResponseCharset(connection);
+            LOGGER.info("Lendo resposta");
+            final InputStream responseStream = getResponseStream(connection);
+            final String responseString = getResponseString(responseStream, responseCharset);
+            return new HttpResponse(connection.getResponseCode(), responseString);
+        } finally {
+            if (connection != null) {
+                LOGGER.info("Fechando conexao");
+                connection.disconnect();
+            }
+        }
     }
-    InputStream errorStream = connection.getErrorStream();
-    if (errorStream != null) {
-      return errorStream;
-    }
-    return connection.getInputStream();
-  }
 
-  /**
-   * Get response charset
-   *
-   * @param connection Coonection
-   * @return Response charset
-   */
-  private static String getResponseCharset(HttpURLConnection connection) {
-    if (connection == null) {
-      throw new IllegalArgumentException();
-    }
-    final String contentType = connection.getContentType();
-    if (contentType == null) {
-      return DEFAULT_RESPONSE_CHARSET;
-    }
-    final String[] values = contentType.split(";");
+    //@TODO: documentar e ver se o cancel ainda funciona
+    public HttpResponse execute(HttpMethod method, String targetURL, Map<String, String> headers) throws IOException {
 
-    if (values == null) {
-      return DEFAULT_RESPONSE_CHARSET;
+        LOGGER.info(String.format("Executando [%s] em [%s]", method.toString(), targetURL));
+
+        HttpURLConnection connection = null;
+        try {
+            final URL url = new URL(targetURL);
+            LOGGER.info("Abrindo conexao");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(method.toString());
+            connection.setUseCaches(false);
+
+            writeHeaders(connection, headers);
+
+            // le response response
+            final String responseCharset = getResponseCharset(connection);
+            LOGGER.info("Lendo resposta");
+            final InputStream responseStream = getResponseStream(connection);
+            final String responseString = getResponseString(responseStream, responseCharset);
+            return new HttpResponse(connection.getResponseCode(), responseString);
+        } finally {
+            if (connection != null) {
+                LOGGER.info("Fechando conexao");
+                connection.disconnect();
+            }
+        }
     }
-    for (String value : values) {
-      value = value.trim();
-      if (value.toLowerCase().startsWith("charset=")) {
-        return value.substring("charset=".length());
-      }
+
+    /**
+     * Write headers on request
+     *
+     * @param connection Connection
+     * @param headers    Headers
+     */
+    private static void writeHeaders(HttpURLConnection connection, Map<String, String> headers) {
+        if (headers == null) {
+            headers = new HashMap<String, String>();
+        }
+
+        headers.put("lib-description", "java:" + LIB_VERSION);
+        headers.put("language-engine-description", "java:" + System.getProperty("java.version"));
+
+        for (Entry<String, String> e : headers.entrySet()) {
+            connection.setRequestProperty(e.getKey(), e.getValue());
+        }
+
     }
-    return DEFAULT_RESPONSE_CHARSET;
-  }
+
+    /**
+     * Write body on request
+     *
+     * @param connection Connection
+     * @param body       Body
+     */
+    private static void writeBody(HttpURLConnection connection, HttpRequestBody body) throws
+        IOException {
+        if (body == null) {
+            return;
+        }
+        final String charset = body.getCharset();
+        final String content = body.getContent();
+        //connection.setRequestProperty("Content-Type", body.getContentTypeWithCharset());
+        //connection.setRequestProperty("Content-Length", Integer.toString(content.getBytes(charset).length));
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = null;
+        BufferedWriter buffWr = null;
+        try {
+            wr = new DataOutputStream(connection.getOutputStream());
+            buffWr = new BufferedWriter(new OutputStreamWriter(wr, charset));
+            buffWr.write(content);
+        } finally {
+            if (buffWr != null) {
+                buffWr.close();
+            }
+            if (wr != null) {
+                wr.close();
+            }
+        }
+    }
+
+    /**
+     * Write body on request
+     *
+     * @param connection Connection
+     * @param body       Body
+     */
+    private static void writeBody(HttpURLConnection connection, HttpXMLRequestBody body) throws
+        IOException {
+        if (body == null) {
+            return;
+        }
+        final String charset = body.getCharset();
+        final String content = body.getContent();
+        //connection.setRequestProperty("Content-Type", body.getContentTypeWithCharset());
+        //connection.setRequestProperty("Content-Length", Integer.toString(content.getBytes(charset).length));
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = null;
+        BufferedWriter buffWr = null;
+        try {
+            wr = new DataOutputStream(connection.getOutputStream());
+            buffWr = new BufferedWriter(new OutputStreamWriter(wr, charset));
+            buffWr.write(content);
+        } finally {
+            if (buffWr != null) {
+                buffWr.close();
+            }
+            if (wr != null) {
+                wr.close();
+            }
+        }
+    }
+
+    /**
+     * Write body on request
+     *
+     * @param connection Connection
+     * @param body       Body
+     */
+    private static void writeBody(HttpURLConnection connection, HttpJsonRequestBody body) throws
+        IOException {
+        if (body == null) {
+            return;
+        }
+        final String charset = body.getCharset();
+        final String content = body.getContent();
+        //connection.setRequestProperty("Content-Type", body.getContentTypeWithCharset());
+        //connection.setRequestProperty("Content-Length", Integer.toString(content.getBytes(charset).length));
+        connection.setDoOutput(true);
+
+        DataOutputStream wr = null;
+        BufferedWriter buffWr = null;
+        try {
+            wr = new DataOutputStream(connection.getOutputStream());
+            buffWr = new BufferedWriter(new OutputStreamWriter(wr, charset));
+            buffWr.write(content);
+        } finally {
+            if (buffWr != null) {
+                buffWr.close();
+            }
+            if (wr != null) {
+                wr.close();
+            }
+        }
+    }
+
+    /**
+     * Get response as string
+     *
+     * @param responseStream  Response Stream
+     * @param responseCharset Response charset
+     * @return Response string
+     */
+    private static String getResponseString(InputStream responseStream, String responseCharset) throws
+        IOException {
+        if (responseStream == null || responseCharset == null) {
+            throw new IllegalArgumentException();
+        }
+        BufferedReader rd = null;
+        try {
+            rd = new BufferedReader(new InputStreamReader(responseStream, responseCharset));
+            final StringBuilder responseString = new StringBuilder();
+            String line;
+            while ((line = rd.readLine()) != null) {
+                responseString.append(line);
+            }
+            return responseString.toString();
+        } finally {
+            if (rd != null) {
+                rd.close();
+            }
+        }
+    }
+
+    /**
+     * Get response stream
+     *
+     * @param connection Connection
+     * @return Input Stream
+     */
+    private static InputStream getResponseStream(HttpURLConnection connection) throws IOException {
+        if (connection == null) {
+            throw new IllegalArgumentException();
+        }
+        InputStream errorStream = connection.getErrorStream();
+        if (errorStream != null) {
+            return errorStream;
+        }
+        return connection.getInputStream();
+    }
+
+    /**
+     * Get response charset
+     *
+     * @param connection Coonection
+     * @return Response charset
+     */
+    private static String getResponseCharset(HttpURLConnection connection) {
+        if (connection == null) {
+            throw new IllegalArgumentException();
+        }
+        final String contentType = connection.getContentType();
+        if (contentType == null) {
+            return DEFAULT_RESPONSE_CHARSET;
+        }
+        final String[] values = contentType.split(";");
+
+        if (values == null) {
+            return DEFAULT_RESPONSE_CHARSET;
+        }
+        for (String value : values) {
+            value = value.trim();
+            if (value.toLowerCase().startsWith("charset=")) {
+                return value.substring("charset=".length());
+            }
+        }
+        return DEFAULT_RESPONSE_CHARSET;
+    }
 }

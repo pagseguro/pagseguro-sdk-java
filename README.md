@@ -1,32 +1,51 @@
 Biblioteca de integração PagSeguro para Java
 ===========================================
 
-Descrição
----------
+## Descrição
 
 A biblioteca PagSeguro em Java é um conjunto de classes de domínio que facilitam, para o desenvolvedor Java, a utilização das funcionalidades que o PagSeguro oferece na forma de APIs. Com a biblioteca instalada e configurada, você pode facilmente integrar funcionalidades como:
 
- - Criar [requisições de pagamentos]
- - Criar [requisições de assinaturas]
- - Cancelar [assinaturas]
- - Consultar [assinaturas]
- - Consultar [transações por código]
- - Consultar [transações por intervalo de datas]
- - Consultar [transações abandonadas]
- - Receber [notificações]
+ - [Criar Requisições de Pagamentos]
+ - [Criar Requisições de Pagamento Recorrente] (assinatura transparente)
+ - [Criar Requisições de assinaturas]
+ - [Cancelar Assinaturas]
+ - [Cancelar Transações por Código]
+ - [Estornar Transações por Código]
+ - [Consultar Assinaturas]
+ - [Consultar Transações por Código]
+ - [Consultar Transações por Intervalo de Datas]
+ - [Receber Notificações]
+ - [Solicitar Autorização]
 
 
-Requisitos Mínimos
-------------------
+## Requisitos Mínimos
 
  - [Java] 1.6+
- - [Gradle]
+ - [Gradle] (somente para editar o código-fonte deste SDK)
 
-Instalação
-----------
 
- - Baixe o repositório como arquivo zip ou faça um clone;
- - Descompacte os arquivos em seu computador;
+## Utilizando este SDK
+
+Este repositório contém 2 projetos: o código-fonte e um projeto com exemplos de uso das funcionalidades do SDK.
+
+ - Para utilizar o SDK como dependência do seu projeto siga as orientações da seção [Utilização via Grade](#utilização-via-gradle)
+ - Para modificar o código-fonte deste SDK siga as orientações da seção [Instalação Manual](#instalação-manual)
+ - Para apenas executar os exemplos de uso deste SDK, abra o projeto do diretório *public/example-api* como um projeto do Gradle
+
+
+## Utilização via Gradle
+
+ Adicionar no arquivo *build.gradle* do seu projeto, na seção de dependências, o seguinte trecho de código:
+
+ ```groovy
+ compile (group: 'br.com.uol.pagseguro', name: 'pagseguro-api', version: 'X.Y.Z')
+ ```
+
+
+## Instalação Manual
+
+ - Baixe o repositório como arquivo zip ou faça um clone
+ - Descompacte os arquivos em seu computador
  - Navega até a pasta *source*
  - Execute o comando ```gradle build```
  - Navegue até a pasta *build/libs*
@@ -34,8 +53,7 @@ Instalação
  - O diretório *public* contém exemplos de chamadas utilizando a API e o diretório *source* contém a biblioteca propriamente dita.
 
 
-Configuração
-------------
+## Configuração
 
 Para fazer uso real da biblioteca, é preciso fazer as configurações de credenciais e de ambiente.
 As duas configurações seguem a ordem de precedência:
@@ -80,8 +98,6 @@ As duas configurações seguem a ordem de precedência:
 ```PagSeguro pagSeguro = PagSeguro.instance();```
 
 
-
-
 ### Ambiente
 
 É necessário configurar o ambiente do pagseguro que deseja utilizar. Segue abaixo como configurar de acordo com cada método.
@@ -124,56 +140,16 @@ PagSeguro pagSeguro = PagSeguro.instance(credential, environment);
 ```PagSeguro pagSeguro = PagSeguro.instance();```
 
 
-Dúvidas?
-----------
+## Dúvidas?
+
 Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 
-Changelog
----------
-4.0.0
-- Remoção de funcionalidade depreciada (checkout com cartão de crédito internacional)
+## Changelog
 
-3.2.0
-- Remoção de funcionalidades depreciadas
+Para consultar o log de alterações acesse o arquivo [CHANGELOG.md](CHANGELOG.md).
 
-3.1.1
-- Corrigido bug ao criar sessões (/sessions)
-
-3.1.0
- - Adicionar parametros no header da requisição
- - Adicionar novas bandeiras de cartão de crédito
-
-3.0.0
- - Criar requisições de pagamentos
- - Criar requisições de pagamentos com assinaturas
- - Criar requisições de cancelamento de transações
- - Criar requisições de estorno de transações
- - Consultar transações por código
- - Consultar transações por intervalo de datas
- - Consultar transações abandonadas
- - Consultar transações por código de referência
- - Criar requisições de autorizações
- - Consultar autorizações por código
- - Consultar autorizações por intervalo de datas
- - Consultar autorizações por código de notificação
- - Consultar autorizações por código de referência 
- - Criar requisições de assinaturas
- - Criar requisições de cancelamento de assinaturas
- - Criar requisições de cobrança de assinaturas
- - Consultar assinaturas por código
- - Consultar assinaturas por intervalo de datas
- - Consultar assinaturas por intervalo de dias
- - Consultar assinaturas por código de notificação
- - Receber notificações de autorizações
- - Receber notificações de assinaturas
- - Receber notificações de transações
- - Criar requisições de checkout transparente utilizando boleto
- - Criar requisições de checkout transparente utilizando debito online
- - Criar requisições de checkout transparente utilizando cartão de crédito
-
-Licença
--------
+## Licença
 
 Copyright 2016 PagSeguro Internet LTDA.
 
@@ -184,8 +160,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 
-Notas
------
+## Notas
 
  - O PagSeguro somente aceita pagamento utilizando a moeda Real brasileiro (BRL).
  - Certifique-se que o email e o token informados estejam relacionados a uma conta que possua o perfil de vendedor ou empresarial.
@@ -194,8 +169,7 @@ Notas
  - Para a utilizar o checkout transparente, é necessária a solicitação de ativação junto com a equipe do PagSeguro, maiores informações podem ser encontradas em [Como receber pagamentos pelo PagSeguro].
 
 
-Contribuições
--------------
+## Contribuições
 
 Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
@@ -207,18 +181,18 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 * Obs.: Adicione exemplos para sua nova feature. Se seu Pull Request for relacionado a uma versão específica, o Pull Request não deve ser enviado para o branch master e sim para o branch correspondente a versão.
 * Obs2: Não serão aceitos PR's na branch master. Utilizar a branch de desenvolvimento.
 
+  [Criar Requisições de Pagamentos]: https://devs.pagseguro.uol.com.br/docs/checkout-web
+  [Criar Requisições de Pagamento Recorrente]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente
+  [Criar Requisições de assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [Cancelar Assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [Cancelar Transações por Código]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-cancelamento-de-adesao
+  [Estornar Transações por Código]: https://devs.pagseguro.uol.com.br/docs/checkout-web-cancelamento-e-estorno
+  [Consultar Assinaturas]: https://devs.pagseguro.uol.com.br/docs/arquivo-documentacoes-depreciadas
+  [Consultar Transações por Código]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-pelo-codigo-de-adesao
+  [Consultar Transações por Intervalo de Datas]: https://devs.pagseguro.uol.com.br/docs/pagamento-recorrente-consulta-por-intervalo-de-datas
+  [Receber Notificações]: https://devs.pagseguro.uol.com.br/docs/checkout-web-notificacoes
+  [Solicitar Autorização]: https://devs.pagseguro.uol.com.br/docs/modelo-de-aplicacoes-solicitando-autorizacao
   [gradle]: https://gradle.org/
   [java]: https://www.java.com
-  [requisições de assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
-  [assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
-  [requisições de pagamentos]: https://dev.pagseguro.uol.com.br/documentacao/pagamentos
-  [notificações]: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
-  [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
-  [transações por código]: https://pagseguro.uol.com.br/v3/guia-de-integracao/consulta-de-transacoes-por-codigo.html
-  [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
-  [transações abandonadas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-abandonadas.html
   [fórum]: https://comunidade.pagseguro.uol.com.br/hc/pt-br/community/topics
-  [GitHub]: https://github.com/pagseguro/pagseguro-java-sdk
-  [documentação oficial]: https://dev.pagseguro.uol.com.br/bibliotecas/java
   [Como receber pagamentos pelo PagSeguro]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
-
