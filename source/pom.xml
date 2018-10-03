@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.uol.pagseguro</groupId>
     <artifactId>pagseguro-api</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>4.1.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
