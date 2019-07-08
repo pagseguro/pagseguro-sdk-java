@@ -142,7 +142,7 @@ PagSeguro pagSeguro = PagSeguro.instance(credential, environment);
 
 ## Dúvidas?
 
-Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
+Caso tenha dúvidas ou precise de suporte, abra um chamado conosco [link].
 
 
 ## Changelog
@@ -194,5 +194,5 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
   [Solicitar Autorização]: https://devs.pagseguro.uol.com.br/docs/modelo-de-aplicacoes-solicitando-autorizacao
   [gradle]: https://gradle.org/
   [java]: https://www.java.com
-  [fórum]: https://comunidade.pagseguro.uol.com.br/hc/pt-br/community/topics
+  [link]: https://app.pipefy.com/public/form/k8aKYyJE/?_ga=2.175732066.1759255508.1544013668-532205691.1540442951
   [Como receber pagamentos pelo PagSeguro]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
