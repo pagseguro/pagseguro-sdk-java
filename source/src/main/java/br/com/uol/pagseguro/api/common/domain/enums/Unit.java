@@ -36,7 +36,7 @@ public enum Unit {
   /**
    * Months
    */
-  MONTHS ("MONTHS "),
+  MONTHS ("MONTHS"),
 
   /**
    * Years
