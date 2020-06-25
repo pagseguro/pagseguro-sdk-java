@@ -95,8 +95,13 @@ public enum State {
   /**
    * Acronym for Pernambuco
    */
+  PE("PE"),
+    
+  /**
+   * Acronym for Paraná
+   */
   PR("PR"),
-
+  
   /**
    * Acronym for Piauí
    */
