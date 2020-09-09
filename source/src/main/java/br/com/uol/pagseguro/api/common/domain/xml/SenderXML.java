@@ -44,6 +44,8 @@ public class SenderXML implements Sender {
 
   private String cpf;
 
+  private String cnpj;
+
   private String hash;
 
   private String ip = null;
@@ -101,6 +103,16 @@ public class SenderXML implements Sender {
   @XmlElement(name = "cpf")
   public void setCpf(String cpf) {
     this.cpf = cpf;
+  }
+
+  @Override
+  public String getCnpj() {
+    return this.cnpj;
+  }
+
+  @XmlElement(name = "cnpj")
+  public void setCnpj(String cnpj) {
+    this.cnpj = cnpj;
   }
 
   @Override

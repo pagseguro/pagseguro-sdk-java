@@ -41,6 +41,7 @@ public final class SenderBuilder implements Builder<Sender> {
   private Phone phone;
   private Address address;
   private String cpf;
+  private String cnpj;
   private String hash;
   private String ip;
   private List<Document> documents = new ArrayList<Document>();
@@ -125,6 +126,18 @@ public final class SenderBuilder implements Builder<Sender> {
    */
   public SenderBuilder withCPF(String cpf) {
     this.cpf = cpf;
+    return this;
+  }
+
+  /**
+   * Set cnpj of sender
+   *
+   * @param cnpj Cnpj
+   * @return Builder for sender
+   * @see Sender#getCnpj()
+   */
+  public SenderBuilder withCNPJ(String cnpj) {
+    this.cnpj = cnpj;
     return this;
   }
 
@@ -234,6 +247,11 @@ public final class SenderBuilder implements Builder<Sender> {
     @Override
     public String getCpf() {
       return this.senderBuilder.cpf;
+    }
+
+    @Override
+    public String getCnpj() {
+      return this.senderBuilder.cnpj;
     }
 
     @Override

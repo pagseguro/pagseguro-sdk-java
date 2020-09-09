@@ -22,6 +22,8 @@ package br.com.uol.pagseguro.api.credential;
 
 import br.com.uol.pagseguro.api.utils.RequestMap;
 
+import java.util.Objects;
+
 /**
  * The PagSeguro applications model allows your application to create checkouts, receive payment
  * notifications and other functions on behalf of the client without the need to configure tokens,
@@ -34,6 +36,7 @@ public class ApplicationCredential extends Credential {
 
   private String appId;
   private String appKey;
+  private String authorizationCode;
 
   /**
    * Constructor
@@ -51,6 +54,22 @@ public class ApplicationCredential extends Credential {
   }
 
   /**
+   * Constructor
+   *
+   * @param appId  The application id
+   * @param appKey Specifies the corresponding token to PagSeguro application that is making the
+   *               request.
+   */
+  ApplicationCredential(String appId, String appKey, String authorizationCode) {
+    if (appId == null || appKey == null || authorizationCode==null) {
+      throw new NullPointerException();
+    }
+    this.appId = appId;
+    this.appKey = appKey;
+    this.authorizationCode=authorizationCode;
+  }
+
+  /**
    * Convert attributes of credential to request map
    *
    * @return Request map. Used to set parameters of api
@@ -62,27 +81,32 @@ public class ApplicationCredential extends Credential {
     final RequestMap form = new RequestMap();
     form.putString("appId", appId);
     form.putString("appKey", appKey);
+    if(authorizationCode!=null)
+      form.putString("authorizationCode", authorizationCode);
     return form;
   }
 
   @Override
   public String toString() {
     return "ApplicationCredential{" +
-           "appId='" + appId + '\'' +
-           ", appKey='" + appKey + '\'' +
-           '}';
+            "appId='" + appId + '\'' +
+            ", appKey='" + appKey + '\'' +
+            ", authorizationCode='" + authorizationCode + '\'' +
+            '}';
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof ApplicationCredential)) return false;
-
+    if (o == null || getClass() != o.getClass()) return false;
     ApplicationCredential that = (ApplicationCredential) o;
-
-    if (appId != null ? !appId.equals(that.appId) : that.appId != null) return false;
-    return appKey != null ? appKey.equals(that.appKey) : that.appKey == null;
-
+    return Objects.equals(appId, that.appId) &&
+            Objects.equals(appKey, that.appKey) &&
+            Objects.equals(authorizationCode, that.authorizationCode);
   }
 
+  @Override
+  public int hashCode() {
+    return Objects.hash(appId, appKey, authorizationCode);
+  }
 }

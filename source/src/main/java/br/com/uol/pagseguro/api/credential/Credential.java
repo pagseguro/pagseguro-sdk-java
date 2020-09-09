@@ -65,4 +65,18 @@ public abstract class Credential {
     return new ApplicationCredential(appId, appKey);
   }
 
+  /**
+   * Application Credential.
+   * Use this credential when you create checkouts,
+   * receive payment notifications and other functions on behalf of the client without the need to
+   *
+   * @param appId  The Application id
+   * @param appKey Specifies the corresponding token to PagSeguro application that is making the
+   *               request.
+   * @return ApplicationCredential
+   */
+  public static Credential applicationCredential(String appId, String appKey, String authorizationCode) {
+    return new ApplicationCredential(appId, appKey, authorizationCode);
+  }
+
 }
