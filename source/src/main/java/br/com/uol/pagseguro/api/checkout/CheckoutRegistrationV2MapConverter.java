@@ -70,6 +70,7 @@ public class CheckoutRegistrationV2MapConverter extends AbstractMapConverter<Che
   protected void convert(RequestMap requestMap, CheckoutRegistration checkoutRegistration) {
     requestMap.putCurrency("currency", checkoutRegistration.getCurrency());
     requestMap.putString("reference", checkoutRegistration.getReference());
+    requestMap.putString("notificationURL", checkoutRegistration.getNotificationUrl());
     requestMap.putCurrency("extraAmount", checkoutRegistration.getExtraAmount());
     requestMap.putMap(SHIPPING_MC.convert(checkoutRegistration.getShipping()));
     requestMap.putMap(SENDER_MC.convert(checkoutRegistration.getSender()));

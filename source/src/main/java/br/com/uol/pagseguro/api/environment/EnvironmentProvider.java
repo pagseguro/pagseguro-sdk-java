@@ -33,8 +33,9 @@ public interface EnvironmentProvider {
   /**
    * Get configurations environment
    *
-   * @return Configurations environment
    * @see PagSeguroEnv
+   * @return Configurations environment
+   * @throws Exception if a problem occurs
    */
   PagSeguroEnv getEnvironment() throws Exception;
 }

@@ -39,6 +39,7 @@ public interface PagSeguroCommand<T> {
    * @param pagseguro  Pagseguro instance
    * @param httpClient Http client
    * @return Result of the search
+   * @throws IOException if a problem occurs
    */
   T execute(PagSeguro pagseguro, HttpClient httpClient) throws IOException;
 

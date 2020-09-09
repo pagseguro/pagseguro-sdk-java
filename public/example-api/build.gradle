@@ -1,5 +1,5 @@
 group 'br.com.uol.pagseguro'
-version '1.0-SNAPSHOT'
+version '4.1.1'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -8,14 +8,11 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.6
 
 repositories {
-    maven {
-        url 'http://repo.mvn.intranet.s2it.com.br/nexus/content/groups/public/'
-    }
+    mavenCentral()
 }
 
-
 dependencies {
-    compile (group: 'br.com.uol.pagseguro', name: 'pagseguro-api', version: '1.0-SNAPSHOT')
+    compile (group: 'br.com.uol.pagseguro', name: 'pagseguro-api', version: '4.1.1')
 }
 
 configurations.all {

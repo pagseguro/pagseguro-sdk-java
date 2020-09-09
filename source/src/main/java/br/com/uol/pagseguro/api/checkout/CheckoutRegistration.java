@@ -52,6 +52,18 @@ public interface CheckoutRegistration {
   String getReference();
 
   /**
+   * Define a notification URL to the payment.
+   * This notification URL is associated with the transaction created by the payment and is useful
+   * to link PagSeguro transactions to sales registered on your system.
+   * Format: Valid URL, with the 255-character limit.
+   *
+   * Optional
+   *
+   * @return Notification URL.
+   */
+  String getNotificationUrl();
+
+  /**
    * Extra value. Specifies an extra value to be added or subtracted from the total amount of
    * payment. This value may represent an extra fee to be charged in the payment or a discount to be
    * granted if the value is negative. Format: Decimal (positive or negative), to two decimal places
