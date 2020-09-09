@@ -91,7 +91,7 @@
 	<repositories>
 		<repository>
 			<id>pagseguro-lib</id>
-			<url>http://repo.mvn.intranet.s2it.com.br:8081/nexus/content/groups/public/</url>
+			<url>https://repo.mvn.intranet.s2it.com.br:8081/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
   
