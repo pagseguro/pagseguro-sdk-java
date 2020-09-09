@@ -90,11 +90,6 @@ public class BankName {
     BANRISUL("banrisul"),
 
     /**
-     * HSBC
-     */
-    HSBC("hsbc"),
-
-    /**
      * OTHER
      */
     OTHER(null);

@@ -20,10 +20,11 @@
  */
 package br.com.uol.pagseguro.api.common.domain.builder;
 
-import br.com.uol.pagseguro.api.common.domain.Address;
-import br.com.uol.pagseguro.api.common.domain.Phone;
-import br.com.uol.pagseguro.api.common.domain.Sender;
+import br.com.uol.pagseguro.api.common.domain.*;
 import br.com.uol.pagseguro.api.utils.Builder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Builder for Sender
@@ -40,7 +41,11 @@ public final class SenderBuilder implements Builder<Sender> {
 
   private Address address;
 
+  private List<Document> documents = new ArrayList<Document>();
+
   private String cpf;
+
+  private String cnpj;
 
   private String hash;
 
@@ -116,14 +121,39 @@ public final class SenderBuilder implements Builder<Sender> {
   }
 
   /**
-   * Set cpf of sender
+   * Add document to holder
    *
-   * @param cpf Cpf
+   * @param document Document
    * @return Builder for sender
-   * @see Sender#getCpf()
+   * @see Sender#getDocuments()
    */
-  public SenderBuilder withCPF(String cpf) {
-    this.cpf = cpf;
+  public SenderBuilder addDocument(Document document) {
+    documents.add(document);
+    return this;
+  }
+
+  /**
+   * Add document to holder
+   *
+   * @param documentBuilder Builder for Document
+   * @return Builder for sender
+   * @see Sender#getDocuments()
+   */
+  public SenderBuilder addDocument(Builder<Document> documentBuilder) {
+    return addDocument(documentBuilder.build());
+  }
+
+  /**
+   * Add document to holder
+   *
+   * @param documents Documents
+   * @return Builder for sender
+   * @see Sender#getDocuments()
+   */
+  public SenderBuilder addDocuments(Iterable<? extends Document> documents) {
+    for (Document document : documents) {
+      addDocument(document);
+    }
     return this;
   }
 
@@ -182,8 +212,8 @@ public final class SenderBuilder implements Builder<Sender> {
     }
 
     @Override
-    public String getCpf() {
-      return this.senderBuilder.cpf;
+    public List<Document> getDocuments() {
+      return senderBuilder.documents;
     }
 
     @Override

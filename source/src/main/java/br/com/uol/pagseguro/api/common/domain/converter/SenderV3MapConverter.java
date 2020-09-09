@@ -20,7 +20,9 @@
  */
 package br.com.uol.pagseguro.api.common.domain.converter;
 
+import br.com.uol.pagseguro.api.common.domain.Document;
 import br.com.uol.pagseguro.api.common.domain.Sender;
+import br.com.uol.pagseguro.api.common.domain.enums.DocumentType;
 import br.com.uol.pagseguro.api.utils.AbstractMapConverter;
 import br.com.uol.pagseguro.api.utils.RequestMap;
 
@@ -50,7 +52,13 @@ public class SenderV3MapConverter extends AbstractMapConverter<Sender> {
   protected void convert(RequestMap requestMap, Sender sender) {
     requestMap.putString("sender.email", sender.getEmail());
     requestMap.putString("sender.name", sender.getName());
-    requestMap.putString("sender.CPF", sender.getCpf());
+    for (Document document : sender.getDocuments()) {
+      if (document.getType().equals(DocumentType.CPF)) {
+        requestMap.putString("sender.cpf", document.getValue());
+      } else {
+        requestMap.putString("sender.cnpj", document.getValue());
+      }
+    }
     requestMap.putString("sender.hash", sender.getHash());
     requestMap.putMap(SENDER_PHONE_MC.convert(sender.getPhone()));
     requestMap.putMap(SENDER_ADDRESS_MC.convert(sender.getAddress()));
@@ -71,6 +79,11 @@ public class SenderV3MapConverter extends AbstractMapConverter<Sender> {
     @Override
     protected String getPhoneNumberKey() {
       return "sender.phone";
+    }
+
+    @Override
+    protected String getType() {
+      return "sender.type";
     }
 
   }

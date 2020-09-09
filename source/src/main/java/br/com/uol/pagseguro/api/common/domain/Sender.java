@@ -20,6 +20,8 @@
  */
 package br.com.uol.pagseguro.api.common.domain;
 
+import java.util.List;
+
 /**
  * Interface for Sender. This class contains the buyer data.
  *
@@ -58,11 +60,12 @@ public interface Sender {
   Address getAddress();
 
   /**
-   * Get cpf of sender
+   * Get address of sender
    *
-   * @return Cpf
+   * @return Document
+   * @see Document
    */
-  String getCpf();
+  List<? extends Document> getDocuments();
 
   /**
    * Get hash of sender
