@@ -26,7 +26,7 @@ import java.math.RoundingMode;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import br.com.uol.pagseguro.api.common.domain.Config;
@@ -47,7 +47,7 @@ public final class RequestMap {
    * Constructor
    */
   public RequestMap() {
-    this(new HashMap<String, String>());
+    this(new LinkedHashMap<String, String>());
   }
 
   /**
