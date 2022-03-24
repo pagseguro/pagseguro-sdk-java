@@ -1,5 +1,7 @@
-Biblioteca de integração PagSeguro para Java
-===========================================
+`DEPRECATED` #Biblioteca de integração PagSeguro para Java
+
+
+> **_NOTE:_** **Esse SDK foi descontinuado** <br> Estamos trabalhando em soluções e facilidades para evoluirmos a Plataforma de API’s do PagSeguro. Conheça nossa Plataforma de API’s acessando https://dev.pagseguro.uol.com.br/reference/pagseguro-reference-intro
 
 ## Descrição
 
